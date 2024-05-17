@@ -13,20 +13,20 @@ function Home() {
     <div className="home-container">
       <div className="user-details">
         <div className="profile-pic">
-          <img src="/path/to/profile-pic.jpg" alt="Profile" />
+          <img src="/profile-pic.jpg" alt="Profile" />
         </div>
         <div className="user-info">
           <div className="user-info-item">
             <span className="label">Name:</span>
-            <span className="value">John Doe</span>
-          </div>
-          <div className="user-info-item">
-            <span className="label">Score:</span>
-            <span className="value">1234</span>
+            <span className="value">Robert Cannon</span>
           </div>
           <div className="user-info-item">
             <span className="label">Position:</span>
             <span className="value">1st</span>
+          </div>
+          <div className="user-info-item">
+            <span className="label">Score:</span>
+            <span className="value">12</span>
           </div>
         </div>
       </div>
