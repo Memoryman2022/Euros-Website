@@ -1,0 +1,31 @@
+.message-input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.message-input-container textarea {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+  box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
+  resize: vertical; /* Allow vertical resizing if needed */
+}
+
+.message-input-container button {
+  padding: 10px;
+  background-color: #0a4e97;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.message-input-container button:hover {
+  background-color: #073e78;
+}

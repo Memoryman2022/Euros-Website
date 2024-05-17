@@ -7,25 +7,64 @@
   background-color: rgb(225, 218, 204);
   color: #4f2e12;
   height: 100px;
-  padding: 10px;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .navbar-logo {
   display: flex;
   align-items: center;
+  flex-grow: 1;
 }
 
 .navbar-logo img {
-  height: 180px;
-  margin-right: 10px;
+  height: 150px; /* Adjust the size as needed */
+  margin-right: 10px; /* Space between logo and text */
+  padding-top: 15px;
 }
 
 .navbar-menu {
   list-style: none;
   display: flex;
   flex-direction: row;
+  margin: 0;
+  padding: 0;
 }
 
 .navbar-menu li {
   padding: 10px;
+}
+
+.burger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.burger-menu div {
+  width: 25px;
+  height: 3px;
+  background-color: #333;
+  margin: 4px 0;
+  transition: 0.4s;
+}
+
+@media (max-width: 600px) {
+  .navbar-menu {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    background-color: rgb(225, 218, 204);
+  }
+
+  .navbar-menu.active {
+    display: flex;
+  }
+
+  .burger-menu {
+    display: flex;
+  }
 }

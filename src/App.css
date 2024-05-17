@@ -6,16 +6,14 @@ body {
   color: #333;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
+  min-height: 100vh; /* Ensure the body takes up the full height of the viewport */
 }
 
 #root {
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
+  flex-grow: 1; /* Ensure the root takes up the remaining space */
 }
 
 /* Container */
@@ -27,18 +25,25 @@ body {
   max-width: 800px;
   width: 100%;
   box-sizing: border-box;
-  overflow-y: auto;
   flex-grow: 1; /* Ensures the container takes up remaining space */
 }
 
 /* Navbar and Footer Styles */
 .navbar,
 .footer {
-  background-color: #007bff;
+  background-color: #0a4e97;
   color: white;
   padding: 1rem;
   text-align: center;
   width: 100%; /* Ensures navbar and footer span the entire width */
+}
+
+.navbar {
+  flex-shrink: 0; /* Prevents the navbar from shrinking */
+}
+
+.footer {
+  flex-shrink: 0; /* Prevents the footer from shrinking */
 }
 
 .navbar a,
@@ -55,20 +60,14 @@ body {
 /* Content Styles */
 .content {
   margin: 2rem 0;
+  flex-grow: 1;
 }
 
 /* Media Queries */
 @media (max-width: 600px) {
-  body {
-    justify-content: flex-start;
-    align-items: flex-start;
-    height: auto;
-    padding: 1rem;
-  }
-
   .container {
     max-width: 100%;
-    height: 100%;
+    padding: 1rem;
     box-shadow: none;
     border-radius: 0;
   }
