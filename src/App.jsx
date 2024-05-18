@@ -8,6 +8,7 @@ import Predictions from "./pages/Predictions";
 import Leaderboard from "./pages/Leaderboard";
 import UserList from "./pages/UserList";
 import NotFoundPage from "./pages/NotFound";
+import GroupDetails from "./pages/GroupDetails";
 
 //Components
 import Navbar from "./components/Navbar";
@@ -26,13 +27,13 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/predictions" element={<Predictions />} />
+            <Route path="/group/:group" element={<GroupDetails />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
             <Route path="/userList" element={<UserList />} />
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

@@ -53,11 +53,15 @@
 .social-feed {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .feed-items {
+  display: flex;
+  flex-direction: column-reverse;
   flex-grow: 1; /* Ensure feed items take up remaining space */
   overflow-y: auto;
+  height: 400px;
 }
 
 .feed-item {
@@ -78,5 +82,13 @@
   .user-details,
   .social-feed {
     margin-bottom: 20px;
+  }
+
+  .social-feed {
+    height: auto; /* Adjust for mobile to fit content */
+  }
+
+  .feed-items {
+    height: 300px; /* Adjust height for mobile */
   }
 }
