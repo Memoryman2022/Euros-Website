@@ -16,7 +16,7 @@
   box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
   resize: vertical; /* Allow vertical resizing if needed */
   background-color: rgb(185, 119, 27);
-  color: rgb(189, 184, 116);
+  color: rgb(41, 40, 31);
 }
 
 .message-input-container textarea::placeholder {

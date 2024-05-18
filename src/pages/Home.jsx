@@ -1,9 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../Css/Home.css";
 import MessageInput from "../components/MessageInput";
 
 function Home() {
   const [messages, setMessages] = useState([]);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Retrieve messages from localStorage when the component mounts
+  useEffect(() => {
+    const storedMessages = localStorage.getItem("messages");
+    console.log("Retrieved messages from localStorage:", storedMessages);
+    if (storedMessages) {
+      setMessages(JSON.parse(storedMessages));
+    }
+    setIsMounted(true);
+  }, []);
+
+  // Update localStorage whenever messages change
+  useEffect(() => {
+    if (isMounted) {
+      console.log("Saving messages to localStorage:", messages);
+      localStorage.setItem("messages", JSON.stringify(messages));
+    }
+  }, [messages, isMounted]);
 
   const handleNewMessage = (newMessage) => {
     setMessages((prevMessages) => [newMessage, ...prevMessages]);

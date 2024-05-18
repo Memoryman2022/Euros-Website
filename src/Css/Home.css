@@ -61,10 +61,11 @@
 }
 
 .feed-item {
-  background: #f0f2f5;
+  background: rgb(185, 119, 27);
   padding: 10px;
   margin: 10px 0;
   border-radius: 8px;
+  box-shadow: black;
 }
 
 /* Responsive Styling */
