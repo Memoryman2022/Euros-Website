@@ -3,14 +3,22 @@
 }
 
 .game-item {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   border: 1px solid #ddd;
   padding: 20px;
   margin: 10px 0;
   border-radius: 8px;
   background-color: #f9f9f9;
+}
+
+.game-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.game-date {
+  width: 100px;
+  text-align: center;
 }
 
 .team-container {
@@ -28,6 +36,8 @@
   margin: 0 20px;
   font-size: 20px;
   font-weight: bold;
+  flex: 0 0 40px;
+  text-align: center;
 }
 
 .score-select {
@@ -37,29 +47,38 @@
 }
 
 .confirm-button {
-  margin-top: 10px;
+  margin-left: 10px;
   padding: 5px 10px;
   background-color: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: 100px;
 }
 
 .confirm-button:disabled {
   background-color: #ccc;
 }
 
+.checkbox-row {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  width: 100%;
+}
+
 .checkbox-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 10px;
+  max-width: 300px;
 }
 
 .checkbox-container label {
   display: flex;
   align-items: center;
+  padding-right: 10px;
 }
 
 .back-button {

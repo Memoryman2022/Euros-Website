@@ -4,41 +4,52 @@ import "../Css/GroupDetails.css";
 
 const games = {
   "Group A": [
-    { team1: "Germany", team2: "Scotland" },
-    { team1: "Hungary", team2: "Switzerland" },
-    { team1: "Germany", team2: "Hungary" },
-    { team1: "Scotland", team2: "Switzerland" },
-    { team1: "Switzerland", team2: "Germany" },
+    { date: "14 Jun 20:00", team1: "Germany", team2: "Scotland" },
+    { date: "15 Jun 14:00", team1: "Hungary", team2: "Switzerland" },
+    { date: "19 Jun 17:00", team1: "Germany", team2: "Hungary" },
+    { date: "19 Jun 20:00", team1: "Scotland", team2: "Switzerland" },
+    { date: "23 Jun 20:00", team1: "Switzerland", team2: "Germany" },
+    { date: "23 Jun 20:00", team1: "Scotland", team2: "Hungary" },
   ],
   "Group B": [
-    { team1: "Spain", team2: "Croatia" },
-    { team1: "Italy", team2: "Albania" },
-    { team1: "Spain", team2: "Italy" },
-    { team1: "Croatia", team2: "Albania" },
+    { date: "15 Jun 17:00", team1: "Spain", team2: "Croatia" },
+    { date: "15 Jun 20:00", team1: "Italy", team2: "Albania" },
+    { date: "19 Jun 14:00", team1: "Croatia", team2: "Albania" },
+    { date: "20 Jun 20:00", team1: "Spain", team2: "Italy" },
+    { date: "24 Jun 20:00", team1: "Albania", team2: "Spain" },
+    { date: "24 Jun 20:00", team1: "Croatia", team2: "Italy" },
   ],
   "Group C": [
-    { team1: "Slovenia", team2: "Denmark" },
-    { team1: "Serbia", team2: "England" },
-    { team1: "Slovenia", team2: "Serbia" },
-    { team1: "Denmark", team2: "England" },
+    { date: "16 Jun 17:00", team1: "Slovenia", team2: "Denmark" },
+    { date: "16 Jun 20:00", team1: "Serbia", team2: "England" },
+    { date: "20 Jun 14:00", team1: "Slovenia", team2: "Serbia" },
+    { date: "20 Jun 17:00", team1: "Denmark", team2: "England" },
+    { date: "25 Jun 20:00", team1: "England", team2: "Slovenia" },
+    { date: "25 Jun 20:00", team1: "Denmark", team2: "Serbia" },
   ],
   "Group D": [
-    { team1: "Poland", team2: "Netherlands" },
-    { team1: "Austria", team2: "France" },
-    { team1: "Poland", team2: "Austria" },
-    { team1: "Netherlands", team2: "France" },
+    { date: "16 Jun 14:00", team1: "Poland", team2: "Netherlands" },
+    { date: "17 Jun 20:00", team1: "Austria", team2: "France" },
+    { date: "21 Jun 17:00", team1: "Poland", team2: "Austria" },
+    { date: "21 Jun 20:00", team1: "Netherlands", team2: "France" },
+    { date: "25 Jun 17:00", team1: "Netherlands", team2: "Austria" },
+    { date: "25 Jun 17:00", team1: "France", team2: "Poland" },
   ],
   "Group E": [
-    { team1: "Belgium", team2: "Slovakia" },
-    { team1: "Romania", team2: "Ukraine" },
-    { team1: "Belgium", team2: "Romania" },
-    { team1: "Slovakia", team2: "Ukraine" },
+    { date: "17 Jun 14:00", team1: "Romania", team2: "Ukraine" },
+    { date: "17 Jun 17:00", team1: "Belgium", team2: "Slovakia" },
+    { date: "21 Jun 14:00", team1: "Slovakia", team2: "Ukraine" },
+    { date: "22 Jun 20:00", team1: "Belgium", team2: "Romania" },
+    { date: "26 Jun 17:00", team1: "Slovakia", team2: "Romania" },
+    { date: "26 Jun 17:00", team1: "Ukraine", team2: "Belgium" },
   ],
   "Group F": [
-    { team1: "Turkey", team2: "Georgia" },
-    { team1: "Portugal", team2: "Czechia" },
-    { team1: "Turkey", team2: "Portugal" },
-    { team1: "Georgia", team2: "Czechia" },
+    { date: "18 Jun 17:00", team1: "Turkey", team2: "Georgia" },
+    { date: "18 Jun 20:00", team1: "Portugal", team2: "Czechia" },
+    { date: "22 Jun 14:00", team1: "Turkey", team2: "Portugal" },
+    { date: "22 Jun 17:00", team1: "Georgia", team2: "Czechia" },
+    { date: "26 Jun 20:00", team1: "Georgia", team2: "Portugal" },
+    { date: "26 Jun 20:00", team1: "Czechia", team2: "Turkey" },
   ],
 };
 
@@ -72,44 +83,49 @@ function GroupDetails() {
       <h2>{group}</h2>
       {groupGames.map((game, index) => (
         <div key={index} className="game-item">
-          <div className="team-container">
-            <span className="team-name">{game.team1}</span>
-            <select className="score-select" disabled={confirmed[index]}>
-              {renderScoreOptions()}
-            </select>
+          <div className="game-row">
+            <div className="game-date">{game.date}</div>
+            <div className="team-container">
+              <span className="team-name">{game.team1}</span>
+              <select className="score-select" disabled={confirmed[index]}>
+                {renderScoreOptions()}
+              </select>
+            </div>
+            <span className="versus">V</span>
+            <div className="team-container">
+              <select className="score-select" disabled={confirmed[index]}>
+                {renderScoreOptions()}
+              </select>
+              <span className="team-name">{game.team2}</span>
+            </div>
+            <button
+              className="confirm-button"
+              onClick={() => handleConfirm(index)}
+              disabled={confirmed[index]}
+            >
+              Confirm
+            </button>
           </div>
-          <span className="versus">V</span>
-          <div className="team-container">
-            <select className="score-select" disabled={confirmed[index]}>
-              {renderScoreOptions()}
-            </select>
-            <span className="team-name">{game.team2}</span>
-          </div>
-          <button
-            className="confirm-button"
-            onClick={() => handleConfirm(index)}
-            disabled={confirmed[index]}
-          >
-            Confirm
-          </button>
-          <div className="checkbox-container">
-            <label>
-              <input type="checkbox" disabled={confirmed[index]} />
-              {game.team1} win
-            </label>
-            <label>
-              <input type="checkbox" disabled={confirmed[index]} />
-              Draw
-            </label>
-            <label>
-              <input type="checkbox" disabled={confirmed[index]} />
-              {game.team2} win
-            </label>
+          <div className="checkbox-row">
+            <div className="checkbox-container">
+              <label>
+                {game.team1} win
+                <input type="checkbox" disabled={confirmed[index]} />
+              </label>
+              <label>
+                Draw
+                <input type="checkbox" disabled={confirmed[index]} />
+              </label>
+              <label>
+                {game.team2} win
+                <input type="checkbox" disabled={confirmed[index]} />
+              </label>
+            </div>
           </div>
         </div>
       ))}
       <Link to="/predictions" className="back-button">
-        Back to Predictions
+        Back to Groups
       </Link>
     </div>
   );
