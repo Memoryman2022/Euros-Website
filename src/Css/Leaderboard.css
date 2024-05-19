@@ -18,17 +18,25 @@
 .leaderboard-table td {
   padding: 12px;
   border: 1px solid #ddd;
-  text-align: left;
 }
 
 .leaderboard-table th {
   background-color: #f0f2f5;
   font-weight: bold;
 }
-.leaderboard-table th:first-child,
-.leaderboard-table td:first-child {
-  width: 20px; /* Set width of the position column */
-  text-align: center; /* Center align text in position column */
+
+.leaderboard-table th.position,
+.leaderboard-table th.score,
+.leaderboard-table td.position,
+.leaderboard-table td.score {
+  width: 50px; /* Adjust this value as needed */
+  text-align: center; /* Center horizontally */
+  vertical-align: middle; /* Center vertically */
+}
+
+.leaderboard-table th.name,
+.leaderboard-table td.name {
+  width: auto; /* Let the name column take the remaining space */
 }
 
 .leaderboard-table tr:nth-child(even) {
@@ -37,4 +45,9 @@
 
 .leaderboard-table tr:hover {
   background-color: #f1f1f1;
+}
+.movement-icon {
+  width: 16px;
+  height: 16px;
+  margin-left: 8px;
 }

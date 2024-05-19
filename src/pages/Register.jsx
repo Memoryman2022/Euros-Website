@@ -1,6 +1,7 @@
 // src/pages/Register.jsx
 import React, { useState } from "react";
-import { registerUser } from "../api";
+import { fetchUsers, registerUser } from "../api";
+import { useNavigate } from "react-router-dom";
 
 import "../Css/Register.css";
 
@@ -10,6 +11,8 @@ function Register() {
   const [password, setPassword] = useState("");
   const [profileImage, setProfileImage] = useState("");
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -25,6 +28,10 @@ function Register() {
       setEmail("");
       setPassword("");
       setProfileImage("");
+
+      const users = await fetchUsers();
+
+      navigate("/");
     } catch (error) {
       setMessage("Registration failed. Please try again.");
       console.error("Error registering user:", error);
@@ -63,6 +70,15 @@ function Register() {
             placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
             required
+          />
+        </div>
+        <div>
+          <label>Profile Image URL:</label>
+          <input
+            type="text"
+            value={profileImage}
+            placeholder="Profile Image URL"
+            onChange={(e) => setProfileImage(e.target.value)}
           />
         </div>
         <button type="submit">Register</button>

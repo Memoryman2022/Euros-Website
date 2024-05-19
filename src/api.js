@@ -12,6 +12,16 @@ export const registerUser = async (user) => {
   }
 };
 
+export const fetchUsers = async () => {
+  try {
+    const response = await axios.get(`${API_URL}/users`);
+    return response.data;
+  } catch (error) {
+    console.error("error fetching users", error);
+    throw error;
+  }
+};
+
 export const loginUser = async (credentials) => {
   try {
     const response = await axios.post(`${API_URL}/login`, credentials);
