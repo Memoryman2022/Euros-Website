@@ -9,6 +9,7 @@ export const registerUser = async (formData) => {
         "Content-Type": "multipart/form-data",
       },
     });
+    console.log("Register response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error registering user", error);
@@ -26,9 +27,9 @@ export const fetchUsers = async () => {
   }
 };
 
-export const fetchUserDetails = async (token) => {
+export const fetchUserDetails = async (userId, token) => {
   try {
-    const response = await axios.get(`${API_URL}/protected/user`, {
+    const response = await axios.get(`${API_URL}/protected/user/${userId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

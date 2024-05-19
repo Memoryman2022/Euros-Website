@@ -25,16 +25,10 @@ function Register() {
     }
 
     try {
-      await registerUser(formData);
+      const response = await registerUser(formData);
       setMessage("Registration successful!");
-      setUsername("");
-      setEmail("");
-      setPassword("");
-      setProfileImage(null);
-
-      const users = await fetchUsers();
-
-      navigate("/");
+      localStorage.setItem("token", response.token); // Store the token
+      navigate(`/user/${response.createdUser._id}`); // Navigate to the user-specific page
     } catch (error) {
       setMessage("Registration failed. Please try again.");
       console.error("Error registering user:", error);

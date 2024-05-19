@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { fetchUserDetails } from "../api";
 import "../Css/Home.css";
 import MessageInput from "../components/MessageInput";
 
 function Home() {
+  const { userId } = useParams();
   const [messages, setMessages] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
@@ -19,7 +21,7 @@ function Home() {
     // Fetch user details
     const token = localStorage.getItem("token"); // Assuming you store the token in localStorage after login
     if (token) {
-      fetchUserDetails(token)
+      fetchUserDetails(userId, token)
         .then((data) => {
           console.log("Fetched user details:", data);
           setUserDetails(data);
@@ -28,7 +30,7 @@ function Home() {
           console.error("Error fetching user details:", error);
         });
     }
-  }, []);
+  }, [userId]);
 
   // Update localStorage whenever messages change
   useEffect(() => {
