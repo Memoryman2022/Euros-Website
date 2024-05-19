@@ -37,6 +37,7 @@
 .leaderboard-table th.name,
 .leaderboard-table td.name {
   width: auto; /* Let the name column take the remaining space */
+  position: relative; /* For absolute positioning of icons */
 }
 
 .leaderboard-table tr:nth-child(even) {
@@ -46,8 +47,20 @@
 .leaderboard-table tr:hover {
   background-color: #f1f1f1;
 }
+
 .movement-icon {
   width: 16px;
   height: 16px;
-  margin-left: 8px;
+  position: absolute;
+  right: 10px; /* Adjust this value as needed */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.profile-pic {
+  width: 30px; /* Adjust size as needed */
+  height: 30px; /* Adjust size as needed */
+  border-radius: 50%;
+  margin-right: 10px; /* Space between profile pic and name */
+  vertical-align: middle;
 }

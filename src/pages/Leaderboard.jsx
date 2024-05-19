@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import "../Css/Leaderboard.css";
+import React, { useState, useEffect } from "react";
 import { fetchUsers } from "../api";
+import "../Css/Leaderboard.css";
 
 function Leaderboard() {
   const [users, setUsers] = useState([]);
@@ -11,44 +11,59 @@ function Leaderboard() {
       try {
         const fetchedUsers = await fetchUsers();
 
-        //sort users by score
+        // Sort users by score in descending order
         const sortedUsers = fetchedUsers.sort((a, b) => b.score - a.score);
 
-        //assign positions
+        // Assign positions based on sorted scores
         const usersWithPositions = sortedUsers.map((user, index) => ({
           position: index + 1,
           name: user.userName,
           score: user.score || 0,
+          profileImage: user.profileImage, // Use correct property
+          movement: "",
         }));
 
-        //Tracl positions
-        const updatedUsers = usersWithPositions.map((user) => {
-          const prevUser = previousUsers.find(
-            (prev) => prev.name === user.name
-          );
-          let movement = "";
-          if (prevUser) {
-            if (user.position < prevUser.position) {
-              movement = "up";
-            } else if (user.position > prevUser.position) {
-              movement = "down";
-            }
-          }
-          return { ...user, movement };
-        });
-
+        setPreviousUsers(usersWithPositions);
         setUsers(usersWithPositions);
       } catch (error) {
-        console.error("Error fetching users", error);
+        console.error("Error fetching users:", error);
       }
     };
 
     getUsers();
   }, []);
 
+  const randomizeScores = () => {
+    const updatedUsers = users.map((user) => ({
+      ...user,
+      score: Math.floor(Math.random() * 100),
+    }));
+
+    // Sort the updated users by their new scores
+    const sortedUsers = updatedUsers.sort((a, b) => b.score - a.score);
+
+    // Determine the movement
+    const usersWithMovement = sortedUsers.map((user, index) => {
+      const prevUser = previousUsers.find((prev) => prev.name === user.name);
+      let movement = "";
+      if (prevUser) {
+        if (index + 1 < prevUser.position) {
+          movement = "up";
+        } else if (index + 1 > prevUser.position) {
+          movement = "down";
+        }
+      }
+      return { ...user, position: index + 1, movement };
+    });
+
+    setPreviousUsers(usersWithMovement);
+    setUsers(usersWithMovement);
+  };
+
   return (
     <div className="leaderboard-page">
       <h2>Leaderboard</h2>
+      <button onClick={randomizeScores}>Randomize Scores</button>
       <div className="leaderboard-container">
         <table className="leaderboard-table">
           <thead>
@@ -61,8 +76,13 @@ function Leaderboard() {
           <tbody>
             {users.map((user, index) => (
               <tr key={index}>
-                <td className="position">{user.position}.</td>
+                <td className="position">{user.position}</td>
                 <td className="name">
+                  <img
+                    src={`http://localhost:5005${user.profileImage}`}
+                    alt="Profile"
+                    className="profile-pic"
+                  />
                   {user.name}
                   {user.movement === "up" && (
                     <img src="/up.svg.png" alt="Up" className="movement-icon" />

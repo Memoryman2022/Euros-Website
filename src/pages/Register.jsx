@@ -16,18 +16,21 @@ function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    const formData = new FormData();
+    formData.append("userName", userName);
+    formData.append("email", email);
+    formData.append("password", password);
+    if (profileImage) {
+      formData.append("profileImage", profileImage);
+    }
+
     try {
-      await registerUser({
-        userName,
-        email,
-        password,
-        profileImage,
-      });
+      await registerUser(formData);
       setMessage("Registration successful!");
       setUsername("");
       setEmail("");
       setPassword("");
-      setProfileImage("");
+      setProfileImage(null);
 
       const users = await fetchUsers();
 
@@ -36,6 +39,10 @@ function Register() {
       setMessage("Registration failed. Please try again.");
       console.error("Error registering user:", error);
     }
+  };
+
+  const handleImageChange = (e) => {
+    setProfileImage(e.target.files[0]);
   };
 
   return (
@@ -73,13 +80,8 @@ function Register() {
           />
         </div>
         <div>
-          <label>Profile Image URL:</label>
-          <input
-            type="text"
-            value={profileImage}
-            placeholder="Profile Image URL"
-            onChange={(e) => setProfileImage(e.target.value)}
-          />
+          <label>Profile Image:</label>
+          <input type="file" onChange={handleImageChange} />
         </div>
         <button type="submit">Register</button>
       </form>
