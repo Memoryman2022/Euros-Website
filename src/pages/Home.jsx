@@ -48,7 +48,7 @@ function Home() {
     <div className="home-container">
       <div className="main-content">
         <div className="user-details">
-          <div className="profile-pic">
+          <div className="profile-pic-home">
             {userDetails && (
               <img
                 src={`http://localhost:5005${userDetails.profileImage}`}

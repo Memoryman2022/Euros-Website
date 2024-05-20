@@ -27,21 +27,22 @@
 }
 
 .user-details {
-  display: block;
-  flex-direction: column;
+  display: flex;
+  flex-direction: row;
   align-items: center;
 }
 
-.profile-pic img {
+.profile-pic-home img {
   width: 100px;
   height: 100px;
   border-radius: 10%;
   margin: 20px;
+  object-fit: cover;
 }
 
 .user-info {
-  /*padding: 0px 10px 0px 160px;*/
-  margin: -15px 10px 0px 160px;
+  flex: 1;
+  margin: 0px 20px 0px 20px;
 }
 
 .user-info-item {
@@ -51,8 +52,14 @@
   margin: 10px 0;
 }
 
+.user-info-item .label {
+  font-weight: bold;
+}
+
 .user-info-item .value {
-  margin-left: auto;
+  margin-left: auto; /* Push the value element to the end */
+  text-align: right;
+  flex-grow: 1; /* Ensure it takes remaining space */
 }
 
 .label {
