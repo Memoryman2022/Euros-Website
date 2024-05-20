@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsers } from "../api";
+import { fetchUsers, updateUserScores } from "../api";
 import "../Css/Leaderboard.css";
 
-function Leaderboard() {
+function Leaderboard({ onUsersUpdated }) {
   const [users, setUsers] = useState([]);
   const [previousUsers, setPreviousUsers] = useState([]);
 
@@ -16,10 +16,8 @@ function Leaderboard() {
 
         // Assign positions based on sorted scores
         const usersWithPositions = sortedUsers.map((user, index) => ({
+          ...user,
           position: index + 1,
-          name: user.userName,
-          score: user.score || 0,
-          profileImage: user.profileImage, // Use correct property
           movement: "",
         }));
 
@@ -33,31 +31,41 @@ function Leaderboard() {
     getUsers();
   }, []);
 
-  const randomizeScores = () => {
+  const randomizeScores = async () => {
     const updatedUsers = users.map((user) => ({
       ...user,
       score: Math.floor(Math.random() * 100),
     }));
 
-    // Sort the updated users by their new scores
-    const sortedUsers = updatedUsers.sort((a, b) => b.score - a.score);
+    // Update user scores in the backend
+    try {
+      await updateUserScores(updatedUsers);
+      // Fetch updated users from the backend to get new positions
+      const fetchedUsers = await fetchUsers();
 
-    // Determine the movement
-    const usersWithMovement = sortedUsers.map((user, index) => {
-      const prevUser = previousUsers.find((prev) => prev.name === user.name);
-      let movement = "";
-      if (prevUser) {
-        if (index + 1 < prevUser.position) {
-          movement = "up";
-        } else if (index + 1 > prevUser.position) {
-          movement = "down";
+      // Sort the updated users by their new scores
+      const sortedUsers = fetchedUsers.sort((a, b) => b.score - a.score);
+
+      // Determine the movement
+      const usersWithMovement = sortedUsers.map((user, index) => {
+        const prevUser = previousUsers.find((prev) => prev._id === user._id);
+        let movement = "";
+        if (prevUser) {
+          if (index + 1 < prevUser.position) {
+            movement = "up";
+          } else if (index + 1 > prevUser.position) {
+            movement = "down";
+          }
         }
-      }
-      return { ...user, position: index + 1, movement };
-    });
+        return { ...user, position: index + 1, movement };
+      });
 
-    setPreviousUsers(usersWithMovement);
-    setUsers(usersWithMovement);
+      setPreviousUsers(usersWithMovement);
+      setUsers(usersWithMovement);
+      onUsersUpdated(); // Notify parent component to update user details
+    } catch (error) {
+      console.error("Error updating scores:", error);
+    }
   };
 
   return (
@@ -83,7 +91,7 @@ function Leaderboard() {
                     alt="Profile"
                     className="profile-pic"
                   />
-                  {user.name}
+                  {user.userName}
                   {user.movement === "up" && (
                     <img src="/up.svg.png" alt="Up" className="movement-icon" />
                   )}

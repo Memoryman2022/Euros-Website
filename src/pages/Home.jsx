@@ -11,6 +11,19 @@ function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
 
+  const fetchAndSetUserDetails = async () => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const data = await fetchUserDetails(userId, token);
+        console.log("Fetched user details:", data);
+        setUserDetails(data);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    }
+  };
+
   // Retrieve messages from localStorage when the component mounts
   useEffect(() => {
     const storedMessages = localStorage.getItem("messages");
@@ -18,19 +31,7 @@ function Home() {
       setMessages(JSON.parse(storedMessages));
     }
     setIsMounted(true);
-
-    // Fetch user details
-    const token = localStorage.getItem("token"); // Assuming you store the token in localStorage after login
-    if (token) {
-      fetchUserDetails(userId, token)
-        .then((data) => {
-          console.log("Fetched user details:", data);
-          setUserDetails(data);
-        })
-        .catch((error) => {
-          console.error("Error fetching user details:", error);
-        });
-    }
+    fetchAndSetUserDetails(); // Initial fetch
   }, [userId]);
 
   // Update localStorage whenever messages change
@@ -91,7 +92,7 @@ function Home() {
         </div>
       </div>
       <div className="extra-content">
-        <Leaderboard />
+        <Leaderboard onUsersUpdated={fetchAndSetUserDetails} />
       </div>
     </div>
   );

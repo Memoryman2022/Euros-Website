@@ -22,7 +22,19 @@ export const fetchUsers = async () => {
     const response = await axios.get(`${API_URL}/users`);
     return response.data;
   } catch (error) {
-    console.error("error fetching users", error);
+    console.error("Error fetching users", error);
+    throw error;
+  }
+};
+
+export const updateUserScores = async (users) => {
+  try {
+    const response = await axios.put(`${API_URL}/users/update-scores`, {
+      users,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user scores", error);
     throw error;
   }
 };
