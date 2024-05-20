@@ -3,24 +3,31 @@
 /* General Container Styling */
 .home-container {
   display: grid;
-  grid-template-columns: 1fr 2fr; /* Two columns: 1 part for user details, 2 parts for social feed */
+  grid-template-columns: 400px 1fr; /* Two columns */
   gap: 20px;
-  width: 100%;
-  height: calc(100vh - 200px); /* Adjust for navbar and footer height */
+  height: calc(87vh); /* Adjust for navbar and footer height */
   padding: 20px;
+  padding-top: 0%;
   box-sizing: border-box;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 1;
 }
 
 .user-details,
 .social-feed {
   background: white;
-  padding: 20px;
+  padding: 10px;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(100, 36, 36, 0.1);
+  margin-bottom: 2px;
 }
 
 .user-details {
-  display: flex;
+  display: block;
   flex-direction: column;
   align-items: center;
 }
@@ -28,18 +35,24 @@
 .profile-pic img {
   width: 100px;
   height: 100px;
-  border-radius: 50%;
-  margin-bottom: 20px;
+  border-radius: 10%;
+  margin: 20px;
 }
 
 .user-info {
-  display: flex;
-  flex-direction: column;
-  align-items: left;
+  /*padding: 0px 10px 0px 160px;*/
+  margin: -15px 10px 0px 160px;
 }
 
 .user-info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin: 10px 0;
+}
+
+.user-info-item .value {
+  margin-left: auto;
 }
 
 .label {
@@ -53,25 +66,47 @@
 .social-feed {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  flex-grow: 1;
+  overflow: hidden; /* Ensure the chat doesn't expand off the screen */
 }
 
 .feed-items {
-  display: flex;
-  flex-direction: column-reverse;
   flex-grow: 1; /* Ensure feed items take up remaining space */
   overflow-y: auto;
-  height: 400px;
+  height: 400px; /* Set a fixed height to make it scrollable */
 }
 
 .feed-item {
-  background: rgb(185, 119, 27);
+  background: rgb(193, 171, 141);
   padding: 10px;
   margin: 10px 0;
   border-radius: 8px;
   box-shadow: black;
 }
 
+.extra-content {
+  grid-column: span 1;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  height: calc(87vh - 20px); /* Adjust height */
+  overflow-y: auto; /* Enable vertical scrolling */
+}
+
+/* Adjusting the h2 margin */
+.social-feed h4 {
+  margin: 0; /* Reduce margin around the h2 element */
+}
+
+/* Adjusting the text field height */
+.message-input textarea {
+  height: 40px; /* Reduce the height of the text field */
+  resize: none; /* Disable resizing */
+}
+.message-input-container {
+  padding: 0; /* Remove padding from message input container */
+}
 /* Responsive Styling */
 @media (max-width: 600px) {
   .home-container {
@@ -80,12 +115,9 @@
   }
 
   .user-details,
-  .social-feed {
+  .social-feed,
+  .extra-content {
     margin-bottom: 20px;
-  }
-
-  .social-feed {
-    height: auto; /* Adjust for mobile to fit content */
   }
 
   .feed-items {

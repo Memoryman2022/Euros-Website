@@ -1,11 +1,13 @@
 .leaderboard-page {
   padding: 20px;
 }
-
+.leaderboard-page h4 {
+  margin: 0; /* Remove margin from the h2 element */
+}
 .leaderboard-container {
   width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .leaderboard-table {
@@ -60,7 +62,7 @@
 .profile-pic {
   width: 30px; /* Adjust size as needed */
   height: 30px; /* Adjust size as needed */
-  border-radius: 50%;
+  border-radius: 10%;
   margin-right: 10px; /* Space between profile pic and name */
   vertical-align: middle;
 }
