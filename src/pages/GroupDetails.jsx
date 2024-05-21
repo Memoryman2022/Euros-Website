@@ -74,11 +74,23 @@ function GroupDetails() {
   const [selectedOutcome, setSelectedOutcome] = useState(
     Array(groupGames.length).fill(null)
   );
+  const [showModal, setShowModal] = useState(false);
+  const [currentGameIndex, setCurrentGameIndex] = useState(null);
 
   const handleConfirm = (index) => {
+    setCurrentGameIndex(index);
+    setShowModal(true);
+  };
+
+  const handleModalConfirm = () => {
     const newConfirmed = [...confirmed];
-    newConfirmed[index] = true;
+    newConfirmed[currentGameIndex] = true;
     setConfirmed(newConfirmed);
+    setShowModal(false);
+  };
+
+  const handleModalCancel = () => {
+    setShowModal(false);
   };
 
   const handleCheckboxChange = (gameIndex, outcome) => {
@@ -177,6 +189,32 @@ function GroupDetails() {
       <Link to="/predictions" className="back-button">
         Back to Groups
       </Link>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Confirm Prediction?</h3>
+            <p>
+              Warning: Confirmation of each individual fixture prediction is
+              final! This submission can not be edited.{" "}
+            </p>
+            <div className="modal-buttons">
+              <button
+                className="modal-button confirm"
+                onClick={handleModalConfirm}
+              >
+                Confirm
+              </button>
+              <button
+                className="modal-button cancel"
+                onClick={handleModalCancel}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

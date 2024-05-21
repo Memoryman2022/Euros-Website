@@ -19,11 +19,11 @@
 .leaderboard-table th,
 .leaderboard-table td {
   padding: 12px;
-  border: 1px solid #ddd;
+  border: 1px solid #17044c;
 }
 
 .leaderboard-table th {
-  background-color: #f0f2f5;
+  background-color: #78a6ea;
   font-weight: bold;
 }
 
@@ -43,7 +43,7 @@
 }
 
 .leaderboard-table tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: #c4c2c2;
 }
 
 .leaderboard-table tr:hover {
