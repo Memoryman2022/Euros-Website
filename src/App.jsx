@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 //Pages
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Logout from "./pages/Logout";
 import Register from "./pages/Register";
 import Predictions from "./pages/Predictions";
 import Leaderboard from "./pages/Leaderboard";
@@ -24,8 +25,9 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/user/:userId" element={<Home />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
             <Route path="/predictions" element={<Predictions />} />
             <Route path="/group/:group" element={<GroupDetails />} />
             <Route path="/leaderboard" element={<Leaderboard />} />
