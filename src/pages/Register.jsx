@@ -1,39 +1,17 @@
-// src/pages/Register.jsx
-import React, { useState } from "react";
-import { fetchUsers, registerUser } from "../api";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState, useContext } from "react"; // Import useContext
+import { AuthContext } from "../authContext/auth.context"; // Import AuthContext
 import "../Css/Register.css";
 
 function Register() {
   const [userName, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const [message, setMessage] = useState("");
-
-  const navigate = useNavigate();
+  const [profileImage, setProfileImage] = useState(null);
+  const { registerUser, authError } = useContext(AuthContext); // Use AuthContext
 
   const handleRegister = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("userName", userName);
-    formData.append("email", email);
-    formData.append("password", password);
-    if (profileImage) {
-      formData.append("profileImage", profileImage);
-    }
-
-    try {
-      const response = await registerUser(formData);
-      setMessage("Registration successful!");
-      localStorage.setItem("token", response.token); // Store the token
-      localStorage.setItem("userId", response.createdUser._id); // Store the user ID
-      navigate(`/user/${response.createdUser._id}`); // Navigate to the user-specific page
-    } catch (error) {
-      setMessage("Registration failed. Please try again.");
-      console.error("Error registering user:", error);
-    }
+    await registerUser(userName, email, password, profileImage);
   };
 
   const handleImageChange = (e) => {
@@ -78,9 +56,10 @@ function Register() {
           <label>Profile Image:</label>
           <input type="file" onChange={handleImageChange} />
         </div>
+        {authError && <p className="error">{authError}</p>}{" "}
+        {/* Display auth error */}
         <button type="submit">Register</button>
       </form>
-      {message && <p>{message}</p>}
     </div>
   );
 }

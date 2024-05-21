@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
+import { useNavigate } from "react-router-dom";
 
 const AuthContext = React.createContext();
 
@@ -9,6 +10,7 @@ function AuthProviderWrapper(props) {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState(null);
+  const navigate = useNavigate();
 
   // Store token in localStorage
   const storeToken = (token) => {
@@ -114,6 +116,7 @@ function AuthProviderWrapper(props) {
         storeUser(user); // Store user information in localStorage
         setUser(user);
         setIsLoggedIn(true);
+        navigate(`/user/${userId}`);
       } else {
         setAuthError("No token or userId received");
       }
@@ -125,24 +128,36 @@ function AuthProviderWrapper(props) {
     }
   };
 
-  const registerUser = async (userName, email, password) => {
+  // Updated registerUser function to handle FormData
+  const registerUser = async (userName, email, password, profileImage) => {
     setAuthError(null);
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${API_URL}/auth/register`, {
-        userName,
-        email,
-        password,
+      const formData = new FormData();
+      formData.append("userName", userName);
+      formData.append("email", email);
+      formData.append("password", password);
+      if (profileImage) {
+        formData.append("profileImage", profileImage);
+      }
+
+      const response = await axios.post(`${API_URL}/auth/register`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+
       console.log("Response from registration:", response.data);
-      const { token, userId, user } = response.data; // Ensure response contains token, userId, and user
-      if (token && userId && user) {
+      const { token, createdUser } = response.data; // Ensure response contains token, userId, and user
+      if (token && createdUser) {
         storeToken(token);
-        storeUserId(userId);
-        storeUser(user); // Store user information in localStorage
-        setUser(user);
-        await authenticateUser();
+        storeUserId(createdUser._id);
+        storeUser(createdUser); // Store user information in localStorage
+        setUser(createdUser);
+        setIsLoggedIn(true);
+        navigate(`/user/${createdUser._id}`);
+        await authenticateUser(); // Optional, ensure user data is up-to-date
       } else {
         setAuthError("No token or userId received");
       }
@@ -160,6 +175,7 @@ function AuthProviderWrapper(props) {
     removeUser(); // Remove user information from localStorage
     setIsLoggedIn(false);
     setUser(null);
+    navigate("/login"); // Navigate to login page on logout
   };
 
   useEffect(() => {

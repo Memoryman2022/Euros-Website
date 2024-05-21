@@ -24,30 +24,42 @@ function Navbar() {
       </div>
 
       <ul className={`navbar-menu ${menuActive ? "active" : ""}`}>
-        <li className="menu-list-item">
-          <Link
-            to={isLoggedIn && user ? `/user/${user._id}` : "/"}
-            onClick={toggleMenu}
-          >
-            Home
-          </Link>
-        </li>
-        <li className="menu-list-item">
-          <Link to="/predictions" onClick={toggleMenu}>
-            Predictions
-          </Link>
-        </li>
-        <li className="menu-list-item">
-          <Link to="/leaderboard" onClick={toggleMenu}>
-            Leaderboard
-          </Link>
-        </li>
-        {isLoggedIn && (
-          <li className="menu-list-item">
-            <Link to="/logout" onClick={toggleMenu}>
-              Logout
-            </Link>
-          </li>
+        {isLoggedIn ? (
+          <>
+            <li className="menu-list-item">
+              <Link to={user ? `/user/${user._id}` : "/"} onClick={toggleMenu}>
+                Home
+              </Link>
+            </li>
+            <li className="menu-list-item">
+              <Link to="/predictions" onClick={toggleMenu}>
+                Predictions
+              </Link>
+            </li>
+            <li className="menu-list-item">
+              <Link to="/leaderboard" onClick={toggleMenu}>
+                Leaderboard
+              </Link>
+            </li>
+            <li className="menu-list-item">
+              <Link to="/logout" onClick={toggleMenu}>
+                Logout
+              </Link>
+            </li>
+          </>
+        ) : (
+          <>
+            <li className="menu-list-item">
+              <Link to="/login" onClick={toggleMenu}>
+                Login
+              </Link>
+            </li>
+            <li className="menu-list-item">
+              <Link to="/register" onClick={toggleMenu}>
+                Register
+              </Link>
+            </li>
+          </>
         )}
       </ul>
     </div>
