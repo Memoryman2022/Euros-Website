@@ -10,6 +10,7 @@ function Home() {
   const [messages, setMessages] = useState([]);
   const [isMounted, setIsMounted] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchAndSetUserDetails = async () => {
     const token = localStorage.getItem("token");
@@ -20,7 +21,11 @@ function Home() {
         setUserDetails(data);
       } catch (error) {
         console.error("Error fetching user details:", error);
+      } finally {
+        setLoading(false);
       }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -44,6 +49,10 @@ function Home() {
   const handleNewMessage = (newMessage) => {
     setMessages((prevMessages) => [newMessage, ...prevMessages]);
   };
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="home-container">
@@ -83,12 +92,20 @@ function Home() {
           <div className="feed-items">
             {messages.map((message, index) => (
               <div key={index} className="feed-item">
-                {message}
+                <img
+                  src={`http://localhost:5005${message.profileImage}`}
+                  alt="Profile"
+                  className="message-profile-pic"
+                />
+                {message.text}
               </div>
             ))}
           </div>
 
-          <MessageInput onMessageSend={handleNewMessage} />
+          <MessageInput
+            onMessageSend={handleNewMessage}
+            userProfileImage={userDetails?.profileImage}
+          />
         </div>
       </div>
       <div className="extra-content">

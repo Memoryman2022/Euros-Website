@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../Css/MessageInput.css";
 
-function MessageInput({ onMessageSend }) {
+function MessageInput({ onMessageSend, userProfileImage }) {
   const [message, setMessage] = useState("");
 
   const handleInputChange = (e) => {
@@ -10,8 +10,15 @@ function MessageInput({ onMessageSend }) {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      onMessageSend(message);
+      onMessageSend({ text: message, profileImage: userProfileImage });
       setMessage(""); // Clear the input field
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault(); // Prevent newline from being added
+      handleSendMessage();
     }
   };
 
@@ -21,6 +28,7 @@ function MessageInput({ onMessageSend }) {
         placeholder="Type your message..."
         value={message}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
         rows="10" // Set the number of rows to approximately 20
       />
       <button onClick={handleSendMessage}>Send</button>

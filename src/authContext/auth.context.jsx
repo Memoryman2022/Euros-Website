@@ -64,6 +64,7 @@ function AuthProviderWrapper(props) {
       }
     }
   };
+
   // Login User
   const loginUser = async (email, password) => {
     setAuthError(null);
