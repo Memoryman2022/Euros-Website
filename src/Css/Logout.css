@@ -1,0 +1,43 @@
+/* Apply flexbox to the parent container to center the logout container */
+body,
+.logout-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #d2d0d0; /* Optional: for better visibility */
+}
+
+.logout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #8498a5c3;
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  max-width: 400px;
+  border: 5px solid rgb(62, 62, 109);
+  border-radius: 10px;
+}
+
+.logout-container h1 {
+  margin-bottom: 20px;
+  color: #423c3c;
+}
+
+.logout-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #243e59;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-container button:hover {
+  background-color: #3d7fc5;
+}

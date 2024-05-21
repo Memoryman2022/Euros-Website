@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext/auth.context";
 
+import "../Css/Logout.css";
+
 const Logout = () => {
   const { logOutUser } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -13,9 +15,11 @@ const Logout = () => {
   };
 
   return (
-    <div className="logout-container">
-      <h1>Confirm log out?</h1>
-      <button onClick={handleLogout}>Logout</button>
+    <div className="logout-wrapper">
+      <div className="logout-container">
+        <h4>Confirm?</h4>
+        <button onClick={handleLogout}>Logout</button>
+      </div>
     </div>
   );
 };

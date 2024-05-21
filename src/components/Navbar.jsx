@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
-
+import { AuthContext } from "../authContext/auth.context";
 import "../Css/Navbar.css";
 
 function Navbar() {
   const [menuActive, setMenuActive] = useState(false);
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   const toggleMenu = () => {
     setMenuActive(!menuActive);
   };
+
   return (
     <div className="navbar">
       <div className="navbar-logo">
@@ -23,7 +25,10 @@ function Navbar() {
 
       <ul className={`navbar-menu ${menuActive ? "active" : ""}`}>
         <li className="menu-list-item">
-          <Link to="/" onClick={toggleMenu}>
+          <Link
+            to={isLoggedIn && user ? `/user/${user._id}` : "/"}
+            onClick={toggleMenu}
+          >
             Home
           </Link>
         </li>
@@ -37,13 +42,16 @@ function Navbar() {
             Leaderboard
           </Link>
         </li>
-        <li className="menu-list-item">
-          <Link to="/logout" onClick={toggleMenu}>
-            Logout
-          </Link>
-        </li>
+        {isLoggedIn && (
+          <li className="menu-list-item">
+            <Link to="/logout" onClick={toggleMenu}>
+              Logout
+            </Link>
+          </li>
+        )}
       </ul>
     </div>
   );
 }
+
 export default Navbar;
