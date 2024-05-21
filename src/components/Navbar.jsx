@@ -38,8 +38,8 @@ function Navbar() {
           </Link>
         </li>
         <li className="menu-list-item">
-          <Link to="/userlist" onClick={toggleMenu}>
-            Userlist
+          <Link to="/logout" onClick={toggleMenu}>
+            Logout
           </Link>
         </li>
       </ul>

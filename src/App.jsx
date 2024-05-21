@@ -10,7 +10,7 @@ import Predictions from "./pages/Predictions";
 import Leaderboard from "./pages/Leaderboard";
 import NotFoundPage from "./pages/NotFound";
 import GroupDetails from "./pages/GroupDetails";
-
+import Landing from "./pages/Landing";
 //Components
 import Navbar from "./components/Navbar";
 
@@ -24,6 +24,7 @@ function App() {
       <div className="container">
         <div className="content">
           <Routes>
+            <Route path="/" element={<Landing />} />
             <Route path="/user/:userId" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
