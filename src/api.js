@@ -8,7 +8,6 @@ export const registerUser = async (formData) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    console.log("Register response:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error registering user", error);
@@ -45,7 +44,6 @@ export const fetchUserDetails = async (userId, token) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log("Fetched user details:", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching user details", error);

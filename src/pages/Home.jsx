@@ -17,7 +17,6 @@ function Home() {
     if (token) {
       try {
         const data = await fetchUserDetails(userId, token);
-        console.log("Fetched user details:", data);
         setUserDetails(data);
       } catch (error) {
         console.error("Error fetching user details:", error);

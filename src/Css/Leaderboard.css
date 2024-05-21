@@ -43,17 +43,24 @@
 }
 
 .leaderboard-table tr:nth-child(even) {
-  background-color: #cbd0d3f7;
+  background-color: #8caabcf7;
 }
 
 .leaderboard-table tr:nth-child(odd) {
-  background-color: #5cb2e4f6;
+  background-color: #658da4f6;
 }
 
 .leaderboard-table tr:hover {
-  background-color: #f1f1f1;
+  background-color: #b0b0b0;
 }
 
+.leadbrd-btn {
+  color: rgb(3, 140, 209);
+}
+
+.leadbrd-btn:hover {
+  background-color: #17044c;
+}
 .movement-icon {
   width: 16px;
   height: 16px;
