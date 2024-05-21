@@ -59,11 +59,20 @@ function GroupDetails() {
   const [confirmed, setConfirmed] = useState(
     Array(groupGames.length).fill(false)
   );
+  const [selectedOutcome, setSelectedOutcome] = useState(
+    Array(groupGames.length).fill(null)
+  );
 
   const handleConfirm = (index) => {
     const newConfirmed = [...confirmed];
     newConfirmed[index] = true;
     setConfirmed(newConfirmed);
+  };
+
+  const handleCheckboxChange = (gameIndex, outcome) => {
+    const newSelectedOutcome = [...selectedOutcome];
+    newSelectedOutcome[gameIndex] = outcome;
+    setSelectedOutcome(newSelectedOutcome);
   };
 
   const renderScoreOptions = () => {
@@ -78,6 +87,16 @@ function GroupDetails() {
     return options;
   };
 
+  const flagExceptions = {
+    Slovakia: "slov",
+    // Add more exceptions here if needed
+  };
+
+  const getFlagUrl = (team) => {
+    const flagCode = flagExceptions[team] || team.substring(0, 3).toLowerCase();
+    return `/flags/${flagCode}.png`;
+  };
+
   return (
     <div className="group-details-container">
       <h2>{group}</h2>
@@ -86,7 +105,14 @@ function GroupDetails() {
           <div className="game-row">
             <div className="game-date">{game.date}</div>
             <div className="team-container">
-              <span className="team-name">{game.team1}</span>
+              <span className="team-name">
+                <img
+                  src={getFlagUrl(game.team1)}
+                  alt={game.team1}
+                  className="flag-icon"
+                />
+                {game.team1}
+              </span>
               <select className="score-select" disabled={confirmed[index]}>
                 {renderScoreOptions()}
               </select>
@@ -96,7 +122,45 @@ function GroupDetails() {
               <select className="score-select" disabled={confirmed[index]}>
                 {renderScoreOptions()}
               </select>
-              <span className="team-name">{game.team2}</span>
+              <span className="team-name">
+                {game.team2}
+                <img
+                  src={getFlagUrl(game.team2)}
+                  alt={game.team2}
+                  className="flag-icon"
+                />
+              </span>
+            </div>
+          </div>
+          <div className="checkbox-row">
+            <div className="checkbox-container">
+              <label>
+                {game.team1} win
+                <input
+                  type="checkbox"
+                  checked={selectedOutcome[index] === "team1"}
+                  onChange={() => handleCheckboxChange(index, "team1")}
+                  disabled={confirmed[index]}
+                />
+              </label>
+              <label>
+                Draw
+                <input
+                  type="checkbox"
+                  checked={selectedOutcome[index] === "draw"}
+                  onChange={() => handleCheckboxChange(index, "draw")}
+                  disabled={confirmed[index]}
+                />
+              </label>
+              <label>
+                {game.team2} win
+                <input
+                  type="checkbox"
+                  checked={selectedOutcome[index] === "team2"}
+                  onChange={() => handleCheckboxChange(index, "team2")}
+                  disabled={confirmed[index]}
+                />
+              </label>
             </div>
             <button
               className="confirm-button"
@@ -105,22 +169,6 @@ function GroupDetails() {
             >
               Confirm
             </button>
-          </div>
-          <div className="checkbox-row">
-            <div className="checkbox-container">
-              <label>
-                {game.team1} win
-                <input type="checkbox" disabled={confirmed[index]} />
-              </label>
-              <label>
-                Draw
-                <input type="checkbox" disabled={confirmed[index]} />
-              </label>
-              <label>
-                {game.team2} win
-                <input type="checkbox" disabled={confirmed[index]} />
-              </label>
-            </div>
           </div>
         </div>
       ))}
