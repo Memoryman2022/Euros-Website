@@ -11,6 +11,18 @@ const groups = {
   "Group F": ["Turkey", "Georgia", "Portugal", "Czechia"],
 };
 
+// Add the flag exceptions mapping
+const flagExceptions = {
+  Slovakia: "slov",
+  // Add more exceptions here if needed
+};
+
+// Modify the getFlagUrl function to handle exceptions
+const getFlagUrl = (team) => {
+  const flagCode = flagExceptions[team] || team.substring(0, 3).toLowerCase();
+  return `/flags/${flagCode}.png`;
+};
+
 function PredictionsPage() {
   return (
     <div className="predictions-container">
@@ -28,7 +40,14 @@ function PredictionsPage() {
                 <tbody>
                   {groups[group].map((team, idx) => (
                     <tr key={idx}>
-                      <td>{team}</td>
+                      <td>
+                        <img
+                          src={getFlagUrl(team)}
+                          alt={team}
+                          className="flag-icon"
+                        />
+                        {team}
+                      </td>
                     </tr>
                   ))}
                 </tbody>

@@ -80,20 +80,19 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  max-width: 300px;
-  margin: 10px 45px 0px;
+  max-width: 160px;
+  margin: 10px 75px 0px;
 }
 
 .checkbox-container label {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding-right: 10px;
   margin-top: 5px;
 }
 
 .checkbox-container input {
-  display: flex;
-  align-items: end;
   margin-left: 10px;
 }
 
@@ -101,10 +100,6 @@
   display: flex;
   justify-content: flex-end;
   margin: 0px 45px 0px;
-}
-
-.confirm-button {
-  align-self: flex-end;
 }
 
 .back-button {

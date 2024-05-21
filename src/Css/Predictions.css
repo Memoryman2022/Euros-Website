@@ -32,14 +32,14 @@
 }
 
 .group-table th {
-  background: #007bff;
+  background: #546f8d;
   color: white;
   padding: 10px;
 }
 
 .group-table td {
   padding: 10px;
-  text-align: center;
+  padding-left: 20px;
 }
 
 .group-table tbody tr:nth-child(odd) {
@@ -48,4 +48,10 @@
 
 .group-table tbody tr:nth-child(even) {
   background: #f5f5f5;
+}
+
+.flag-icon {
+  width: 20px;
+  height: auto;
+  margin-right: 5px;
 }
