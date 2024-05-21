@@ -43,7 +43,11 @@
 }
 
 .leaderboard-table tr:nth-child(even) {
-  background-color: #c4c2c2;
+  background-color: #cbd0d3f7;
+}
+
+.leaderboard-table tr:nth-child(odd) {
+  background-color: #5cb2e4f6;
 }
 
 .leaderboard-table tr:hover {
@@ -66,5 +70,5 @@
   margin-right: 10px; /* Space between profile pic and name */
   vertical-align: middle;
   object-fit: cover;
-  border: 2px solid rgb(9, 20, 231);
+  border: 2px solid rgb(41, 67, 111);
 }

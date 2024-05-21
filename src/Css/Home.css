@@ -99,6 +99,7 @@
   margin: 10px 0;
   border-radius: 8px;
   box-shadow: black;
+  border: 2px solid bisque;
 }
 
 .message-profile-pic {
@@ -111,13 +112,14 @@
 
 .extra-content {
   grid-column: span 1;
-  background: white;
+  background: rgb(102, 143, 187);
   padding: 20px;
   margin-top: 5px;
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   height: calc(87vh - 20px); /* Adjust height */
   overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid black;
 }
 
 /* Adjusting the h2 margin */

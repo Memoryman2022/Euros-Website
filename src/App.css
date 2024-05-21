@@ -25,12 +25,15 @@ body {
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1; /* Ensures the container takes up remaining space */
+  background-image: url("/italywin.png"); /* Update the path to your image */
+  background-size: cover; /* This will make sure the image covers the entire background */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat;
 }
 
 /* Navbar and Footer Styles */
-.navbar,
-.footer {
-  background-color: #0a4e97;
+.navbar {
+  background-color: #01162d;
   color: white;
   padding: 1rem;
   text-align: center;
@@ -41,18 +44,12 @@ body {
   flex-shrink: 0; /* Prevents the navbar from shrinking */
 }
 
-.footer {
-  flex-shrink: 0; /* Prevents the footer from shrinking */
-}
-
-.navbar a,
-.footer a {
-  color: white;
+.navbar a {
+  color: rgb(234, 185, 80);
   text-decoration: none;
 }
 
-.navbar a:hover,
-.footer a:hover {
+.navbar a:hover {
   text-decoration: underline;
 }
 
