@@ -71,7 +71,7 @@ function Leaderboard({ onUsersUpdated }) {
   return (
     <div className="leaderboard-page">
       <h4>Leaderboard</h4>
-      <button onClick={randomizeScores}>Randomize Scores</button>
+      <button onClick={randomizeScores}>Random Scores</button>
       <div className="leaderboard-container">
         <table className="leaderboard-table">
           <thead>

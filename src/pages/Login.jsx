@@ -1,18 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { AuthContext } from "../authContext/auth.context";
+import { useNavigate } from "react-router-dom";
 import "../Css/Login.css";
 
 function Login() {
   const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { loginUser, authError, isLoading, isLoggedIn, user } =
+    useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Add login logic here
-    console.log("Email:", email);
-    console.log("Username:", username);
-    console.log("Password:", password);
+    // Call the login function from the context
+    await loginUser(email, password);
   };
+
+  useEffect(() => {
+    if (isLoggedIn && user && user._id) {
+      navigate(`/user/${user._id}`); // Redirect to the user's unique home page
+    }
+  }, [isLoggedIn, user, navigate]);
 
   return (
     <div className="login-container">
@@ -30,17 +38,6 @@ function Login() {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div className="form-group">
           <label htmlFor="password">Password</label>
           <input
             type="password"
@@ -51,7 +48,10 @@ function Login() {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        {authError && <p className="error">{authError}</p>}
+        <button type="submit" disabled={isLoading}>
+          {isLoading ? "Logging in..." : "Login"}
+        </button>
       </form>
     </div>
   );

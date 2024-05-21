@@ -1,10 +1,9 @@
 import axios from "axios";
-
-const API_URL = "http://localhost:5005/api"; // Replace with your backend URL if different
+import { API_URL } from "./config";
 
 export const registerUser = async (formData) => {
   try {
-    const response = await axios.post(`${API_URL}/register`, formData, {
+    const response = await axios.post(`${API_URL}/auth/register`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -50,16 +49,6 @@ export const fetchUserDetails = async (userId, token) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching user details", error);
-    throw error;
-  }
-};
-
-export const loginUser = async (credentials) => {
-  try {
-    const response = await axios.post(`${API_URL}/login`, credentials);
-    return response.data;
-  } catch (error) {
-    console.error("Error logging in user", error);
     throw error;
   }
 };

@@ -10,13 +10,34 @@ function AuthProviderWrapper(props) {
   const [user, setUser] = useState(null);
   const [authError, setAuthError] = useState(null);
 
+  // Store token in localStorage
   const storeToken = (token) => {
     localStorage.setItem("jwtToken", token);
   };
 
+  // Store userId in localStorage
+  const storeUserId = (userId) => {
+    localStorage.setItem("userId", userId);
+  };
+
+  // Store user information in localStorage
+  const storeUser = (user) => {
+    localStorage.setItem("user", JSON.stringify(user));
+  };
+
+  // Remove token from localStorage
   const removeToken = () => {
-    console.log("Removing token from storage");
     localStorage.removeItem("jwtToken");
+  };
+
+  // Remove userId from localStorage
+  const removeUserId = () => {
+    localStorage.removeItem("userId");
+  };
+
+  // Remove user information from localStorage
+  const removeUser = () => {
+    localStorage.removeItem("user");
   };
 
   const refreshToken = async () => {
@@ -30,14 +51,15 @@ function AuthProviderWrapper(props) {
       storeToken(token);
       await authenticateUser();
     } catch (error) {
-      console.log("Error refreshing token:", error);
+      console.error("Error refreshing token:", error);
       logOutUser();
     }
   };
 
-  // Authenticate User
+  // Authenticate user and load user information from localStorage if available
   const authenticateUser = async () => {
     const storedToken = localStorage.getItem("jwtToken");
+    const storedUser = localStorage.getItem("user");
     if (!storedToken) {
       setIsLoggedIn(false);
       setIsLoading(false);
@@ -45,27 +67,36 @@ function AuthProviderWrapper(props) {
       return;
     }
 
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`${API_URL}/auth/verify`, {
-        headers: { Authorization: `Bearer ${storedToken}` },
-      });
+    if (storedUser) {
+      setUser(JSON.parse(storedUser)); // Use user information from localStorage
       setIsLoggedIn(true);
       setIsLoading(false);
-      setUser(response.data);
-    } catch (error) {
-      if (error.response?.status === 401) {
-        await refreshToken();
-      } else {
-        setAuthError(error.response?.data.message || "Failed to authenticate");
-        setIsLoggedIn(false);
+    } else {
+      setIsLoading(true);
+      try {
+        const response = await axios.get(`${API_URL}/auth/verify`, {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        });
+        setIsLoggedIn(true);
+        setUser(response.data);
+        storeUser(response.data); // Store user information in localStorage
+        storeUserId(response.data._id); // Assuming response.data contains the user object
+      } catch (error) {
+        if (error.response?.status === 401) {
+          await refreshToken();
+        } else {
+          setAuthError(
+            error.response?.data.message || "Failed to authenticate"
+          );
+          setIsLoggedIn(false);
+          setUser(null);
+        }
+      } finally {
         setIsLoading(false);
-        setUser(null);
       }
     }
   };
 
-  // Login User
   const loginUser = async (email, password) => {
     setAuthError(null);
     setIsLoading(true);
@@ -75,57 +106,64 @@ function AuthProviderWrapper(props) {
         email,
         password,
       });
-      const token = response.data.token;
-      if (token) {
+      console.log("Response from login:", response.data);
+      const { token, userId, user } = response.data; // Ensure response contains token, userId, and user
+      if (token && userId && user) {
         storeToken(token);
-        console.log("Logging in, token stored");
-        await authenticateUser();
+        storeUserId(userId);
+        storeUser(user); // Store user information in localStorage
+        setUser(user);
+        setIsLoggedIn(true);
       } else {
-        setAuthError("No token received");
+        setAuthError("No token or userId received");
       }
     } catch (error) {
+      console.error("Login failed:", error);
       setAuthError(error.response?.data.message || "Login failed");
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Register User
   const registerUser = async (userName, email, password) => {
+    setAuthError(null);
     setIsLoading(true);
+
     try {
-      const response = await axios.post(`${API_URL}/auth/registration`, {
+      const response = await axios.post(`${API_URL}/auth/register`, {
         userName,
         email,
         password,
       });
-      const { token } = response.data;
-      if (token) {
+      console.log("Response from registration:", response.data);
+      const { token, userId, user } = response.data; // Ensure response contains token, userId, and user
+      if (token && userId && user) {
         storeToken(token);
-        console.log("reg and token stored");
+        storeUserId(userId);
+        storeUser(user); // Store user information in localStorage
+        setUser(user);
         await authenticateUser();
       } else {
-        setAuthError("no token recieved");
+        setAuthError("No token or userId received");
       }
-      // await loginUser(email, password); //log in after registration
     } catch (error) {
+      console.error("Registration failed:", error);
       setAuthError(error.response?.data.message || "Registration failed");
     } finally {
       setIsLoading(false);
     }
   };
 
-  // Logout User
   const logOutUser = () => {
     removeToken();
-    console.log("Logging out, token removed");
+    removeUserId();
+    removeUser(); // Remove user information from localStorage
     setIsLoggedIn(false);
-    setIsLoading(false);
     setUser(null);
   };
 
   useEffect(() => {
-    authenticateUser();
+    authenticateUser(); // Authenticate user on mount
   }, []);
 
   return (
@@ -135,6 +173,7 @@ function AuthProviderWrapper(props) {
         isLoading,
         user,
         storeToken,
+        storeUserId,
         authenticateUser,
         logOutUser,
         loginUser,

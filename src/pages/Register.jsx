@@ -28,6 +28,7 @@ function Register() {
       const response = await registerUser(formData);
       setMessage("Registration successful!");
       localStorage.setItem("token", response.token); // Store the token
+      localStorage.setItem("userId", response.createdUser._id); // Store the user ID
       navigate(`/user/${response.createdUser._id}`); // Navigate to the user-specific page
     } catch (error) {
       setMessage("Registration failed. Please try again.");

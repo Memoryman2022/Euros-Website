@@ -9,7 +9,7 @@ const Logout = () => {
   // This function is triggered by the button click
   const handleLogout = () => {
     logOutUser(); // Call the logout function from context to remove token and clear session
-    setTimeout(() => navigate("/login"), 500); // Redirect to login page after logout
+    navigate("/login"); // Redirect to login page after logout
   };
 
   return (
