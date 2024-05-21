@@ -53,6 +53,18 @@ const games = {
   ],
 };
 
+// Add the flag exceptions mapping
+const flagExceptions = {
+  Slovakia: "slov",
+  // Add more exceptions here if needed
+};
+
+// Modify the getFlagUrl function to handle exceptions
+const getFlagUrl = (team) => {
+  const flagCode = flagExceptions[team] || team.substring(0, 3).toLowerCase();
+  return `/flags/${flagCode}.png`;
+};
+
 function GroupDetails() {
   const { group } = useParams();
   const groupGames = games[group];
@@ -85,16 +97,6 @@ function GroupDetails() {
       );
     }
     return options;
-  };
-
-  const flagExceptions = {
-    Slovakia: "slov",
-    // Add more exceptions here if needed
-  };
-
-  const getFlagUrl = (team) => {
-    const flagCode = flagExceptions[team] || team.substring(0, 3).toLowerCase();
-    return `/flags/${flagCode}.png`;
   };
 
   return (
@@ -132,36 +134,36 @@ function GroupDetails() {
               </span>
             </div>
           </div>
-          <div className="checkbox-row">
-            <div className="checkbox-container">
-              <label>
-                {game.team1} win
-                <input
-                  type="checkbox"
-                  checked={selectedOutcome[index] === "team1"}
-                  onChange={() => handleCheckboxChange(index, "team1")}
-                  disabled={confirmed[index]}
-                />
-              </label>
-              <label>
-                Draw
-                <input
-                  type="checkbox"
-                  checked={selectedOutcome[index] === "draw"}
-                  onChange={() => handleCheckboxChange(index, "draw")}
-                  disabled={confirmed[index]}
-                />
-              </label>
-              <label>
-                {game.team2} win
-                <input
-                  type="checkbox"
-                  checked={selectedOutcome[index] === "team2"}
-                  onChange={() => handleCheckboxChange(index, "team2")}
-                  disabled={confirmed[index]}
-                />
-              </label>
-            </div>
+          <div className="checkbox-container">
+            <label>
+              {game.team1} win
+              <input
+                type="checkbox"
+                checked={selectedOutcome[index] === "team1"}
+                onChange={() => handleCheckboxChange(index, "team1")}
+                disabled={confirmed[index]}
+              />
+            </label>
+            <label>
+              Draw
+              <input
+                type="checkbox"
+                checked={selectedOutcome[index] === "draw"}
+                onChange={() => handleCheckboxChange(index, "draw")}
+                disabled={confirmed[index]}
+              />
+            </label>
+            <label>
+              {game.team2} win
+              <input
+                type="checkbox"
+                checked={selectedOutcome[index] === "team2"}
+                onChange={() => handleCheckboxChange(index, "team2")}
+                disabled={confirmed[index]}
+              />
+            </label>
+          </div>
+          <div className="confirm-button-container">
             <button
               className="confirm-button"
               onClick={() => handleConfirm(index)}

@@ -19,11 +19,13 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  position: relative;
+  margin-top: 10px;
 }
 
 .game-date {
   width: 100px;
-  text-align: center;
+  text-align: left;
 }
 
 .team-container {
@@ -79,12 +81,25 @@
   justify-content: space-between;
   width: 100%;
   max-width: 300px;
+  margin: 10px 45px 0px;
 }
 
 .checkbox-container label {
   display: flex;
   align-items: center;
   padding-right: 10px;
+}
+
+.checkbox-container input {
+  display: flex;
+  align-items: end;
+  padding-right: 10px;
+}
+
+.confirm-button-container {
+  display: flex;
+  justify-content: flex-end;
+  margin: 0px 45px 10px;
 }
 
 .confirm-button {
