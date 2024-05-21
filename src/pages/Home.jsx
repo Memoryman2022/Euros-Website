@@ -13,7 +13,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
 
   const fetchAndSetUserDetails = async () => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("jwtToken");
     if (token) {
       try {
         const data = await fetchUserDetails(userId, token);
