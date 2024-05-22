@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import { fetchUserDetails } from "../api";
 import "../Css/Home.css";
@@ -13,6 +13,7 @@ function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const feedItemsRef = useRef(null); // Add a ref to the feed-items container
 
   const fetchAndSetUserDetails = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -44,11 +45,15 @@ function Home() {
   useEffect(() => {
     if (isMounted) {
       localStorage.setItem("messages", JSON.stringify(messages));
+      // Scroll to the bottom when messages change
+      if (feedItemsRef.current) {
+        feedItemsRef.current.scrollTop = feedItemsRef.current.scrollHeight;
+      }
     }
   }, [messages, isMounted]);
 
   const handleNewMessage = (newMessage) => {
-    setMessages((prevMessages) => [newMessage, ...prevMessages]);
+    setMessages((prevMessages) => [...prevMessages, newMessage]); // Append new message to the end
   };
 
   if (loading) {
@@ -98,7 +103,7 @@ function Home() {
         </div>
         <div className="social-feed">
           <h4>CHAT</h4>
-          <div className="feed-items">
+          <div className="feed-items" ref={feedItemsRef}>
             {messages.map((message, index) => (
               <div key={index} className="feed-item">
                 <img

@@ -94,6 +94,8 @@
   flex-grow: 1; /* Ensure feed items take up remaining space */
   overflow-y: auto;
   height: 400px; /* Set a fixed height to make it scrollable */
+  display: flex;
+  flex-direction: column;
 }
 
 .feed-item {

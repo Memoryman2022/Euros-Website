@@ -1,5 +1,5 @@
-import React, { useState, useContext } from "react"; // Import useContext
-import { AuthContext } from "../authContext/auth.context"; // Import AuthContext
+import React, { useState, useContext } from "react";
+import { AuthContext } from "../authContext/auth.context";
 import "../Css/Register.css";
 
 function Register() {
@@ -8,7 +8,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const { registerUser, authError } = useContext(AuthContext); // Use AuthContext
+  const { registerUser, authError } = useContext(AuthContext);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -17,7 +17,7 @@ function Register() {
 
   const handleImageChange = (e) => {
     setProfileImage(e.target.files[0]);
-    setShowModal(false); // Hide modal after image selection
+    setShowModal(false);
   };
 
   const handleImageClick = (e) => {
@@ -27,7 +27,7 @@ function Register() {
 
   const handleModalConfirm = () => {
     setShowModal(false);
-    document.getElementById("profileImageInput").click(); // Trigger the file input click
+    document.getElementById("profileImageInput").click();
   };
 
   return (
@@ -70,7 +70,7 @@ function Register() {
             type="file"
             id="profileImageInput"
             onChange={handleImageChange}
-            style={{ display: "none" }} // Hide the actual file input
+            style={{ display: "none" }}
           />
           <button onClick={handleImageClick}>Upload</button>
         </div>

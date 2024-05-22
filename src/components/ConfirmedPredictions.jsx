@@ -29,7 +29,10 @@ const ConfirmedPredictions = () => {
           },
         }
       );
-      setPredictions(response.data);
+      const sortedPredictions = response.data.sort(
+        (a, b) => new Date(a.date) - new Date(b.date)
+      );
+      setPredictions(sortedPredictions);
     } catch (error) {
       setError("Failed to fetch predictions");
       console.error(error);
@@ -47,7 +50,7 @@ const ConfirmedPredictions = () => {
 
   return (
     <div className="confirmed-predictions-container">
-      <h2>Confirmed Predictions</h2>
+      <h4>Confirmed Predictions</h4>
       <div className="predictions-grid">
         <div className="grid-header">Date</div>
         <div className="grid-header">Team 1</div>

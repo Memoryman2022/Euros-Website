@@ -18,7 +18,7 @@ function Leaderboard({ onUsersUpdated }) {
         const usersWithPositions = sortedUsers.map((user, index) => ({
           ...user,
           position: index + 1,
-          movement: "",
+          movement: user.movement, // Get movement from backend
         }));
 
         setPreviousUsers(usersWithPositions);
@@ -62,7 +62,7 @@ function Leaderboard({ onUsersUpdated }) {
 
       setPreviousUsers(usersWithMovement);
       setUsers(usersWithMovement);
-      onUsersUpdated(); // Notify parent component to update user details
+      onUsersUpdated && onUsersUpdated(); // Notify parent component to update user details
     } catch (error) {
       console.error("Error updating scores:", error);
     }

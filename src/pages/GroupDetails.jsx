@@ -116,7 +116,6 @@ function GroupDetails() {
           },
         }
       );
-      console.log("Prediction saved:", response.data);
     } catch (error) {
       console.error("Error saving prediction:", error);
     }

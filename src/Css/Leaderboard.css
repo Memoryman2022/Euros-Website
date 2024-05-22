@@ -2,7 +2,8 @@
   padding: 20px;
 }
 .leaderboard-page h4 {
-  margin: 0; /* Remove margin from the h2 element */
+  margin: 0;
+  color: #f1c40e;
 }
 .leaderboard-container {
   max-width: 1000px;
@@ -71,8 +72,8 @@
 }
 
 .profile-pic {
-  width: 30px; /* Adjust size as needed */
-  height: 30px; /* Adjust size as needed */
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
   border-radius: 10%;
   margin-right: 10px; /* Space between profile pic and name */
   vertical-align: middle;

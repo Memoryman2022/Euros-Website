@@ -1,30 +1,35 @@
 .confirmed-predictions-container {
   padding: 20px;
-  background-color: #4b9ec5;
-  border: 4px solid rgb(48, 81, 167);
+  background-color: #4b96c5f0;
+  border: 4px solid rgb(5, 36, 86);
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
+  max-width: 900px; /* Adjusted max-width for a better layout */
   margin: 20px auto;
 }
 
-.confirmed-predictions-container h2 {
+.confirmed-predictions-container h4 {
   margin-bottom: 20px;
-  text-align: center;
-  color: #f9d72f;
+  text-align: start;
+  color: #f1c40e;
 }
 
 .predictions-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Set custom width for date column */
   gap: 10px;
   padding: 10px;
 }
 
+.predictions-grid .grid-header {
+  background-color: #2e3452;
+  color: #f1c40e;
+}
+
 .predictions-grid .grid-header,
 .predictions-grid .grid-item {
-  padding: 10px;
-  border-bottom: 4px solid #ccc;
+  padding: 5px;
+  border-bottom: 4px solid #2e3452;
   text-align: center;
 }
 
