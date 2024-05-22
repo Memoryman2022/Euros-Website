@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../authContext/auth.context";
 import "../Css/GroupDetails.css";
 
 const games = {
@@ -53,13 +55,11 @@ const games = {
   ],
 };
 
-// Add the flag exceptions mapping
 const flagExceptions = {
   Slovakia: "slov",
   // Add more exceptions here if needed
 };
 
-// Modify the getFlagUrl function to handle exceptions
 const getFlagUrl = (team) => {
   const flagCode = flagExceptions[team] || team.substring(0, 3).toLowerCase();
   return `/flags/${flagCode}.png`;
@@ -67,12 +67,19 @@ const getFlagUrl = (team) => {
 
 function GroupDetails() {
   const { group } = useParams();
+  const { user } = useContext(AuthContext); // Get user context
   const groupGames = games[group];
   const [confirmed, setConfirmed] = useState(
     Array(groupGames.length).fill(false)
   );
   const [selectedOutcome, setSelectedOutcome] = useState(
     Array(groupGames.length).fill(null)
+  );
+  const [team1Scores, setTeam1Scores] = useState(
+    Array(groupGames.length).fill(0)
+  );
+  const [team2Scores, setTeam2Scores] = useState(
+    Array(groupGames.length).fill(0)
   );
   const [showModal, setShowModal] = useState(false);
   const [currentGameIndex, setCurrentGameIndex] = useState(null);
@@ -82,11 +89,36 @@ function GroupDetails() {
     setShowModal(true);
   };
 
-  const handleModalConfirm = () => {
+  const handleModalConfirm = async () => {
     const newConfirmed = [...confirmed];
     newConfirmed[currentGameIndex] = true;
     setConfirmed(newConfirmed);
     setShowModal(false);
+
+    // Send prediction to backend
+    try {
+      const token = localStorage.getItem("jwtToken");
+      const response = await axios.post(
+        "http://localhost:5005/api/predictions",
+        {
+          gameId: `${group}-${currentGameIndex}`, // Unique game ID based on group and index
+          team1: groupGames[currentGameIndex].team1,
+          team2: groupGames[currentGameIndex].team2,
+          team1Score: team1Scores[currentGameIndex],
+          team2Score: team2Scores[currentGameIndex],
+          predictedOutcome: selectedOutcome[currentGameIndex],
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log("Prediction saved:", response.data);
+    } catch (error) {
+      console.error("Error saving prediction:", error);
+    }
   };
 
   const handleModalCancel = () => {
@@ -97,6 +129,18 @@ function GroupDetails() {
     const newSelectedOutcome = [...selectedOutcome];
     newSelectedOutcome[gameIndex] = outcome;
     setSelectedOutcome(newSelectedOutcome);
+  };
+
+  const handleScoreChange = (gameIndex, team, value) => {
+    if (team === "team1") {
+      const newScores = [...team1Scores];
+      newScores[gameIndex] = value;
+      setTeam1Scores(newScores);
+    } else {
+      const newScores = [...team2Scores];
+      newScores[gameIndex] = value;
+      setTeam2Scores(newScores);
+    }
   };
 
   const renderScoreOptions = () => {
@@ -127,13 +171,27 @@ function GroupDetails() {
                 />
                 {game.team1}
               </span>
-              <select className="score-select" disabled={confirmed[index]}>
+              <select
+                className="score-select"
+                disabled={confirmed[index]}
+                value={team1Scores[index]}
+                onChange={(e) =>
+                  handleScoreChange(index, "team1", parseInt(e.target.value))
+                }
+              >
                 {renderScoreOptions()}
               </select>
             </div>
             <span className="versus">V</span>
             <div className="team-container">
-              <select className="score-select" disabled={confirmed[index]}>
+              <select
+                className="score-select"
+                disabled={confirmed[index]}
+                value={team2Scores[index]}
+                onChange={(e) =>
+                  handleScoreChange(index, "team2", parseInt(e.target.value))
+                }
+              >
                 {renderScoreOptions()}
               </select>
               <span className="team-name">
@@ -196,7 +254,7 @@ function GroupDetails() {
             <h3>Confirm Prediction?</h3>
             <p>
               Warning: Confirmation of each individual fixture prediction is
-              final! This submission can not be edited.{" "}
+              final! This submission can not be edited.
             </p>
             <div className="modal-buttons">
               <button

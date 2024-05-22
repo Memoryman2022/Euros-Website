@@ -1,0 +1,38 @@
+/* src/Css/Tabs.css */
+
+.tabs-container {
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: end;
+}
+
+.tab-button {
+  padding: 4px;
+  background-color: #3175a2;
+  border: 2px outset rgb(3, 176, 176);
+  cursor: pointer;
+  margin-bottom: -70px;
+  color: rgb(211, 169, 19);
+}
+
+.tab-button.active {
+  background-color: #3a6782;
+  color: rgb(211, 169, 19);
+}
+
+.tab-button:hover {
+  background-color: #3a6782;
+}
+
+.tab-content {
+  padding: 20px;
+  margin-top: 13px;
+  background-color: #3a6782;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: calc(85vh - 20px); /* Adjust height */
+  overflow-y: auto; /* Enable vertical scrolling */
+  border: 1px solid black;
+}

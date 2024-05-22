@@ -50,3 +50,35 @@ export const fetchUserDetails = async (userId, token) => {
     throw error;
   }
 };
+
+//Predictions
+
+export const createPrediction = async (predictionData) => {
+  const token = localStorage.getItem("jwtToken");
+  try {
+    const response = await axios.post(
+      `${API_URL}/predictions`,
+      predictionData,
+      {
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error creating prediction", error);
+    throw error;
+  }
+};
+
+export const fetchUserPredictions = async (userId) => {
+  const token = localStorage.getItem("jwtToken");
+  try {
+    const response = await axios.get(`${API_URL}/predictions/user/${userId}`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching predictions", error);
+    throw error;
+  }
+};

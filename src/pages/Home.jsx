@@ -4,6 +4,8 @@ import { fetchUserDetails } from "../api";
 import "../Css/Home.css";
 import MessageInput from "../components/MessageInput";
 import Leaderboard from "../pages/Leaderboard";
+import ConfirmedPredictions from "../components/ConfirmedPredictions";
+import Tabs from "../components/Tabs";
 
 function Home() {
   const { userId } = useParams();
@@ -52,6 +54,14 @@ function Home() {
   if (loading) {
     return <div>Loading...</div>;
   }
+
+  const tabs = [
+    { label: "Confirmed Predictions", content: <ConfirmedPredictions /> },
+    {
+      label: "Leaderboard",
+      content: <Leaderboard onUsersUpdated={fetchAndSetUserDetails} />,
+    },
+  ];
 
   return (
     <div className="home-container">
@@ -107,9 +117,7 @@ function Home() {
           />
         </div>
       </div>
-      <div className="extra-content">
-        <Leaderboard onUsersUpdated={fetchAndSetUserDetails} />
-      </div>
+      <Tabs tabs={tabs} />
     </div>
   );
 }
