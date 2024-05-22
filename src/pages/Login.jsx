@@ -49,7 +49,7 @@ function Login() {
           />
         </div>
         {authError && <p className="error">{authError}</p>}
-        <button type="submit" disabled={isLoading}>
+        <button className="login-btn" type="submit" disabled={isLoading}>
           {isLoading ? "Logging in..." : "Login"}
         </button>
       </form>

@@ -1,8 +1,5 @@
 /* src/Css/Tabs.css */
 
-.tabs-container {
-}
-
 .tab-buttons {
   display: flex;
   justify-content: end;

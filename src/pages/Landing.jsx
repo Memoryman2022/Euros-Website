@@ -16,9 +16,16 @@ const Landing = () => {
 
   return (
     <div className="landing-container">
-      <h4>Welcome!</h4>
-      <button onClick={handleLogin}>Login</button>
-      <button onClick={handleRegister}>Register</button>
+      <div className="landing-div">
+        <h4>Welcome to the Euro 2024 sweepstake.</h4>
+
+        <button className="landing-btn" onClick={handleLogin}>
+          Login
+        </button>
+        <button className="landing-btn" onClick={handleRegister}>
+          Register
+        </button>
+      </div>
     </div>
   );
 };

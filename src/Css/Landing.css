@@ -10,39 +10,47 @@
   padding: 20px;
   box-sizing: border-box;
   background-color: rgb(
-    125,
-    194,
-    237
+    5,
+    21,
+    44
   ); /* Light blue background similar to the user-details */
 }
 
+.landing-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400px;
+  width: 600px;
+  background-color: rgb(20, 50, 75);
+  border: 5px solid rgb(32, 79, 123);
+  border-radius: 10px;
+}
+
 /* Styling for the heading */
-.landing-container h1 {
-  color: rgb(69, 66, 164); /* Dark blue similar to borders in Home.css */
+.landing-container h4 {
+  color: rgb(221, 164, 17); /* Dark blue similar to borders in Home.css */
   margin-bottom: 20px; /* Space below the header */
 }
 
 /* Button Styling */
-button {
-  max-width: 100px;
+.landing-btn {
+  width: 100px;
   padding: 10px 20px;
-  margin: 10px; /* Spacing between buttons */
+  margin: 10px; /* Spacing between .landing-btns */
   font-size: 16px; /* Readable text size */
   cursor: pointer; /* Pointer cursor on hover */
-  border: none;
-  border-radius: 8px; /* Rounded corners */
-  background-color: rgb(
-    193,
-    171,
-    141
-  ); /* Light brown background similar to feed-item */
-  color: white;
+  border: 4px solid rgb(37, 90, 139);
+  border-radius: 10px; /* Rounded corners */
+  background-color: rgb(193, 171, 141);
+  color: rgb(29, 15, 3);
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
-button:hover {
-  background-color: rgb(69, 66, 164); /* Darker shade on hover */
+.landing-btn:hover {
+  background-color: rgb(108, 108, 120); /* Darker shade on hover */
 }
 
 /* Responsive Styling */
@@ -52,7 +60,7 @@ button:hover {
     height: auto; /* Allow scrolling on mobile */
   }
 
-  button {
+  .landing-btn {
     width: 100%; /* Full-width buttons on mobile */
     margin: 10px 0; /* Adjust margin for stacked buttons */
   }
