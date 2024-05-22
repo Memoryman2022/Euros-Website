@@ -102,6 +102,7 @@ function GroupDetails() {
         "http://localhost:5005/api/predictions",
         {
           gameId: `${group}-${currentGameIndex}`, // Unique game ID based on group and index
+          date: groupGames[currentGameIndex].date, // Include date
           team1: groupGames[currentGameIndex].team1,
           team2: groupGames[currentGameIndex].team2,
           team1Score: team1Scores[currentGameIndex],

@@ -1,3 +1,4 @@
+// src/components/ConfirmedPredictions.jsx
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../authContext/auth.context";
@@ -56,7 +57,7 @@ const ConfirmedPredictions = () => {
         <div className="grid-header">Real Score</div>
         <div className="grid-header">Points</div>
         {predictions.map((prediction) => (
-          <>
+          <React.Fragment key={prediction._id}>
             <div className="grid-item">{prediction.date}</div>
             <div className="grid-item">{prediction.team1}</div>
             <div className="grid-item">
@@ -73,7 +74,7 @@ const ConfirmedPredictions = () => {
             <div className="grid-item">
               {prediction.points !== undefined ? prediction.points : "N/A"}
             </div>
-          </>
+          </React.Fragment>
         ))}
       </div>
     </div>
