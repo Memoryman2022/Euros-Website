@@ -1,8 +1,7 @@
-/* src/Css/ConfirmedPredictions.css */
-
 .confirmed-predictions-container {
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: #4b9ec5;
+  border: 4px solid rgb(48, 81, 167);
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   max-width: 800px;
@@ -12,16 +11,25 @@
 .confirmed-predictions-container h2 {
   margin-bottom: 20px;
   text-align: center;
-  color: #333;
+  color: #f9d72f;
 }
 
-.prediction-item {
-  display: flex;
-  justify-content: space-between;
+.predictions-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
   padding: 10px;
-  border-bottom: 1px solid #ccc;
 }
 
-.prediction-item span {
-  margin: 0 10px;
+.predictions-grid .grid-header,
+.predictions-grid .grid-item {
+  padding: 10px;
+  border-bottom: 4px solid #ccc;
+  text-align: center;
+}
+
+.grid-header {
+  font-weight: bold;
+  background-color: #1660cf70;
+  border-radius: 10px;
 }

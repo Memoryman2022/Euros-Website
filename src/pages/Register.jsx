@@ -7,6 +7,7 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [profileImage, setProfileImage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const { registerUser, authError } = useContext(AuthContext); // Use AuthContext
 
   const handleRegister = async (e) => {
@@ -16,6 +17,17 @@ function Register() {
 
   const handleImageChange = (e) => {
     setProfileImage(e.target.files[0]);
+    setShowModal(false); // Hide modal after image selection
+  };
+
+  const handleImageClick = (e) => {
+    e.preventDefault();
+    setShowModal(true);
+  };
+
+  const handleModalConfirm = () => {
+    setShowModal(false);
+    document.getElementById("profileImageInput").click(); // Trigger the file input click
   };
 
   return (
@@ -54,12 +66,28 @@ function Register() {
         </div>
         <div>
           <label>Profile Image:</label>
-          <input type="file" onChange={handleImageChange} />
+          <input
+            type="file"
+            id="profileImageInput"
+            onChange={handleImageChange}
+            style={{ display: "none" }} // Hide the actual file input
+          />
+          <button onClick={handleImageClick}>Upload</button>
         </div>
-        {authError && <p className="error">{authError}</p>}{" "}
-        {/* Display auth error */}
+        {authError && <p className="error">{authError}</p>}
         <button type="submit">Register</button>
       </form>
+
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h3>Please crop your image to a square for optimal results</h3>
+            <button className="modal-btn" onClick={handleModalConfirm}>
+              Confirm
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

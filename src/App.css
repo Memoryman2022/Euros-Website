@@ -34,7 +34,7 @@ body {
   width: 100%;
   box-sizing: border-box;
   flex-grow: 1; /* Ensures the container takes up remaining space */
-  background-image: url("/italywin.png"); /* Update the path to your image */
+  background-image: url("/default.jpg"); /* Update the path to your image */
   background-size: cover; /* This will make sure the image covers the entire background */
   background-position: center; /* Center the image */
   background-repeat: no-repeat;

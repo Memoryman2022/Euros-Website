@@ -5,7 +5,7 @@
   margin: 0; /* Remove margin from the h2 element */
 }
 .leaderboard-container {
-  width: 100%;
+  max-width: 1000px;
   height: 100%;
   overflow-y: auto; /* Enable vertical scrolling */
 }
@@ -43,11 +43,11 @@
 }
 
 .leaderboard-table tr:nth-child(even) {
-  background-color: #8caabcf7;
+  background-color: #8caabcbc;
 }
 
 .leaderboard-table tr:nth-child(odd) {
-  background-color: #658da4f6;
+  background-color: #658da4c9;
 }
 
 .leaderboard-table tr:hover {
@@ -55,7 +55,7 @@
 }
 
 .leadbrd-btn {
-  color: rgb(3, 140, 209);
+  color: rgba(3, 140, 209, 0.887);
 }
 
 .leadbrd-btn:hover {

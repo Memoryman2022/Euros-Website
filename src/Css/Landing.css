@@ -9,11 +9,7 @@
   height: 100vh; /* Full viewport height */
   padding: 20px;
   box-sizing: border-box;
-  background-color: rgb(
-    5,
-    21,
-    44
-  ); /* Light blue background similar to the user-details */
+  background-color: rgb(5, 21, 44);
 }
 
 .landing-div {

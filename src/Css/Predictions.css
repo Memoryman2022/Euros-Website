@@ -1,5 +1,10 @@
 .predictions-container {
-  padding: 20px;
+  padding: 25px;
+}
+
+.predictions-container h2 {
+  padding: 5px;
+  color: #f2cd27;
 }
 
 .groups-list {
@@ -9,7 +14,7 @@
 }
 
 .group-item {
-  background: #f0f0f0;
+  background: #f0f0f0a8;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -19,7 +24,7 @@
 
 .group-item a {
   text-decoration: none;
-  color: #333;
+  color: #000000;
   display: block;
 }
 
@@ -33,7 +38,7 @@
 }
 
 .group-table th {
-  background: #546f8d;
+  background: #546f8dd7;
   color: white;
   padding: 10px;
 }
@@ -44,11 +49,11 @@
 }
 
 .group-table tbody tr:nth-child(odd) {
-  background: #d7d7d7;
+  background: #afadad0f;
 }
 
 .group-table tbody tr:nth-child(even) {
-  background: #f5f5f5;
+  background: #f5f5f551;
 }
 
 .flag-icon {

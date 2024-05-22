@@ -17,8 +17,10 @@ const Logout = () => {
   return (
     <div className="logout-wrapper">
       <div className="logout-container">
-        <h4>Confirm?</h4>
-        <button onClick={handleLogout}>Logout</button>
+        <div className="logout-div">
+          <h4>Confirm log out?</h4>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
       </div>
     </div>
   );
