@@ -1,9 +1,14 @@
+// src/components/ProtectedRoute.jsx
 import React, { useContext } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet, Navigate } from "react-router-dom";
 import { AuthContext } from "../authContext/auth.context";
 
 const ProtectedRoute = () => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn, isLoading } = useContext(AuthContext);
+
+  if (isLoading) {
+    return <div>Loading...</div>; // Or any loading indicator you prefer
+  }
 
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
 };

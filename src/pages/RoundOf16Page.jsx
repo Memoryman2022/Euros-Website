@@ -1,26 +1,23 @@
+// src/pages/RoundOf16Page.jsx
 import React, { useState, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { AuthContext } from "../authContext/auth.context";
-import { groupStageGames } from "../gamesData";
+import { roundOf16Games } from "../gamesData";
 import getFlagUrl from "../utils/getFlagUrl";
-import "../Css/GroupDetails.css";
+import "../Css/RoundOf16.css";
 
-function GroupDetails() {
-  const { group } = useParams();
-  const { user } = useContext(AuthContext); // Get user context
-  const groupGames = groupStageGames[group];
+function RoundOf16Page() {
   const [confirmed, setConfirmed] = useState(
-    Array(groupGames.length).fill(false)
+    Array(roundOf16Games.length).fill(false)
   );
   const [selectedOutcome, setSelectedOutcome] = useState(
-    Array(groupGames.length).fill(null)
+    Array(roundOf16Games.length).fill(null)
   );
   const [team1Scores, setTeam1Scores] = useState(
-    Array(groupGames.length).fill(0)
+    Array(roundOf16Games.length).fill(0)
   );
   const [team2Scores, setTeam2Scores] = useState(
-    Array(groupGames.length).fill(0)
+    Array(roundOf16Games.length).fill(0)
   );
   const [showModal, setShowModal] = useState(false);
   const [currentGameIndex, setCurrentGameIndex] = useState(null);
@@ -42,10 +39,10 @@ function GroupDetails() {
       const response = await axios.post(
         "http://localhost:5005/api/predictions",
         {
-          gameId: groupGames[currentGameIndex].id, // Unique game ID
-          date: groupGames[currentGameIndex].date,
-          team1: groupGames[currentGameIndex].team1,
-          team2: groupGames[currentGameIndex].team2,
+          gameId: roundOf16Games[currentGameIndex].id, // Unique game ID
+          date: roundOf16Games[currentGameIndex].date,
+          team1: roundOf16Games[currentGameIndex].team1,
+          team2: roundOf16Games[currentGameIndex].team2,
           team1Score: team1Scores[currentGameIndex],
           team2Score: team2Scores[currentGameIndex],
           predictedOutcome: selectedOutcome[currentGameIndex],
@@ -98,18 +95,28 @@ function GroupDetails() {
   };
 
   return (
-    <div className="group-details-container">
-      <h2>{group}</h2>
-      {groupGames.map((game, index) => (
+    <div className="round-of-16-container">
+      <h2>Round of 16 Games</h2>
+      {roundOf16Games.map((game, index) => (
         <div key={index} className="game-item">
           <div className="game-row">
             <div className="game-date">{game.date}</div>
             <div className="team-container">
               <span className="team-name">
                 <img
-                  src={getFlagUrl(game.team1)}
+                  src={
+                    game.team1.includes("1") ||
+                    game.team1.includes("2") ||
+                    game.team1.includes("3")
+                      ? "/euro_fix.png"
+                      : getFlagUrl(game.team1)
+                  }
                   alt={game.team1}
                   className="flag-icon"
+                  onError={(e) => {
+                    e.target.onerror = null; // prevents looping
+                    e.target.src = "/euro_fix.png";
+                  }}
                 />
                 {game.team1}
               </span>
@@ -137,12 +144,22 @@ function GroupDetails() {
                 {renderScoreOptions()}
               </select>
               <span className="team-name">
-                {game.team2}
                 <img
-                  src={getFlagUrl(game.team2)}
+                  src={
+                    game.team2.includes("1") ||
+                    game.team2.includes("2") ||
+                    game.team2.includes("3")
+                      ? "/euro_fix.png"
+                      : getFlagUrl(game.team2)
+                  }
                   alt={game.team2}
                   className="flag-icon"
+                  onError={(e) => {
+                    e.target.onerror = null; // prevents looping
+                    e.target.src = "/euro_fix.png";
+                  }}
                 />
+                {game.team2}
               </span>
             </div>
           </div>
@@ -187,7 +204,7 @@ function GroupDetails() {
         </div>
       ))}
       <Link to="/predictions" className="back-button">
-        Back to Groups
+        Back to Predictions
       </Link>
 
       {showModal && (
@@ -219,4 +236,4 @@ function GroupDetails() {
   );
 }
 
-export default GroupDetails;
+export default RoundOf16Page;

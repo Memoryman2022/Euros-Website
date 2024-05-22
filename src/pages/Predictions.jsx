@@ -1,5 +1,10 @@
+// src/pages/PredictionsPage.jsx
 import React from "react";
 import { Link } from "react-router-dom";
+//component imports
+import { groupStageGames } from "../gamesData";
+import getFlagUrl from "../utils/getFlagUrl";
+//css
 import "../Css/Predictions.css";
 
 const groups = {
@@ -9,18 +14,6 @@ const groups = {
   "Group D": ["Poland", "Netherlands", "Austria", "France"],
   "Group E": ["Belgium", "Slovakia", "Romania", "Ukraine"],
   "Group F": ["Turkey", "Georgia", "Portugal", "Czechia"],
-};
-
-// Add the flag exceptions mapping
-const flagExceptions = {
-  Slovakia: "slov",
-  // Add more exceptions here if needed
-};
-
-// Modify the getFlagUrl function to handle exceptions
-const getFlagUrl = (team) => {
-  const flagCode = flagExceptions[team] || team.substring(0, 3).toLowerCase();
-  return `/flags/${flagCode}.png`;
 };
 
 function PredictionsPage() {
@@ -55,6 +48,29 @@ function PredictionsPage() {
             </Link>
           </div>
         ))}
+        <div className="group-item">
+          <Link to="/round-of-16">
+            <table className="group-table">
+              <thead>
+                <tr>
+                  <th colSpan="2">Round of 16</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <img
+                      src="/euro_fix.png"
+                      alt="Round of 16"
+                      className="flag-icon"
+                    />
+                    Round of 16
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Link>
+        </div>
       </div>
     </div>
   );
