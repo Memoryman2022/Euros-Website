@@ -126,13 +126,13 @@ function AuthProviderWrapper(props) {
       });
 
       console.log("Response from registration:", response.data);
-      const { token, createdUser } = response.data; // Ensure response contains token, userId, and user
-      if (token && createdUser._id) {
+      const { token, userId, user } = response.data; // Ensure response contains token, userId, and user
+      if (token && userId && user) {
         storeToken(token);
-        storeUserId(createdUser._id);
-        setUser(createdUser);
+        storeUserId(userId);
+        setUser(user);
         setIsLoggedIn(true);
-        navigate(`/user/${createdUser._id}`);
+        navigate(`/user/${userId}`);
         await authenticateUser(); // Optional, ensure user data is up-to-date
       } else {
         setAuthError("No token or userId received");

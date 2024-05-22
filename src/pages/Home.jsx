@@ -13,11 +13,12 @@ function Home() {
   const [isMounted, setIsMounted] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
   const [loading, setLoading] = useState(true);
-  const feedItemsRef = useRef(null); // Add a ref to the feed-items container
+  const feedEndRef = useRef(null);
 
   const fetchAndSetUserDetails = async () => {
     const token = localStorage.getItem("jwtToken");
-    if (token) {
+    const userId = localStorage.getItem("userId");
+    if (token && userId) {
       try {
         const data = await fetchUserDetails(userId, token);
         setUserDetails(data);
@@ -45,15 +46,18 @@ function Home() {
   useEffect(() => {
     if (isMounted) {
       localStorage.setItem("messages", JSON.stringify(messages));
-      // Scroll to the bottom when messages change
-      if (feedItemsRef.current) {
-        feedItemsRef.current.scrollTop = feedItemsRef.current.scrollHeight;
-      }
     }
   }, [messages, isMounted]);
 
+  // Scroll to the bottom whenever messages change
+  useEffect(() => {
+    if (feedEndRef.current) {
+      feedEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
+
   const handleNewMessage = (newMessage) => {
-    setMessages((prevMessages) => [...prevMessages, newMessage]); // Append new message to the end
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
   };
 
   if (loading) {
@@ -103,7 +107,7 @@ function Home() {
         </div>
         <div className="social-feed">
           <h4>CHAT</h4>
-          <div className="feed-items" ref={feedItemsRef}>
+          <div className="feed-items">
             {messages.map((message, index) => (
               <div key={index} className="feed-item">
                 <img
@@ -114,6 +118,7 @@ function Home() {
                 {message.text}
               </div>
             ))}
+            <div ref={feedEndRef} />
           </div>
 
           <MessageInput
