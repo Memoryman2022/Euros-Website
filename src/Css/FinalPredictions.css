@@ -6,6 +6,7 @@
 
 .game-predictions {
   margin-bottom: 20px;
+  padding-bottom: 40px;
 }
 
 .flag-icon {
@@ -18,8 +19,17 @@
   gap: 10px;
 }
 
+.predictions-grid .grid-header,
+.predictions-grid .grid-item {
+  border-bottom: 4px solid #2e3452;
+  text-align: center;
+}
+
 .grid-header {
   font-weight: bold;
+  background-color: #2e3452;
+  color: #f1c40e;
+  border-radius: 10px;
 }
 
 .grid-item {

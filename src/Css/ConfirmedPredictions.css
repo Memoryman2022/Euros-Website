@@ -1,10 +1,11 @@
+/* Confirmed Predictions Styles */
 .confirmed-predictions-container {
   padding: 20px;
   background-color: #4b96c5f0;
   border: 4px solid rgb(5, 36, 86);
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  max-width: 900px; /* Adjusted max-width for a better layout */
+  max-width: 900px;
   margin: 20px auto;
 }
 
@@ -14,26 +15,26 @@
   color: #f1c40e;
 }
 
-.predictions-grid {
+.confirmed-predictions-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr 1fr 1fr; /* Set custom width for date column */
+  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr 1fr 1fr;
   gap: 10px;
   padding: 10px;
 }
 
-.predictions-grid .grid-header {
+.confirmed-predictions-grid .confirmed-grid-header {
   background-color: #2e3452;
   color: #f1c40e;
 }
 
-.predictions-grid .grid-header,
-.predictions-grid .grid-item {
+.confirmed-predictions-grid .confirmed-grid-header,
+.confirmed-predictions-grid .confirmed-grid-item {
   padding: 5px;
   border-bottom: 4px solid #2e3452;
   text-align: center;
 }
 
-.grid-header {
+.confirmed-grid-header {
   font-weight: bold;
   background-color: #1660cf70;
   border-radius: 10px;
