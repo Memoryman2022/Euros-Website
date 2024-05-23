@@ -1,9 +1,7 @@
-// src/components/ConfirmedPredictions.jsx
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../authContext/auth.context";
 import { API_URL } from "../config";
-
 import "../Css/ConfirmedPredictions.css";
 
 const ConfirmedPredictions = () => {
@@ -12,23 +10,19 @@ const ConfirmedPredictions = () => {
   const [error, setError] = useState(null);
 
   const fetchPredictions = async () => {
-    const userId = localStorage.getItem("userId"); // Ensure the userId is correctly stored
     const token = localStorage.getItem("jwtToken");
-    if (!userId || !token) {
+    if (!token) {
       setError("User is not authenticated");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await axios.get(
-        `${API_URL}/users/${userId}/predictions`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${API_URL}/predictions`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const sortedPredictions = response.data.sort(
         (a, b) => new Date(a.date) - new Date(b.date)
       );

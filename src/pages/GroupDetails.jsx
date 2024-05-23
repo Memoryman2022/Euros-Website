@@ -1,7 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../authContext/auth.context";
+import { API_URL } from "../config";
 import { groupStageGames } from "../gamesData";
 import getFlagUrl from "../utils/getFlagUrl";
 import "../Css/GroupDetails.css";
@@ -25,6 +26,47 @@ function GroupDetails() {
   const [showModal, setShowModal] = useState(false);
   const [currentGameIndex, setCurrentGameIndex] = useState(null);
 
+  useEffect(() => {
+    // Fetch existing predictions from backend on component mount
+    const fetchPredictions = async () => {
+      try {
+        const token = localStorage.getItem("jwtToken");
+        const response = await axios.get(`${API_URL}/predictions`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const predictions = response.data;
+
+        const newConfirmed = [...confirmed];
+        const newSelectedOutcome = [...selectedOutcome];
+        const newTeam1Scores = [...team1Scores];
+        const newTeam2Scores = [...team2Scores];
+
+        predictions.forEach((prediction) => {
+          const gameIndex = groupGames.findIndex(
+            (game) => game.id === prediction.gameId
+          );
+          if (gameIndex > -1) {
+            newConfirmed[gameIndex] = true;
+            newSelectedOutcome[gameIndex] = prediction.predictedOutcome;
+            newTeam1Scores[gameIndex] = prediction.team1Score;
+            newTeam2Scores[gameIndex] = prediction.team2Score;
+          }
+        });
+
+        setConfirmed(newConfirmed);
+        setSelectedOutcome(newSelectedOutcome);
+        setTeam1Scores(newTeam1Scores);
+        setTeam2Scores(newTeam2Scores);
+      } catch (error) {
+        console.error("Error fetching predictions:", error);
+      }
+    };
+
+    fetchPredictions();
+  }, []);
+
   const handleConfirm = (index) => {
     setCurrentGameIndex(index);
     setShowModal(true);
@@ -39,8 +81,8 @@ function GroupDetails() {
     // Send prediction to backend
     try {
       const token = localStorage.getItem("jwtToken");
-      const response = await axios.post(
-        "http://localhost:5005/api/predictions",
+      await axios.post(
+        `${API_URL}/predictions`,
         {
           gameId: groupGames[currentGameIndex].id, // Unique game ID
           date: groupGames[currentGameIndex].date,
@@ -57,7 +99,7 @@ function GroupDetails() {
           },
         }
       );
-      console.log("Prediction saved:", response.data);
+      console.log("Prediction saved successfully");
     } catch (error) {
       console.error("Error saving prediction:", error);
     }
