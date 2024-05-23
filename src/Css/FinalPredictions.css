@@ -1,0 +1,21 @@
+.final-predictions-container {
+  padding: 20px;
+}
+
+.game-predictions {
+  margin-bottom: 20px;
+}
+
+.predictions-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+
+.grid-header {
+  font-weight: bold;
+}
+
+.grid-item {
+  padding: 5px;
+}

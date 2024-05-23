@@ -7,6 +7,7 @@ import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Register from "./pages/Register";
 import Predictions from "./pages/Predictions";
+import FinalPredictions from "./pages/FinalPredictions";
 import Leaderboard from "./pages/Leaderboard";
 import GroupDetails from "./pages/GroupDetails";
 import RoundOf16Page from "./pages/RoundOf16Page";
@@ -32,6 +33,7 @@ function App() {
               <Route path="/user/:userId" element={<Home />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/predictions" element={<Predictions />} />
+              <Route path="/final-predictions" element={<FinalPredictions />} />
               <Route path="/group/:group" element={<GroupDetails />} />
               <Route path="/round-of-16" element={<RoundOf16Page />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
