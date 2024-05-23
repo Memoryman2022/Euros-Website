@@ -1,0 +1,32 @@
+.not-found-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+}
+
+.not-found-links {
+  display: flex;
+  flex-direction: column;
+}
+
+.nfLink {
+  background-color: rgb(19, 120, 19);
+  border: 2px solid rgb(1, 44, 1);
+  border-radius: 5px;
+  color: #eeeeee;
+  margin: 5px;
+  padding: 10px;
+}
+
+.nfLink:hover {
+  color: #a3a3a3;
+  background-color: rgb(12, 91, 12);
+}
