@@ -37,6 +37,11 @@ function Navbar() {
               </Link>
             </li>
             <li className="menu-list-item">
+              <Link to="/final-predictions" onClick={toggleMenu}>
+                Final Predictions
+              </Link>
+            </li>
+            <li className="menu-list-item">
               <Link to="/leaderboard" onClick={toggleMenu}>
                 Leaderboard
               </Link>

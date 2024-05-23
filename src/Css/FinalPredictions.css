@@ -1,9 +1,15 @@
 .final-predictions-container {
   padding: 20px;
+  color: aliceblue;
+  text-shadow: 2px 2px rgb(29, 23, 22);
 }
 
 .game-predictions {
   margin-bottom: 20px;
+}
+
+.flag-icon {
+  box-shadow: 1px 1px rgb(38, 36, 36);
 }
 
 .predictions-grid {
@@ -18,4 +24,21 @@
 
 .grid-item {
   padding: 5px;
+  color: aliceblue;
+  text-shadow: 2px 2px rgb(29, 23, 22);
+}
+
+/* Media query to hide the date column at 700px or less */
+@media (max-width: 700px) {
+  .predictions-grid {
+    grid-template-columns: repeat(
+      5,
+      1fr
+    ); /* Adjust the grid to have 5 columns instead of 6 */
+  }
+
+  .grid-header:nth-child(2),
+  .grid-item:nth-child(6n + 2) {
+    display: none; /* Hide the date header and all date items */
+  }
 }
