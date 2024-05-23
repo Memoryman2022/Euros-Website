@@ -1,18 +1,16 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useParams } from "react-router-dom";
-import { fetchUserDetails } from "../api";
-import "../Css/Home.css";
 import MessageInput from "../components/MessageInput";
 import Leaderboard from "../pages/Leaderboard";
 import ConfirmedPredictions from "../components/ConfirmedPredictions";
 import Tabs from "../components/Tabs";
+import "../Css/Home.css";
+import { fetchUserDetails } from "../api";
 
 function Home() {
-  const { userId } = useParams();
-  const [messages, setMessages] = useState([]);
-  const [isMounted, setIsMounted] = useState(false);
   const [userDetails, setUserDetails] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const feedEndRef = useRef(null);
 
   const fetchAndSetUserDetails = async () => {
@@ -21,6 +19,7 @@ function Home() {
     console.log("Fetching user details with userId:", userId);
 
     if (token && userId) {
+      setLoading(true);
       try {
         const data = await fetchUserDetails(userId, token);
         setUserDetails(data);
@@ -29,29 +28,24 @@ function Home() {
       } finally {
         setLoading(false);
       }
-    } else {
-      setLoading(false);
     }
   };
 
-  // Retrieve messages from localStorage when the component mounts
   useEffect(() => {
     const storedMessages = localStorage.getItem("messages");
     if (storedMessages) {
       setMessages(JSON.parse(storedMessages));
     }
     setIsMounted(true);
-    fetchAndSetUserDetails(); // Initial fetch
-  }, [userId]);
+    fetchAndSetUserDetails();
+  }, []);
 
-  // Update localStorage whenever messages change
   useEffect(() => {
     if (isMounted) {
       localStorage.setItem("messages", JSON.stringify(messages));
     }
   }, [messages, isMounted]);
 
-  // Scroll to the bottom whenever messages change
   useEffect(() => {
     if (feedEndRef.current) {
       feedEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -68,10 +62,7 @@ function Home() {
 
   const tabs = [
     { label: "Confirmed Predictions", content: <ConfirmedPredictions /> },
-    {
-      label: "Leaderboard",
-      content: <Leaderboard onUsersUpdated={fetchAndSetUserDetails} />,
-    },
+    { label: "Leaderboard", content: <Leaderboard /> },
   ];
 
   return (

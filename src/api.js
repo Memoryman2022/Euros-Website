@@ -51,8 +51,6 @@ export const fetchUserDetails = async (userId, token) => {
   }
 };
 
-//Predictions
-
 export const createPrediction = async (predictionData) => {
   const token = localStorage.getItem("jwtToken");
   try {

@@ -1,4 +1,3 @@
-// src/components/Tabs.jsx
 import React, { useState } from "react";
 import "../Css/Tabs.css";
 

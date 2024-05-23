@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 import { useNavigate } from "react-router-dom";
 
-const AuthContext = React.createContext();
+const AuthContext = createContext();
 
 function AuthProviderWrapper(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -12,22 +12,18 @@ function AuthProviderWrapper(props) {
   const [authError, setAuthError] = useState(null);
   const navigate = useNavigate();
 
-  // Store token in localStorage
   const storeToken = (token) => {
     localStorage.setItem("jwtToken", token);
   };
 
-  // Store userId in localStorage
   const storeUserId = (userId) => {
     localStorage.setItem("userId", userId);
   };
 
-  // Remove token from localStorage
   const removeToken = () => {
     localStorage.removeItem("jwtToken");
   };
 
-  // Remove userId from localStorage
   const removeUserId = () => {
     localStorage.removeItem("userId");
   };
@@ -48,7 +44,6 @@ function AuthProviderWrapper(props) {
     }
   };
 
-  // Authenticate user and load user information from localStorage if available
   const authenticateUser = async () => {
     const storedToken = localStorage.getItem("jwtToken");
     if (!storedToken) {
@@ -87,7 +82,7 @@ function AuthProviderWrapper(props) {
         password,
       });
       console.log("Response from login:", response.data);
-      const { token, userId, user } = response.data; // Ensure response contains token, userId, and user
+      const { token, userId, user } = response.data;
       if (token && userId && user) {
         storeToken(token);
         storeUserId(userId);
@@ -105,7 +100,6 @@ function AuthProviderWrapper(props) {
     }
   };
 
-  // Updated registerUser function to handle FormData
   const registerUser = async (userName, email, password, profileImage) => {
     setAuthError(null);
     setIsLoading(true);
@@ -125,15 +119,14 @@ function AuthProviderWrapper(props) {
         },
       });
 
-      console.log("Response from registration:", response.data);
-      const { token, userId, user } = response.data; // Ensure response contains token, userId, and user
+      const { token, userId, user } = response.data;
       if (token && userId && user) {
         storeToken(token);
         storeUserId(userId);
         setUser(user);
         setIsLoggedIn(true);
         navigate(`/user/${userId}`);
-        await authenticateUser(); // Optional, ensure user data is up-to-date
+        await authenticateUser();
       } else {
         setAuthError("No token or userId received");
       }
@@ -150,11 +143,11 @@ function AuthProviderWrapper(props) {
     removeUserId();
     setIsLoggedIn(false);
     setUser(null);
-    navigate("/login"); // Navigate to login page on logout
+    navigate("/login");
   };
 
   useEffect(() => {
-    authenticateUser(); // Authenticate user on mount
+    authenticateUser();
   }, []);
 
   return (

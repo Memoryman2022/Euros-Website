@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { fetchUsers, updateUserScores } from "../api";
 import "../Css/Leaderboard.css";
 
-function Leaderboard({ onUsersUpdated }) {
+function Leaderboard() {
   const [users, setUsers] = useState([]);
   const [previousUsers, setPreviousUsers] = useState([]);
 
@@ -62,7 +62,6 @@ function Leaderboard({ onUsersUpdated }) {
 
       setPreviousUsers(usersWithMovement);
       setUsers(usersWithMovement);
-      onUsersUpdated && onUsersUpdated(); // Notify parent component to update user details
     } catch (error) {
       console.error("Error updating scores:", error);
     }
