@@ -1,30 +1,39 @@
+/* src/Css/Leaderboard.css */
+
 .leaderboard-page {
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
+
 .leaderboard-page h4 {
   margin: 0;
   color: #f1c40e;
 }
+
 .leaderboard-container {
-  min-width: 500px;
+  width: 100%;
   max-width: 1000px;
   height: 100%;
   overflow-y: auto; /* Enable vertical scrolling */
+  box-sizing: border-box;
 }
 
 .leaderboard-table {
   width: 100%;
   border-collapse: collapse;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
 
 .leaderboard-table th,
 .leaderboard-table td {
   padding: 12px;
   border: 1px solid #17044c;
+  box-sizing: border-box;
 }
 
 .leaderboard-table th {
@@ -61,11 +70,20 @@
 
 .leadbrd-btn {
   color: rgba(3, 140, 209, 0.887);
+  padding: 8px 16px; /* Adjust padding for better touch targets */
+  margin: 10px 0; /* Add margin for spacing */
+  cursor: pointer;
+  border: none;
+  border-radius: 4px;
+  background-color: #ffffff;
+  transition: background-color 0.3s ease;
 }
 
 .leadbrd-btn:hover {
   background-color: #17044c;
+  color: #ffffff;
 }
+
 .movement-icon {
   width: 16px;
   height: 16px;
@@ -83,4 +101,59 @@
   vertical-align: middle;
   object-fit: cover;
   border: 2px solid rgb(41, 67, 111);
+}
+
+/* Responsive Styling */
+@media (max-width: 680px) {
+  .leaderboard-page {
+    padding: 10px;
+  }
+
+  .leaderboard-container {
+    min-width: 100%;
+    padding: 10px; /* Add padding for smaller screens */
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 8px;
+  }
+
+  .leadbrd-btn {
+    padding: 6px 12px; /* Adjust padding for smaller screens */
+    margin: 5px 0; /* Reduce margin for smaller screens */
+  }
+
+  .profile-pic {
+    width: 30px; /* Adjust size for smaller screens */
+    height: 30px;
+    margin-right: 5px; /* Adjust margin for smaller screens */
+  }
+}
+
+@media (max-width: 420px) {
+  .leaderboard-page {
+    padding: 5px;
+  }
+
+  .leaderboard-container {
+    width: 300px;
+    padding: 5px; /* Further reduce padding for very small screens */
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 6px;
+  }
+
+  .leadbrd-btn {
+    padding: 4px 8px; /* Further adjust padding for very small screens */
+    margin: 3px 0; /* Reduce margin further */
+  }
+
+  .profile-pic {
+    width: 25px; /* Adjust size for very small screens */
+    height: 25px;
+    margin-right: 3px; /* Adjust margin further */
+  }
 }
