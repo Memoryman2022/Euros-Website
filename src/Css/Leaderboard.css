@@ -1,11 +1,15 @@
 .leaderboard-page {
   padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .leaderboard-page h4 {
   margin: 0;
   color: #f1c40e;
 }
 .leaderboard-container {
+  min-width: 500px;
   max-width: 1000px;
   height: 100%;
   overflow-y: auto; /* Enable vertical scrolling */
