@@ -111,6 +111,7 @@
 
   .leaderboard-container {
     min-width: 100%;
+    width: 430px;
     padding: 10px; /* Add padding for smaller screens */
   }
 

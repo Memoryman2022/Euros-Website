@@ -8,6 +8,10 @@ const FinalPredictions = () => {
   const [groupedPredictions, setGroupedPredictions] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isLandscape, setIsLandscape] = useState(
+    window.innerWidth > window.innerHeight
+  );
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 500);
 
   const fetchFinalPredictions = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -34,10 +38,28 @@ const FinalPredictions = () => {
 
   useEffect(() => {
     fetchFinalPredictions();
+
+    const handleResize = () => {
+      setIsLandscape(window.innerWidth > window.innerHeight);
+      setIsSmallScreen(window.innerWidth <= 500);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
+
+  if (isSmallScreen && !isLandscape) {
+    return (
+      <div className="orientation-prompt">
+        Please switch to landscape mode for a better experience.
+      </div>
+    );
+  }
 
   return (
     <div className="final-predictions-container">

@@ -208,7 +208,7 @@
   .social-feed,
   .extra-content {
     margin-bottom: 10px;
-    padding: 10px; /* Adjust padding for smaller screens */
+    padding: 5px; /* Adjust padding for smaller screens */
     width: 100%;
     box-sizing: border-box;
   }
@@ -220,5 +220,8 @@
   .main-content-home {
     width: 100%;
     box-sizing: border-box;
+  }
+  .user-info {
+    margin-left: -3%;
   }
 }

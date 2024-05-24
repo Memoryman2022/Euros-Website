@@ -38,8 +38,7 @@
   text-shadow: 2px 2px rgb(29, 23, 22);
 }
 
-/* Media query to hide the date column at 700px or less */
-@media (max-width: 700px) {
+@media (max-width: 500px) {
   .predictions-grid {
     grid-template-columns: repeat(
       5,
@@ -50,5 +49,27 @@
   .grid-header:nth-child(2),
   .grid-item:nth-child(6n + 2) {
     display: none; /* Hide the date header and all date items */
+  }
+
+  .final-predictions-container {
+    display: none; /* Hide the container in portrait mode */
+  }
+
+  .orientation-prompt {
+    display: block;
+    text-align: center;
+    color: #f1c40e;
+    margin: 20px;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 501px) {
+  .orientation-prompt {
+    display: none;
+  }
+
+  .final-predictions-container {
+    display: block; /* Show the container in landscape mode */
   }
 }
