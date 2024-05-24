@@ -66,7 +66,7 @@ function Home() {
 
   return (
     <div className="home-container">
-      <div className="main-content">
+      <div className="main-content-home">
         <div className="user-details">
           <div className="profile-pic-home">
             {userDetails && (

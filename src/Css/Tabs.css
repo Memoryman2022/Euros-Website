@@ -24,12 +24,10 @@
 }
 
 .tab-content {
-  padding: 20px;
-  margin-top: 13px;
-  background-color: #3a6682cb;
+  margin: 10px;
+  background-color: #3a668200;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   height: calc(85vh - 20px); /* Adjust height */
   overflow-y: auto; /* Enable vertical scrolling */
-  border: 4px solid rgb(12, 29, 69);
 }

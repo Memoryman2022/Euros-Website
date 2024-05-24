@@ -11,6 +11,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  min-width: auto;
 }
 
 .group-item {
@@ -66,4 +67,66 @@
 .round-of-16-link {
   text-align: center;
   margin-top: 20px;
+}
+
+@media (max-width: 470px) {
+  .predictions-container {
+    padding: 10px;
+  }
+
+  .groups-list {
+    gap: 10px;
+  }
+
+  .group-item {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .group-table th,
+  .group-table td {
+    padding: 5px;
+  }
+
+  .group-table td {
+    padding-left: 10px;
+  }
+
+  .flag-icon {
+    width: 15px;
+    margin-right: 3px;
+  }
+}
+
+@media (max-width: 420px) {
+  .predictions-container {
+    padding: 5px;
+  }
+
+  .groups-list {
+    gap: 5px;
+  }
+
+  .group-item {
+    width: 100%;
+    margin-bottom: 15px;
+  }
+
+  .group-table th,
+  .group-table td {
+    padding: 3px;
+  }
+
+  .group-table td {
+    padding-left: 5px;
+  }
+
+  .flag-icon {
+    width: 12px;
+    margin-right: 2px;
+  }
+
+  .round-of-16-link {
+    margin-top: 10px;
+  }
 }

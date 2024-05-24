@@ -26,7 +26,7 @@ function PredictionsPage() {
                   <tr>
                     <th colSpan="7">{group}</th>
                   </tr>
-                  <tr>
+                  <tr className="header-row">
                     <th>Team</th>
                     <th>W</th>
                     <th>D</th>
@@ -37,7 +37,7 @@ function PredictionsPage() {
                 </thead>
                 <tbody>
                   {groups[group].map((team, idx) => (
-                    <tr key={idx}>
+                    <tr key={idx} className="data-row">
                       <td className="team-cell">
                         <img
                           src={getFlagUrl(team)}
