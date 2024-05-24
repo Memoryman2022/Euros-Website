@@ -5,6 +5,7 @@ import ConfirmedPredictions from "../components/ConfirmedPredictions";
 import Tabs from "../components/Tabs";
 import "../Css/Home.css";
 import { fetchUserDetails } from "../api";
+import { API_URL } from "../config/index";
 
 function Home() {
   const [userDetails, setUserDetails] = useState(null);
@@ -64,17 +65,16 @@ function Home() {
     { label: "Leaderboard", content: <Leaderboard /> },
   ];
 
+  const profileImageUrl = userDetails
+    ? `${API_URL.replace("/api", "")}${userDetails.profileImage}`
+    : "";
+
   return (
     <div className="home-container">
       <div className="main-content-home">
         <div className="user-details">
           <div className="profile-pic-home">
-            {userDetails && (
-              <img
-                src={`http://localhost:5005${userDetails.profileImage}`}
-                alt="Profile"
-              />
-            )}
+            {userDetails && <img src={profileImageUrl} alt="Profile" />}
           </div>
           <div className="user-info">
             <div className="user-info-item">
