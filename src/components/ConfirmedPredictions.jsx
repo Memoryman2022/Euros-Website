@@ -10,6 +10,7 @@ const ConfirmedPredictions = () => {
   const [isLandscape, setIsLandscape] = useState(
     window.innerWidth > window.innerHeight
   );
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 600);
 
   const fetchPredictions = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -42,6 +43,7 @@ const ConfirmedPredictions = () => {
 
     const handleResize = () => {
       setIsLandscape(window.innerWidth > window.innerHeight);
+      setIsSmallScreen(window.innerWidth <= 600);
     };
 
     window.addEventListener("resize", handleResize);
@@ -55,12 +57,16 @@ const ConfirmedPredictions = () => {
 
   return (
     <>
-      {!isLandscape && (
+      {isSmallScreen && !isLandscape && (
         <div className="orientation-prompt">
           Please rotate your device to landscape view to see the predictions.
         </div>
       )}
-      <div className="confirmed-predictions-container">
+      <div
+        className={`confirmed-predictions-container ${
+          isSmallScreen && !isLandscape ? "hide" : ""
+        }`}
+      >
         <h4>Confirmed Predictions</h4>
         <div className="confirmed-predictions-grid">
           <div className="confirmed-grid-header">Date</div>

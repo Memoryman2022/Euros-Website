@@ -35,9 +35,11 @@
 }
 
 .navbar-menu li {
-  padding: 10px;
+  margin: 10px;
 }
-
+.navbar-menu a:hover {
+  color: rgb(247, 226, 67);
+}
 .burger-menu {
   display: none;
   flex-direction: column;
