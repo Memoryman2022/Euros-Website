@@ -1,5 +1,8 @@
 .predictions-container {
   padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .predictions-container h2 {

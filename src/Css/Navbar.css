@@ -37,9 +37,11 @@
 .navbar-menu li {
   margin: 10px;
 }
+
 .navbar-menu a:hover {
   color: rgb(247, 226, 67);
 }
+
 .burger-menu {
   display: none;
   flex-direction: column;
@@ -76,5 +78,25 @@
     position: absolute;
     top: 35px; /* Adjust to place at the top right corner */
     right: 20px;
+  }
+}
+
+/* Landscape mode adjustments */
+@media (orientation: landscape) {
+  .navbar {
+    height: 50px; /* Reduce the height to 50% */
+  }
+
+  .navbar-logo img {
+    height: 75px; /* Adjust the logo size proportionally */
+    padding-top: 5px;
+  }
+
+  .burger-menu {
+    top: 15px; /* Adjust position to match reduced navbar height */
+  }
+
+  .navbar-menu {
+    top: 50px; /* Adjust position to match reduced navbar height */
   }
 }

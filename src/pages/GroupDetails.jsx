@@ -25,6 +25,10 @@ function GroupDetails() {
   );
   const [showModal, setShowModal] = useState(false);
   const [currentGameIndex, setCurrentGameIndex] = useState(null);
+  const [isLandscape, setIsLandscape] = useState(
+    window.innerWidth > window.innerHeight
+  );
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 700);
 
   useEffect(() => {
     // Fetch existing predictions from backend on component mount
@@ -65,6 +69,18 @@ function GroupDetails() {
     };
 
     fetchPredictions();
+  }, []);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLandscape(window.innerWidth > window.innerHeight);
+      setIsSmallScreen(window.innerWidth <= 700);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   const handleConfirm = (index) => {
@@ -139,11 +155,22 @@ function GroupDetails() {
     return options;
   };
 
+  if (isSmallScreen && !isLandscape) {
+    return (
+      <div className="orientation-prompt">
+        Please switch to landscape mode for a better experience.
+      </div>
+    );
+  }
+
   return (
     <div className="group-details-container">
       <h2>{group}</h2>
       {groupGames.map((game, index) => (
-        <div key={index} className="game-item">
+        <div
+          key={index}
+          className={`game-item ${confirmed[index] ? "confirmed" : ""}`}
+        >
           <div className="game-row">
             <div className="game-date">{game.date}</div>
             <div className="team-container">
