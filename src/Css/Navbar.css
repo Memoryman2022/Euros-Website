@@ -9,6 +9,9 @@
   height: 100px;
   padding: 0 20px;
   box-sizing: border-box;
+  position: sticky; /* Make the navbar sticky */
+  top: 0; /* Stick to the top of the viewport */
+  z-index: 1000;
 }
 
 .navbar-logo {
