@@ -217,15 +217,13 @@ function GroupDetails() {
               />
             </label>
           </div>
-          <div className="confirm-button-container">
-            <button
-              className="confirm-button"
-              onClick={() => handleConfirm(index)}
-              disabled={confirmed[index]}
-            >
-              Confirm
-            </button>
-          </div>
+          <button
+            className="confirm-button"
+            onClick={() => handleConfirm(index)}
+            disabled={confirmed[index]}
+          >
+            Confirm
+          </button>
         </div>
       ))}
       <Link to="/predictions" className="back-button">
