@@ -1,10 +1,7 @@
-// src/pages/PredictionsPage.jsx
 import React from "react";
 import { Link } from "react-router-dom";
-//component imports
 import { groupStageGames } from "../gamesData";
 import getFlagUrl from "../utils/getFlagUrl";
-//css
 import "../Css/Predictions.css";
 
 const groups = {
@@ -27,13 +24,21 @@ function PredictionsPage() {
               <table className="group-table">
                 <thead>
                   <tr>
-                    <th colSpan="2">{group}</th>
+                    <th colSpan="7">{group}</th>
+                  </tr>
+                  <tr>
+                    <th>Team</th>
+                    <th>W</th>
+                    <th>D</th>
+                    <th>L</th>
+                    <th>G/D</th>
+                    <th>Points</th>
                   </tr>
                 </thead>
                 <tbody>
                   {groups[group].map((team, idx) => (
                     <tr key={idx}>
-                      <td>
+                      <td className="team-cell">
                         <img
                           src={getFlagUrl(team)}
                           alt={team}
@@ -41,6 +46,11 @@ function PredictionsPage() {
                         />
                         {team}
                       </td>
+                      <td className="win-cell">0</td>
+                      <td className="draw-cell">0</td>
+                      <td className="loss-cell">0</td>
+                      <td className="gd-cell">0</td>
+                      <td className="points-cell">0</td>
                     </tr>
                   ))}
                 </tbody>
@@ -53,12 +63,12 @@ function PredictionsPage() {
             <table className="group-table">
               <thead>
                 <tr>
-                  <th colSpan="2">Round of 16</th>
+                  <th colSpan="7">Round of 16</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>
+                  <td className="round-cell">
                     <img
                       src="/euro_fix.png"
                       alt="Round of 16"

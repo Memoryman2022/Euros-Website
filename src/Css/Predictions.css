@@ -18,7 +18,7 @@
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 200px;
+  width: 400px;
   border: 3px solid rgb(52, 52, 94);
 }
 
@@ -41,6 +41,7 @@
   background: #546f8dd7;
   color: white;
   padding: 10px;
+  text-shadow: 2px 2px black;
 }
 
 .group-table td {

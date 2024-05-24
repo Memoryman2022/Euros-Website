@@ -50,7 +50,7 @@ const ConfirmedPredictions = () => {
         <div className="confirmed-grid-header">Score</div>
         <div className="confirmed-grid-header">Team 2</div>
         <div className="confirmed-grid-header">W/L/D</div>
-        <div className="confirmed-grid-header">Real Score</div>
+        <div className="confirmed-grid-header">Verified</div>
         <div className="confirmed-grid-header">Points</div>
         {predictions.map((prediction) => (
           <React.Fragment key={prediction._id}>
