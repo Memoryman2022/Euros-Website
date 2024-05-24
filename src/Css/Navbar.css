@@ -6,7 +6,7 @@
   align-items: center;
   background-color: rgb(198, 143, 32);
   color: #4f2e12;
-  height: 100px;
+  height: 70px;
   padding: 0 20px;
   box-sizing: border-box;
   position: sticky; /* Make the navbar sticky */
@@ -21,7 +21,7 @@
 }
 
 .navbar-logo img {
-  height: 150px; /* Adjust the size as needed */
+  height: 100px; /* Adjust the size as needed */
   margin-right: 10px; /* Space between logo and text */
   padding-top: 15px;
 }

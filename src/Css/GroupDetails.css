@@ -161,4 +161,7 @@
   .game-item {
     max-width: 520px;
   }
+  .game-date {
+    display: none;
+  }
 }
