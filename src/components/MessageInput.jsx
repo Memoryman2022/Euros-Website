@@ -1,7 +1,8 @@
+// src/components/MessageInput.jsx
 import React, { useState } from "react";
 import "../Css/MessageInput.css";
 
-function MessageInput({ onMessageSend, userProfileImage }) {
+function MessageInput({ onMessageSend }) {
   const [message, setMessage] = useState("");
 
   const handleInputChange = (e) => {
@@ -10,7 +11,7 @@ function MessageInput({ onMessageSend, userProfileImage }) {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      onMessageSend({ text: message, profileImage: userProfileImage });
+      onMessageSend(message);
       setMessage(""); // Clear the input field
     }
   };
@@ -29,7 +30,7 @@ function MessageInput({ onMessageSend, userProfileImage }) {
         value={message}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
-        rows="10" // Set the number of rows to approximately 20
+        rows="3"
       />
       <button onClick={handleSendMessage}>Send</button>
     </div>

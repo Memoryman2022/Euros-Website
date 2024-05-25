@@ -4,15 +4,16 @@ import Leaderboard from "../pages/Leaderboard";
 import ConfirmedPredictions from "../components/ConfirmedPredictions";
 import Tabs from "../components/Tabs";
 import "../Css/Home.css";
-import { fetchUserDetails } from "../api";
+import { fetchUserDetails, fetchMessages, createMessage } from "../api";
 import { API_URL } from "../config/index";
+import socket from "../utils/socket";
 
 function Home() {
   const [userDetails, setUserDetails] = useState(null);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
   const feedEndRef = useRef(null);
+  const messageIds = useRef(new Set());
 
   const fetchAndSetUserDetails = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -31,20 +32,37 @@ function Home() {
     }
   };
 
-  useEffect(() => {
-    const storedMessages = localStorage.getItem("messages");
-    if (storedMessages) {
-      setMessages(JSON.parse(storedMessages));
+  const fetchAndSetMessages = async () => {
+    const token = localStorage.getItem("jwtToken");
+    try {
+      const data = await fetchMessages(token);
+      // Update messages and track unique message IDs
+      setMessages(data);
+      messageIds.current = new Set(data.map((message) => message._id));
+    } catch (error) {
+      console.error("Error fetching messages:", error);
     }
-    setIsMounted(true);
-    fetchAndSetUserDetails();
-  }, []);
+  };
 
   useEffect(() => {
-    if (isMounted) {
-      localStorage.setItem("messages", JSON.stringify(messages));
-    }
-  }, [messages, isMounted]);
+    fetchAndSetUserDetails();
+    fetchAndSetMessages();
+
+    // Listen for new messages
+    socket.on("newMessage", (newMessage) => {
+      setMessages((prevMessages) => {
+        if (!messageIds.current.has(newMessage._id)) {
+          messageIds.current.add(newMessage._id);
+          return [...prevMessages, newMessage];
+        }
+        return prevMessages;
+      });
+    });
+
+    return () => {
+      socket.off("newMessage");
+    };
+  }, []);
 
   useEffect(() => {
     if (feedEndRef.current) {
@@ -52,8 +70,20 @@ function Home() {
     }
   }, [messages]);
 
-  const handleNewMessage = (newMessage) => {
-    setMessages((prevMessages) => [...prevMessages, newMessage]);
+  const handleNewMessage = async (content) => {
+    const token = localStorage.getItem("jwtToken");
+    try {
+      const newMessage = await createMessage(content, token);
+      if (!messageIds.current.has(newMessage._id)) {
+        setMessages((prevMessages) => {
+          messageIds.current.add(newMessage._id);
+          return [...prevMessages, newMessage];
+        });
+        socket.emit("newMessage", newMessage); // Emit
+      }
+    } catch (error) {
+      console.error("Error creating message:", error);
+    }
   };
 
   if (loading) {
@@ -65,16 +95,19 @@ function Home() {
     { label: "Leaderboard", content: <Leaderboard /> },
   ];
 
-  const profileImageUrl = userDetails
-    ? `${API_URL.replace("/api", "")}${userDetails.profileImage}`
-    : "";
-
   return (
     <div className="home-container">
       <div className="main-content-home">
         <div className="user-details">
           <div className="profile-pic-home">
-            {userDetails && <img src={profileImageUrl} alt="Profile" />}
+            {userDetails && (
+              <img
+                src={`${API_URL.replace("/api", "")}${
+                  userDetails.profileImage
+                }`}
+                alt="Profile"
+              />
+            )}
           </div>
           <div className="user-info">
             <div className="user-info-item">
@@ -100,23 +133,20 @@ function Home() {
         <div className="social-feed">
           <h4>CHAT</h4>
           <div className="feed-items">
-            {messages.map((message, index) => (
-              <div key={index} className="feed-item">
+            {messages.map((message) => (
+              <div key={message._id} className="feed-item">
                 <img
-                  src={`http://localhost:5005${message.profileImage}`}
+                  src={`${API_URL.replace("/api", "")}${message.profileImage}`}
                   alt="Profile"
                   className="message-profile-pic"
                 />
-                {message.text}
+                {message.content}
               </div>
             ))}
             <div ref={feedEndRef} />
           </div>
 
-          <MessageInput
-            onMessageSend={handleNewMessage}
-            userProfileImage={userDetails?.profileImage}
-          />
+          <MessageInput onMessageSend={handleNewMessage} />
         </div>
       </div>
       <Tabs tabs={tabs} />

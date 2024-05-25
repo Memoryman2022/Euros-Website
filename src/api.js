@@ -1,6 +1,7 @@
 import axios from "axios";
 import { API_URL } from "./config";
 
+//user
 export const registerUser = async (formData) => {
   try {
     const response = await axios.post(`${API_URL}/auth/register`, formData, {
@@ -51,6 +52,7 @@ export const fetchUserDetails = async (userId, token) => {
   }
 };
 
+//predictions
 export const createPrediction = async (predictionData) => {
   const token = localStorage.getItem("jwtToken");
   try {
@@ -77,6 +79,33 @@ export const fetchUserPredictions = async (userId) => {
     return response.data;
   } catch (error) {
     console.error("Error fetching predictions", error);
+    throw error;
+  }
+};
+
+//meassages
+export const fetchMessages = async (token) => {
+  try {
+    const response = await axios.get(`${API_URL}/messages`, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching messages", error);
+    throw error;
+  }
+};
+
+export const createMessage = async (content, token) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/messages`,
+      { content },
+      { headers: { Authorization: `Bearer ${token}` } }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error creating message", error);
     throw error;
   }
 };
