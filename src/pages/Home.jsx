@@ -1,4 +1,3 @@
-// src/pages/Home.jsx
 import React, { useState, useEffect } from "react";
 import MessageFunction from "../components/MessageFunction";
 import Leaderboard from "../pages/Leaderboard";

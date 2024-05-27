@@ -7,7 +7,6 @@ import "../Css/MessageFunction.css";
 
 const MessageFunction = ({ userDetails }) => {
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
   const feedRef = useRef(null);
   const messageIds = useRef(new Set());
 
@@ -20,6 +19,9 @@ const MessageFunction = ({ userDetails }) => {
       );
       setMessages(sortedMessages);
       messageIds.current = new Set(data.map((message) => message._id));
+      if (feedRef.current) {
+        feedRef.current.scrollTop = feedRef.current.scrollHeight;
+      }
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
@@ -33,12 +35,16 @@ const MessageFunction = ({ userDetails }) => {
       setMessages((prevMessages) => {
         if (!messageIds.current.has(newMessage._id)) {
           messageIds.current.add(newMessage._id);
-          return [...prevMessages, newMessage].sort(
+          const updatedMessages = [...prevMessages, newMessage].sort(
             (a, b) => new Date(a.createdAt) - new Date(b.createdAt)
           );
+          return updatedMessages;
         }
         return prevMessages;
       });
+      if (feedRef.current) {
+        feedRef.current.scrollTop = feedRef.current.scrollHeight;
+      }
     });
 
     const intervalId = setInterval(() => {
@@ -64,22 +70,21 @@ const MessageFunction = ({ userDetails }) => {
     }
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <div className="message-function-container">
       <h4>CHAT</h4>
       <div className="feed-items" ref={feedRef}>
         {messages.map((message) => (
           <div key={message._id} className="feed-item">
-            <img
-              src={`${API_URL.replace("/api", "")}${message.profileImage}`}
-              alt="Profile"
-              className="message-profile-pic"
-            />
-            {message.content}
+            <div className="message-header">
+              <span className="username">{message.user.userName}</span>
+              <img
+                src={`${API_URL.replace("/api", "")}${message.profileImage}`}
+                alt="Profile"
+                className="message-profile-pic"
+              />
+            </div>
+            <div className="message-content">{message.content}</div>
           </div>
         ))}
       </div>
