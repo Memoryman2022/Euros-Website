@@ -19,6 +19,7 @@
   resize: vertical; /* Allow vertical resizing if needed */
   background-color: rgb(185, 119, 27);
   color: rgb(41, 40, 31);
+  font-size: 16px;
 }
 
 .message-input-container textarea::placeholder {

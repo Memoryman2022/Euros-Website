@@ -1,0 +1,27 @@
+.message-function-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.feed-items {
+  flex-grow: 1;
+  overflow-y: auto;
+  max-height: 45vh; /* Adjust height as needed */
+  padding-bottom: 10px; /* Space for the input */
+  display: flex;
+  flex-direction: column;
+}
+
+.feed-item {
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.message-profile-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}

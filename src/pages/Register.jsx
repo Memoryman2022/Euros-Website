@@ -32,62 +32,64 @@ function Register() {
 
   return (
     <div className="register-container">
-      <h4>Register</h4>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={userName}
-            placeholder="Username"
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            placeholder="Email"
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Profile Image:</label>
-          <input
-            type="file"
-            id="profileImageInput"
-            onChange={handleImageChange}
-            style={{ display: "none" }}
-          />
-          <button onClick={handleImageClick}>Upload</button>
-        </div>
-        {authError && <p className="error">{authError}</p>}
-        <button type="submit">Register</button>
-      </form>
-
-      {showModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <h3>Please crop your image to a square for optimal results</h3>
-            <button className="modal-btn" onClick={handleModalConfirm}>
-              Confirm
-            </button>
+      <div className="register-form">
+        <h4>Register</h4>
+        <form onSubmit={handleRegister}>
+          <div>
+            <label>Username</label>
+            <input
+              type="text"
+              value={userName}
+              placeholder="Username"
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
           </div>
-        </div>
-      )}
+          <div>
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              placeholder="Email"
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Password</label>
+            <input
+              type="password"
+              value={password}
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label>Profile Image</label>
+            <input
+              type="file"
+              id="profileImageInput"
+              onChange={handleImageChange}
+              style={{ display: "none" }}
+            />
+            <button onClick={handleImageClick}>Upload</button>
+          </div>
+          {authError && <p className="error">{authError}</p>}
+          <button type="submit">Register</button>
+        </form>
+
+        {showModal && (
+          <div className="modal-overlay">
+            <div className="modal-content">
+              <h3>Please crop your image to a square for optimal results</h3>
+              <button className="modal-btn" onClick={handleModalConfirm}>
+                Confirm
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

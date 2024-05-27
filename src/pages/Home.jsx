@@ -1,19 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import MessageInput from "../components/MessageInput";
+// src/pages/Home.jsx
+import React, { useState, useEffect } from "react";
+import MessageFunction from "../components/MessageFunction";
 import Leaderboard from "../pages/Leaderboard";
 import ConfirmedPredictions from "../components/ConfirmedPredictions";
 import Tabs from "../components/Tabs";
 import "../Css/Home.css";
-import { fetchUserDetails, fetchMessages, createMessage } from "../api";
+import { fetchUserDetails } from "../api";
 import { API_URL } from "../config/index";
-import socket from "../utils/socket";
 
 function Home() {
   const [userDetails, setUserDetails] = useState(null);
-  const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
-  const feedEndRef = useRef(null);
-  const messageIds = useRef(new Set());
 
   const fetchAndSetUserDetails = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -32,59 +29,9 @@ function Home() {
     }
   };
 
-  const fetchAndSetMessages = async () => {
-    const token = localStorage.getItem("jwtToken");
-    try {
-      const data = await fetchMessages(token);
-      // Update messages and track unique message IDs
-      setMessages(data);
-      messageIds.current = new Set(data.map((message) => message._id));
-    } catch (error) {
-      console.error("Error fetching messages:", error);
-    }
-  };
-
   useEffect(() => {
     fetchAndSetUserDetails();
-    fetchAndSetMessages();
-
-    // Listen for new messages
-    socket.on("newMessage", (newMessage) => {
-      setMessages((prevMessages) => {
-        if (!messageIds.current.has(newMessage._id)) {
-          messageIds.current.add(newMessage._id);
-          return [...prevMessages, newMessage];
-        }
-        return prevMessages;
-      });
-    });
-
-    return () => {
-      socket.off("newMessage");
-    };
   }, []);
-
-  useEffect(() => {
-    if (feedEndRef.current) {
-      feedEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
-
-  const handleNewMessage = async (content) => {
-    const token = localStorage.getItem("jwtToken");
-    try {
-      const newMessage = await createMessage(content, token);
-      if (!messageIds.current.has(newMessage._id)) {
-        setMessages((prevMessages) => {
-          messageIds.current.add(newMessage._id);
-          return [...prevMessages, newMessage];
-        });
-        socket.emit("newMessage", newMessage); // Emit
-      }
-    } catch (error) {
-      console.error("Error creating message:", error);
-    }
-  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -130,24 +77,7 @@ function Home() {
             </div>
           </div>
         </div>
-        <div className="social-feed">
-          <h4>CHAT</h4>
-          <div className="feed-items">
-            {messages.map((message) => (
-              <div key={message._id} className="feed-item">
-                <img
-                  src={`${API_URL.replace("/api", "")}${message.profileImage}`}
-                  alt="Profile"
-                  className="message-profile-pic"
-                />
-                {message.content}
-              </div>
-            ))}
-            <div ref={feedEndRef} />
-          </div>
-
-          <MessageInput onMessageSend={handleNewMessage} />
-        </div>
+        <MessageFunction userDetails={userDetails} />
       </div>
       <Tabs tabs={tabs} />
     </div>
