@@ -49,7 +49,7 @@ const MessageFunction = ({ userDetails }) => {
 
     const intervalId = setInterval(() => {
       fetchAndSetMessages();
-    }, 5000);
+    }, 2000);
 
     return () => {
       socket.off("newMessage");

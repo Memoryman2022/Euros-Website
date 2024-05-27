@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { fetchUsers, updateUserScores } from "../api";
+import { API_URL } from "../config/index";
 import "../Css/Leaderboard.css";
 
 function Leaderboard() {
@@ -88,7 +89,7 @@ function Leaderboard() {
                 <td className="position">{user.position}</td>
                 <td className="name">
                   <img
-                    src={`http://localhost:5005${user.profileImage}`}
+                    src={`${API_URL.replace("/api", "")}${user.profileImage}`}
                     alt="Profile"
                     className="profile-pic"
                   />

@@ -1,7 +1,4 @@
-/* src/Css/Leaderboard.css */
-
 .leaderboard-page {
-  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -106,12 +103,11 @@
 /* Responsive Styling */
 @media (max-width: 680px) {
   .leaderboard-page {
-    padding: 10px;
   }
 
   .leaderboard-container {
-    min-width: 100%;
-    width: 430px;
+    min-width: 320px;
+    width: 100%;
     padding: 10px; /* Add padding for smaller screens */
   }
 
@@ -134,12 +130,10 @@
 
 @media (max-width: 420px) {
   .leaderboard-page {
-    padding: 5px;
   }
 
   .leaderboard-container {
-    width: 300px;
-    padding: 5px; /* Further reduce padding for very small screens */
+    width: 100%;
   }
 
   .leaderboard-table th,
