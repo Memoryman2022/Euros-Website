@@ -9,6 +9,7 @@ const MessageFunction = ({ userDetails }) => {
   const [messages, setMessages] = useState([]);
   const feedRef = useRef(null);
   const messageIds = useRef(new Set());
+  const fetchTimeoutRef = useRef(null);
 
   const fetchAndSetMessages = async () => {
     const token = localStorage.getItem("jwtToken");
@@ -45,15 +46,23 @@ const MessageFunction = ({ userDetails }) => {
       if (feedRef.current) {
         feedRef.current.scrollTop = feedRef.current.scrollHeight;
       }
-    });
 
-    const intervalId = setInterval(() => {
-      fetchAndSetMessages();
-    }, 2000);
+      // Clear any existing timeout
+      if (fetchTimeoutRef.current) {
+        clearTimeout(fetchTimeoutRef.current);
+      }
+
+      // Set a timeout to fetch messages after 2 seconds
+      fetchTimeoutRef.current = setTimeout(() => {
+        fetchAndSetMessages();
+      }, 2000);
+    });
 
     return () => {
       socket.off("newMessage");
-      clearInterval(intervalId);
+      if (fetchTimeoutRef.current) {
+        clearTimeout(fetchTimeoutRef.current);
+      }
     };
   }, []);
 
