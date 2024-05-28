@@ -34,8 +34,9 @@
 }
 
 .leaderboard-table th {
-  background-color: #78a6ea;
+  background-color: #01193e;
   font-weight: bold;
+  color: #f1c40e;
 }
 
 .leaderboard-table th.position,
@@ -54,11 +55,15 @@
 }
 
 .leaderboard-table tr:nth-child(even) {
-  background-color: #8caabcbc;
+  background-color: #003454bc;
+  color: #dadada;
+  text-shadow: 2px 2px rgb(29, 23, 22);
 }
 
 .leaderboard-table tr:nth-child(odd) {
-  background-color: #658da4c9;
+  background-color: #006199c9;
+  color: #dedede;
+  text-shadow: 2px 2px rgb(29, 23, 22);
 }
 
 .leaderboard-table tr:hover {
@@ -66,13 +71,13 @@
 }
 
 .leadbrd-btn {
-  color: rgba(3, 140, 209, 0.887);
+  color: #f1c40e;
   padding: 8px 16px; /* Adjust padding for better touch targets */
   margin: 10px 0; /* Add margin for spacing */
   cursor: pointer;
   border: none;
   border-radius: 4px;
-  background-color: #ffffff;
+  background-color: #1c1414;
   transition: background-color 0.3s ease;
 }
 
@@ -97,7 +102,8 @@
   margin-right: 10px; /* Space between profile pic and name */
   vertical-align: middle;
   object-fit: cover;
-  border: 2px solid rgb(41, 67, 111);
+  border: 2px solid #d6d3c9;
+  box-shadow: 2px 2px rgb(0, 0, 0);
 }
 
 /* Responsive Styling */

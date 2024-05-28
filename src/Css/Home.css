@@ -34,12 +34,13 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  border: 4px solid rgb(17, 46, 90);
+  border: 4px solid rgb(2, 61, 149);
   margin-top: 10px;
   margin-bottom: 8px;
-  background-color: rgba(125, 194, 237, 0.582);
+  background-color: rgb(20, 27, 32);
   width: 100%; /* Ensure full width */
   box-sizing: border-box;
+  color: rgb(218, 195, 19);
 }
 
 .profile-pic-home img {
@@ -48,7 +49,7 @@
   border-radius: 10%;
   margin: 20px;
   object-fit: cover;
-  border: 4px solid rgb(17, 46, 90);
+  border: 4px solid rgb(4, 62, 149);
 }
 
 .user-info {
@@ -62,7 +63,7 @@
   justify-content: space-between;
   align-items: center;
   margin: 10px 0;
-  border-bottom: 4px solid rgb(17, 46, 90);
+  border-bottom: 4px solid rgb(4, 67, 160);
 }
 
 .user-info-item .label {
@@ -80,7 +81,7 @@
   flex-direction: column;
   flex-grow: 1;
   overflow: hidden; /* Ensure the chat doesn't expand off the screen */
-  background-color: rgba(125, 194, 237, 0.522);
+  background-color: rgba(15, 77, 116, 0.424);
   border: 4px solid rgb(17, 46, 90);
   width: 100%; /* Ensure full width */
   box-sizing: border-box;
@@ -102,12 +103,12 @@
 .feed-item {
   display: flex;
   align-items: center;
-  background: rgb(193, 171, 141);
+  background: rgba(233, 143, 18, 0.933);
   padding: 10px;
   margin: 10px 0;
   border-radius: 8px;
   box-shadow: black;
-  border: 3px solid rgb(15, 49, 91);
+  border: 3px solid rgb(6, 37, 74);
 }
 
 .message-profile-pic {

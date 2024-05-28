@@ -10,20 +10,19 @@
 
 .message-input-container textarea {
   width: 100%;
-  height: 70px;
+  height: 80px;
   padding: 10px;
-  border: 4px solid #393939;
+  border: 4px solid #054c99;
   border-radius: 8px;
   margin-bottom: 10px;
   box-sizing: border-box; /* Ensure padding is included in the element's total width and height */
   resize: vertical; /* Allow vertical resizing if needed */
-  background-color: rgb(185, 119, 27);
-  color: rgb(41, 40, 31);
+  color: rgb(3, 247, 88);
   font-size: 16px;
 }
 
 .message-input-container textarea::placeholder {
-  color: #fafafa; /* Adjust this color to your preference */
+  color: #03fde0; /* Adjust this color to your preference */
 }
 
 .message-input-container button {
