@@ -1,3 +1,4 @@
+//api.js
 import axios from "axios";
 import { API_URL } from "./config";
 
@@ -40,11 +41,14 @@ export const updateUserScores = async (users) => {
 
 export const fetchUserDetails = async (userId, token) => {
   try {
-    const response = await axios.get(`${API_URL}/protected/user/${userId}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      `${API_URL}/users/protected/user/${userId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error fetching user details", error);
