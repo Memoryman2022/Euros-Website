@@ -4,6 +4,16 @@
   text-shadow: 2px 2px rgb(29, 23, 22);
 }
 
+.game-predictions h3 {
+  display: flex;
+  justify-content: space-between; /* Evenly space children */
+  align-items: center;
+  min-width: 350px; /* Adjust the width as needed */
+  max-width: 350px;
+  padding: 10px;
+  border-radius: 8px; /* Optional: Add rounded corners */
+}
+
 .game-predictions {
   margin-bottom: 20px;
   padding-bottom: 40px;
@@ -11,6 +21,9 @@
 
 .flag-icon {
   box-shadow: 1px 1px rgb(38, 36, 36);
+  width: 40px;
+  height: 30px;
+  margin: 0 10px;
 }
 
 .predictions-grid {

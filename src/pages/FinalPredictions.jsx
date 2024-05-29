@@ -63,24 +63,44 @@ const FinalPredictions = () => {
 
   return (
     <div className="final-predictions-container">
-      <h4>Final Predictions</h4>
+      <h2>Final Predictions</h2>
       {Object.keys(groupedPredictions).map((gameId) => {
         const game = groupedPredictions[gameId][0];
         return (
           <div key={gameId} className="game-predictions">
-            <h5>
+            <h3>
               <img
-                src={getFlagUrl(game.team1)}
+                src={
+                  game.team1.includes("1") ||
+                  game.team1.includes("2") ||
+                  game.team1.includes("3")
+                    ? "/euro_fix.png"
+                    : getFlagUrl(game.team1)
+                }
                 alt={game.team1}
                 className="flag-icon"
+                onError={(e) => {
+                  e.target.onerror = null; // prevents looping
+                  e.target.src = "/euro_fix.png";
+                }}
               />{" "}
               {game.team1} vs {game.team2}{" "}
               <img
-                src={getFlagUrl(game.team2)}
+                src={
+                  game.team2.includes("1") ||
+                  game.team2.includes("2") ||
+                  game.team2.includes("3")
+                    ? "/euro_fix.png"
+                    : getFlagUrl(game.team2)
+                }
                 alt={game.team2}
                 className="flag-icon"
+                onError={(e) => {
+                  e.target.onerror = null; // prevents looping
+                  e.target.src = "/euro_fix.png";
+                }}
               />
-            </h5>
+            </h3>
             <div className="predictions-grid">
               <div className="grid-header">User</div>
               <div className="grid-header">Date</div>
