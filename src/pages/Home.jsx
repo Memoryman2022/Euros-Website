@@ -32,13 +32,21 @@ function Home() {
     fetchAndSetUserDetails();
   }, []);
 
+  // Update user details based on leaderboard changes
+  const handleLeaderboardUpdate = (updatedUserDetails) => {
+    setUserDetails(updatedUserDetails);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
 
   const tabs = [
     { label: "Confirmed Predictions", content: <ConfirmedPredictions /> },
-    { label: "Leaderboard", content: <Leaderboard /> },
+    {
+      label: "Leaderboard",
+      content: <Leaderboard onUserUpdate={handleLeaderboardUpdate} />,
+    },
   ];
 
   return (

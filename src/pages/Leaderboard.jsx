@@ -3,7 +3,7 @@ import { fetchUsers, updateUserScores } from "../api";
 import { API_URL } from "../config/index";
 import "../Css/Leaderboard.css";
 
-function Leaderboard() {
+function Leaderboard({ onUserUpdate }) {
   const [users, setUsers] = useState([]);
   const [previousUsers, setPreviousUsers] = useState([]);
 
@@ -63,6 +63,14 @@ function Leaderboard() {
 
       setPreviousUsers(usersWithMovement);
       setUsers(usersWithMovement);
+
+      // Find the current user and update their details
+      const token = localStorage.getItem("jwtToken");
+      const userId = localStorage.getItem("userId");
+      const currentUser = sortedUsers.find((user) => user._id === userId);
+      if (currentUser && onUserUpdate) {
+        onUserUpdate(currentUser); // Notify parent component
+      }
     } catch (error) {
       console.error("Error updating scores:", error);
     }
