@@ -30,7 +30,7 @@ function AuthProviderWrapper(props) {
 
   const refreshToken = async () => {
     try {
-      const response = await axios.get(`${API_URL}/api/auth/refresh`, {
+      const response = await axios.get(`${API_URL}/auth/refresh`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("refreshToken")}`,
         },
@@ -54,7 +54,7 @@ function AuthProviderWrapper(props) {
     }
 
     try {
-      const response = await axios.get(`${API_URL}/api/auth/verify`, {
+      const response = await axios.get(`${API_URL}/auth/verify`, {
         headers: { Authorization: `Bearer ${storedToken}` },
       });
       setIsLoggedIn(true);
@@ -78,7 +78,7 @@ function AuthProviderWrapper(props) {
     setIsLoading(true);
 
     try {
-      const response = await axios.post(`${API_URL}/api/auth/login`, {
+      const response = await axios.post(`${API_URL}/auth/login`, {
         email,
         password,
       });
