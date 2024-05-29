@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsers, updateUserScores } from "../api";
+import { fetchUsers, updateUserScores, saveUserMovements } from "../api";
 import { API_URL } from "../config/index";
 import "../Css/Leaderboard.css";
 
@@ -20,6 +20,7 @@ function Leaderboard({ onUserUpdate }) {
           ...user,
           position: index + 1,
           movement: user.movement, // Get movement from backend
+          previousPosition: user.previousPosition, // Get previous position from backend
         }));
 
         setPreviousUsers(usersWithPositions);
@@ -58,11 +59,19 @@ function Leaderboard({ onUserUpdate }) {
             movement = "down";
           }
         }
-        return { ...user, position: index + 1, movement };
+        return {
+          ...user,
+          position: index + 1,
+          movement,
+          previousPosition: user.position,
+        };
       });
 
       setPreviousUsers(usersWithMovement);
       setUsers(usersWithMovement);
+
+      // Save the movement data to the backend
+      await saveUserMovements(usersWithMovement);
 
       // Find the current user and update their details
       const token = localStorage.getItem("jwtToken");

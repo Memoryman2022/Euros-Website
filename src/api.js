@@ -1,8 +1,8 @@
-//api.js
 import axios from "axios";
 import { API_URL } from "./config";
 
-//user
+// User API calls
+
 export const registerUser = async (formData) => {
   try {
     const response = await axios.post(`${API_URL}/auth/register`, formData, {
@@ -39,6 +39,18 @@ export const updateUserScores = async (users) => {
   }
 };
 
+export const saveUserMovements = async (users) => {
+  try {
+    const response = await axios.put(`${API_URL}/users/update-movements`, {
+      users,
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error updating user movements", error);
+    throw error;
+  }
+};
+
 export const fetchUserDetails = async (userId, token) => {
   try {
     const response = await axios.get(
@@ -56,7 +68,8 @@ export const fetchUserDetails = async (userId, token) => {
   }
 };
 
-//predictions
+// Predictions API calls
+
 export const createPrediction = async (predictionData) => {
   const token = localStorage.getItem("jwtToken");
   try {
@@ -87,7 +100,8 @@ export const fetchUserPredictions = async (userId) => {
   }
 };
 
-//meassages
+// Messages API calls
+
 export const fetchMessages = async (token) => {
   try {
     const response = await axios.get(`${API_URL}/messages`, {
