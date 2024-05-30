@@ -27,7 +27,7 @@ const FinalPredictions = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Fetched Predictions:", response.data);
+
       setGroupedPredictions(response.data || []);
     } catch (error) {
       setError("Failed to fetch final predictions");
@@ -61,8 +61,6 @@ const FinalPredictions = () => {
       </div>
     );
   }
-
-  console.log("Grouped Predictions:", groupedPredictions);
 
   return (
     <div className="final-predictions-container">

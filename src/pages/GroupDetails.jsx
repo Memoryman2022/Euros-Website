@@ -155,10 +155,14 @@ function GroupDetails() {
     <div className="group-details-container">
       <h2>{group}</h2>
       <h3>
-        Please be advised! Predictions must be submitted 1 HOUR before kick-off.
-        All game times are displayed in Central European Standard Time. Players
-        in the UK must submit predictions at least 2 hours before stated CEST
-        kick-off times.{" "}
+        Important Notice: <br />
+        <br />
+        Submission Deadline: Predictions must be submitted at least 1 hour
+        before kick-off. <br /> <br />
+        Time Zone Information: All game times are in Central European Standard
+        Time (CEST). <br />
+        <br />
+        UK Players: Please be aware of the time difference.{" "}
       </h3>
       {groupGames.map((game, index) => (
         <GameItem
