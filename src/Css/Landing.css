@@ -6,10 +6,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Full viewport height */
+  height: 400px; /* Full viewport height */
+  margin-top: 50px;
   padding: 20px;
   box-sizing: border-box;
-  background-color: rgb(5, 21, 44);
 }
 
 .landing-div {

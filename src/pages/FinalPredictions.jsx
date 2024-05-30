@@ -66,7 +66,7 @@ const FinalPredictions = () => {
       <h4>Final Predictions</h4>
       <div>
         Predictions will be revealed one hour before the match or when all users
-        have submitted their predictions.
+        have submitted their predictions for a given match.
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => (
