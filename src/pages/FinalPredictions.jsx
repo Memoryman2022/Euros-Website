@@ -5,7 +5,7 @@ import getFlagUrl from "../utils/getFlagUrl";
 import "../Css/FinalPredictions.css";
 
 const FinalPredictions = () => {
-  const [groupedPredictions, setGroupedPredictions] = useState({});
+  const [groupedPredictions, setGroupedPredictions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isLandscape, setIsLandscape] = useState(
@@ -27,10 +27,10 @@ const FinalPredictions = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setGroupedPredictions(response.data);
+      setGroupedPredictions(response.data || []);
     } catch (error) {
       setError("Failed to fetch final predictions");
-      console.error(error);
+      console.error("Fetch Final Predictions Error:", error);
     } finally {
       setLoading(false);
     }
@@ -63,73 +63,67 @@ const FinalPredictions = () => {
 
   return (
     <div className="final-predictions-container">
-      <h2>Final Predictions</h2>
-      {Object.keys(groupedPredictions).map((gameId) => {
-        const game = groupedPredictions[gameId][0];
-        return (
-          <div key={gameId} className="game-predictions">
+      <h4>Final Predictions</h4>
+      <div>
+        Predictions will be revealed one hour before the match or when all users
+        have submitted their predictions.
+      </div>
+      {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
+        groupedPredictions.map((game) => (
+          <div key={game.gameId} className="game-predictions">
             <h3>
               <img
-                src={
-                  game.team1.includes("1") ||
-                  game.team1.includes("2") ||
-                  game.team1.includes("3")
-                    ? "/euro_fix.png"
-                    : getFlagUrl(game.team1)
-                }
+                src={getFlagUrl(game.team1)}
                 alt={game.team1}
                 className="flag-icon"
-                onError={(e) => {
-                  e.target.onerror = null; // prevents looping
-                  e.target.src = "/euro_fix.png";
-                }}
               />{" "}
               {game.team1} vs {game.team2}{" "}
               <img
-                src={
-                  game.team2.includes("1") ||
-                  game.team2.includes("2") ||
-                  game.team2.includes("3")
-                    ? "/euro_fix.png"
-                    : getFlagUrl(game.team2)
-                }
+                src={getFlagUrl(game.team2)}
                 alt={game.team2}
                 className="flag-icon"
-                onError={(e) => {
-                  e.target.onerror = null; // prevents looping
-                  e.target.src = "/euro_fix.png";
-                }}
               />
             </h3>
-            <div className="predictions-grid">
-              <div className="grid-header">User</div>
-              <div className="grid-header">Date</div>
-              <div className="grid-header">Team 1</div>
-              <div className="grid-header">Score</div>
-              <div className="grid-header">Team 2</div>
-              <div className="grid-header">Outcome</div>
-              {groupedPredictions[gameId].map((prediction) => (
-                <React.Fragment key={prediction._id}>
-                  <div className="grid-item">{prediction.userId.userName}</div>
-                  <div className="grid-item">{prediction.date}</div>
-                  <div className="grid-item">{prediction.team1}</div>
-                  <div className="grid-item">
-                    {prediction.team1Score} - {prediction.team2Score}
-                  </div>
-                  <div className="grid-item">{prediction.team2}</div>
-                  <div className="grid-item">
-                    {prediction.predictedOutcome === "team1"
-                      ? prediction.team1
-                      : prediction.predictedOutcome === "team2"
-                      ? prediction.team2
-                      : "Draw"}
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
+            {game.revealPredictions ? (
+              <div className="predictions-grid">
+                <div className="grid-header">User</div>
+                <div className="grid-header">Date</div>
+                <div className="grid-header">Team 1</div>
+                <div className="grid-header">Score</div>
+                <div className="grid-header">Team 2</div>
+                <div className="grid-header">Outcome</div>
+                {game.predictions.map((prediction) => (
+                  <React.Fragment key={prediction._id}>
+                    <div className="grid-item">
+                      {prediction.userId.userName}
+                    </div>
+                    <div className="grid-item">{prediction.date}</div>
+                    <div className="grid-item">{prediction.team1}</div>
+                    <div className="grid-item">
+                      {prediction.team1Score} - {prediction.team2Score}
+                    </div>
+                    <div className="grid-item">{prediction.team2}</div>
+                    <div className="grid-item">
+                      {prediction.predictedOutcome === "team1"
+                        ? prediction.team1
+                        : prediction.predictedOutcome === "team2"
+                        ? prediction.team2
+                        : "Draw"}
+                    </div>
+                  </React.Fragment>
+                ))}
+              </div>
+            ) : (
+              <div>
+                Predictions will be revealed one hour before the match or when
+                all users have submitted their predictions.
+              </div>
+            )}
           </div>
-        );
-      })}
+        ))
+      ) : (
+        <div>No predictions available.</div>
+      )}
     </div>
   );
 };

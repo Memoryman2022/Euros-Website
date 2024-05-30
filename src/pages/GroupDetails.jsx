@@ -5,7 +5,10 @@ import { AuthContext } from "../authContext/auth.context";
 import { API_URL } from "../config";
 import { groupStageGames } from "../gamesData";
 import getFlagUrl from "../utils/getFlagUrl";
+import { parse, format, differenceInMilliseconds } from "date-fns";
 import "../Css/GroupDetails.css";
+
+const ONE_HOUR = 60 * 60 * 1000; // Define ONE_HOUR in milliseconds
 
 function GroupDetails() {
   const { group } = useParams();
@@ -155,6 +158,26 @@ function GroupDetails() {
     return options;
   };
 
+  const isPredictionWindowExpired = (gameDate) => {
+    const matchStartTime = parse(
+      `${gameDate} ${new Date().getFullYear()}`,
+      "dd MMM HH:mm yyyy",
+      new Date()
+    );
+    const currentTime = new Date();
+    console.log("Match Start Time:", matchStartTime);
+    console.log("Current Time:", currentTime);
+    console.log(
+      "Time Difference (ms):",
+      differenceInMilliseconds(matchStartTime, currentTime)
+    );
+    console.log(
+      "Is Expired:",
+      differenceInMilliseconds(matchStartTime, currentTime) <= ONE_HOUR
+    );
+    return differenceInMilliseconds(matchStartTime, currentTime) <= ONE_HOUR;
+  };
+
   if (isSmallScreen && !isLandscape) {
     return (
       <div className="orientation-prompt">
@@ -166,93 +189,101 @@ function GroupDetails() {
   return (
     <div className="group-details-container">
       <h2>{group}</h2>
-      {groupGames.map((game, index) => (
-        <div
-          key={index}
-          className={`game-item ${confirmed[index] ? "confirmed" : ""}`}
-        >
-          <div className="game-row">
-            <div className="game-date">{game.date}</div>
-            <div className="team-container">
-              <span className="team-name">
-                <img
-                  src={getFlagUrl(game.team1)}
-                  alt={game.team1}
-                  className="flag-icon"
-                />
-                {game.team1}
-              </span>
-              <select
-                className="score-select"
-                disabled={confirmed[index]}
-                value={team1Scores[index]}
-                onChange={(e) =>
-                  handleScoreChange(index, "team1", parseInt(e.target.value))
-                }
-              >
-                {renderScoreOptions()}
-              </select>
-            </div>
-            <span className="versus">V</span>
-            <div className="team-container">
-              <select
-                className="score-select"
-                disabled={confirmed[index]}
-                value={team2Scores[index]}
-                onChange={(e) =>
-                  handleScoreChange(index, "team2", parseInt(e.target.value))
-                }
-              >
-                {renderScoreOptions()}
-              </select>
-              <span className="team-name">
-                {game.team2}
-                <img
-                  src={getFlagUrl(game.team2)}
-                  alt={game.team2}
-                  className="flag-icon"
-                />
-              </span>
-            </div>
-          </div>
-          <div className="checkbox-container">
-            <label>
-              {game.team1} win
-              <input
-                type="checkbox"
-                checked={selectedOutcome[index] === "team1"}
-                onChange={() => handleCheckboxChange(index, "team1")}
-                disabled={confirmed[index]}
-              />
-            </label>
-            <label>
-              Draw
-              <input
-                type="checkbox"
-                checked={selectedOutcome[index] === "draw"}
-                onChange={() => handleCheckboxChange(index, "draw")}
-                disabled={confirmed[index]}
-              />
-            </label>
-            <label>
-              {game.team2} win
-              <input
-                type="checkbox"
-                checked={selectedOutcome[index] === "team2"}
-                onChange={() => handleCheckboxChange(index, "team2")}
-                disabled={confirmed[index]}
-              />
-            </label>
-          </div>
-          <button
-            className="confirm-button"
-            onClick={() => handleConfirm(index)}
-            disabled={confirmed[index]}
+      {groupGames.map((game, index) => {
+        const isExpired = isPredictionWindowExpired(game.date);
+        return (
+          <div
+            key={index}
+            className={`game-item ${confirmed[index] ? "confirmed" : ""}`}
           >
-            Confirm
-          </button>
-        </div>
-      ))}
+            <div className="game-row">
+              <div className="game-date">{game.date}</div>
+              <div className="team-container">
+                <span className="team-name">
+                  <img
+                    src={getFlagUrl(game.team1)}
+                    alt={game.team1}
+                    className="flag-icon"
+                  />
+                  {game.team1}
+                </span>
+                <select
+                  className="score-select"
+                  disabled={confirmed[index] || isExpired}
+                  value={team1Scores[index]}
+                  onChange={(e) =>
+                    handleScoreChange(index, "team1", parseInt(e.target.value))
+                  }
+                >
+                  {renderScoreOptions()}
+                </select>
+              </div>
+              <span className="versus">V</span>
+              <div className="team-container">
+                <select
+                  className="score-select"
+                  disabled={confirmed[index] || isExpired}
+                  value={team2Scores[index]}
+                  onChange={(e) =>
+                    handleScoreChange(index, "team2", parseInt(e.target.value))
+                  }
+                >
+                  {renderScoreOptions()}
+                </select>
+                <span className="team-name">
+                  {game.team2}
+                  <img
+                    src={getFlagUrl(game.team2)}
+                    alt={game.team2}
+                    className="flag-icon"
+                  />
+                </span>
+              </div>
+            </div>
+            <div className="checkbox-container">
+              <label>
+                {game.team1} win
+                <input
+                  type="checkbox"
+                  checked={selectedOutcome[index] === "team1"}
+                  onChange={() => handleCheckboxChange(index, "team1")}
+                  disabled={confirmed[index] || isExpired}
+                />
+              </label>
+              <label>
+                Draw
+                <input
+                  type="checkbox"
+                  checked={selectedOutcome[index] === "draw"}
+                  onChange={() => handleCheckboxChange(index, "draw")}
+                  disabled={confirmed[index] || isExpired}
+                />
+              </label>
+              <label>
+                {game.team2} win
+                <input
+                  type="checkbox"
+                  checked={selectedOutcome[index] === "team2"}
+                  onChange={() => handleCheckboxChange(index, "team2")}
+                  disabled={confirmed[index] || isExpired}
+                />
+              </label>
+            </div>
+            <button
+              className="confirm-button"
+              onClick={() => handleConfirm(index)}
+              disabled={confirmed[index] || isExpired}
+            >
+              Confirm
+            </button>
+            {isExpired && !confirmed[index] && (
+              <div className="expired-message">
+                The prediction window has expired for this match.
+              </div>
+            )}
+          </div>
+        );
+      })}
       <Link to="/predictions" className="back-button">
         Back to Groups
       </Link>
