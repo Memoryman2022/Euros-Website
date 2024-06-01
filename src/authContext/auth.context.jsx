@@ -114,15 +114,11 @@ function AuthProviderWrapper(props) {
         formData.append("profileImage", profileImage);
       }
 
-      const response = await axios.post(
-        `${API_URL}/api/auth/register`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${API_URL}/auth/register`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       const { token, userId, user } = response.data;
       if (token && userId && user) {
