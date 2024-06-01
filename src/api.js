@@ -17,6 +17,7 @@ export const registerUser = async (formData) => {
   }
 };
 
+// Fetch Users
 export const fetchUsers = async () => {
   try {
     const response = await axios.get(`${API_URL}/users`);
@@ -27,24 +28,30 @@ export const fetchUsers = async () => {
   }
 };
 
+// Update User Scores
 export const updateUserScores = async (users) => {
   try {
-    const response = await axios.put(`${API_URL}/users/update-scores`, {
-      users,
+    const token = localStorage.getItem("jwtToken");
+    await axios.put(`${API_URL}/users/update-scores`, users, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    return response.data;
   } catch (error) {
     console.error("Error updating user scores", error);
     throw error;
   }
 };
 
+// Save User Movements
 export const saveUserMovements = async (users) => {
   try {
-    const response = await axios.put(`${API_URL}/users/update-movements`, {
-      users,
+    const token = localStorage.getItem("jwtToken");
+    await axios.put(`${API_URL}/users/update-movements`, users, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     });
-    return response.data;
   } catch (error) {
     console.error("Error updating user movements", error);
     throw error;

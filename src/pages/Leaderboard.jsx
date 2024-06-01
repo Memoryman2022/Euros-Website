@@ -88,9 +88,7 @@ function Leaderboard({ onUserUpdate }) {
   return (
     <div className="leaderboard-page">
       <h4>Leaderboard</h4>
-      <button className="leadbrd-btn" onClick={randomizeScores}>
-        Random Scores
-      </button>
+
       <div className="leaderboard-container">
         <table className="leaderboard-table">
           <thead>

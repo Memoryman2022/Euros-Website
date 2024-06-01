@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import axiosInstance from "../utils/axiosInstance"; // Import the custom axios instance
+import axiosInstance from "../utils/axiosInstance";
 import { AuthContext } from "../authContext/auth.context";
 import { API_URL } from "../config";
 import "../Css/RealResult.css";
 
 function RealResult({ game, index }) {
-  // Add index as a prop
   const { user } = useContext(AuthContext);
-  const isAdmin = user?.role === "admin"; // Check if the user is an admin
+  const isAdmin = user?.role === "admin";
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
   const [outcome, setOutcome] = useState("");
@@ -40,13 +39,11 @@ function RealResult({ game, index }) {
 
   const handleSave = async () => {
     try {
-      const token = localStorage.getItem("jwtToken");
       await axiosInstance.post(
         `${API_URL}/realresults/${game.id}/result`,
         { team1Score, team2Score, outcome },
         {
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -56,20 +53,6 @@ function RealResult({ game, index }) {
       console.error("Error saving real result:", error);
     }
   };
-
-  const handleOutcomeChange = () => {
-    if (team1Score > team2Score) {
-      setOutcome(`${game.team1} win`);
-    } else if (team1Score < team2Score) {
-      setOutcome(`${game.team2} win`);
-    } else {
-      setOutcome("draw");
-    }
-  };
-
-  useEffect(() => {
-    handleOutcomeChange();
-  }, [team1Score, team2Score]);
 
   return (
     <div className="real-result">
@@ -90,7 +73,18 @@ function RealResult({ game, index }) {
         />
         <span>{game.team2}</span>
       </div>
-      <div className="result-outcome">{outcome || "No result yet"}</div>
+      <div className="result-outcome">
+        {isAdmin ? (
+          <select value={outcome} onChange={(e) => setOutcome(e.target.value)}>
+            <option value="">Select Outcome</option>
+            <option value="team1 win">{game.team1} win</option>
+            <option value="draw">Draw</option>
+            <option value="team2 win">{game.team2} win</option>
+          </select>
+        ) : (
+          outcome || "No result yet"
+        )}
+      </div>
       {isAdmin && (
         <button onClick={handleSave} className="save-button">
           Save Result

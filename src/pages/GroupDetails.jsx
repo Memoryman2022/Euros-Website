@@ -166,8 +166,9 @@ function GroupDetails() {
         UK Players: Please be aware of the time difference.{" "}
       </h3>
       {groupGames.map((game, index) => (
-        <div key={index} className="game-item">
+        <div key={index}>
           <GameItem
+            key={index}
             game={game}
             index={index}
             confirmed={confirmed[index]}
@@ -178,7 +179,8 @@ function GroupDetails() {
             onCheckboxChange={handleCheckboxChange}
             onShowModal={handleConfirm}
           />
-          <RealResult game={game} index={index} /> {/* Pass index as a prop */}
+          <RealResult game={game} index={index} />{" "}
+          {/* Include the RealResult component */}
         </div>
       ))}
       <Link to="/predictions" className="back-button">
