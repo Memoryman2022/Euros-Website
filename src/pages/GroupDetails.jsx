@@ -4,7 +4,8 @@ import axios from "axios";
 import { AuthContext } from "../authContext/auth.context";
 import { API_URL } from "../config";
 import { groupStageGames } from "../gamesData";
-import GameItem from "../components/GameItem"; // Import the new component
+import GameItem from "../components/GameItem";
+import RealResult from "../components/RealResult"; // Import the new RealResult component
 import "../Css/GroupDetails.css";
 
 function GroupDetails() {
@@ -165,18 +166,20 @@ function GroupDetails() {
         UK Players: Please be aware of the time difference.{" "}
       </h3>
       {groupGames.map((game, index) => (
-        <GameItem
-          key={index}
-          game={game}
-          index={index}
-          confirmed={confirmed[index]}
-          selectedOutcome={selectedOutcome[index]}
-          team1Scores={team1Scores[index]}
-          team2Scores={team2Scores[index]}
-          onScoreChange={handleScoreChange}
-          onCheckboxChange={handleCheckboxChange}
-          onShowModal={handleConfirm}
-        />
+        <div key={index} className="game-item">
+          <GameItem
+            game={game}
+            index={index}
+            confirmed={confirmed[index]}
+            selectedOutcome={selectedOutcome[index]}
+            team1Scores={team1Scores[index]}
+            team2Scores={team2Scores[index]}
+            onScoreChange={handleScoreChange}
+            onCheckboxChange={handleCheckboxChange}
+            onShowModal={handleConfirm}
+          />
+          <RealResult game={game} index={index} /> {/* Pass index as a prop */}
+        </div>
       ))}
       <Link to="/predictions" className="back-button">
         Back to Groups
