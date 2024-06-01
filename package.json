@@ -11,7 +11,7 @@
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "stop:frontend": "kill-port 5173",
-    "stop:backend": "kill-port 5005",
+    "stop:backend": "kill-port 3000",
     "stop": "concurrently \"npm run stop:frontend\" \"npm run stop:backend\"",
     "start:all": "npm run stop && npm run dev"
   },

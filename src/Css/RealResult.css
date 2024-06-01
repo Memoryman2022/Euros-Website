@@ -1,0 +1,45 @@
+.real-result {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.result-inputs {
+  display: flex;
+  align-items: center;
+}
+
+.result-inputs span {
+  margin: 0 5px;
+}
+
+.result-inputs input {
+  width: 50px;
+  padding: 5px;
+  margin: 0 5px;
+  text-align: center;
+}
+
+.result-outcome {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.save-button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.save-button:hover {
+  background-color: #45a049;
+}

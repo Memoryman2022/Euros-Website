@@ -37,7 +37,7 @@ function RoundOf16Page() {
     try {
       const token = localStorage.getItem("jwtToken");
       const response = await axios.post(
-        "http://localhost:5005/api/predictions",
+        "http://localhost:3000/api/predictions",
         {
           gameId: roundOf16Games[currentGameIndex].id, // Unique game ID
           date: roundOf16Games[currentGameIndex].date,
