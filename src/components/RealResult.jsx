@@ -39,15 +39,13 @@ function RealResult({ game, index }) {
 
   const handleSave = async () => {
     try {
-      await axiosInstance.post(
-        `${API_URL}/realresults/${game.id}/result`,
-        { team1Score, team2Score, outcome },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      await axiosInstance.post(`${API_URL}/realresults/${game.id}/result`, {
+        team1: game.team1,
+        team2: game.team2,
+        team1Score,
+        team2Score,
+        outcome,
+      });
       console.log("Real result saved successfully");
     } catch (error) {
       console.error("Error saving real result:", error);
