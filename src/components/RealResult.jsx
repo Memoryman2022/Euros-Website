@@ -26,6 +26,10 @@ function RealResult({ game, index }) {
     }
   };
 
+  if (!isAdmin) {
+    return null; // Hide the component for non-admin users
+  }
+
   return (
     <div className="real-result">
       <div className="result-inputs">
