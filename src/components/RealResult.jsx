@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { AuthContext } from "../authContext/auth.context";
 import { API_URL } from "../config";
@@ -10,32 +10,6 @@ function RealResult({ game, index }) {
   const [team1Score, setTeam1Score] = useState(0);
   const [team2Score, setTeam2Score] = useState(0);
   const [outcome, setOutcome] = useState("");
-
-  const fetchRealResult = async () => {
-    console.info(`Fetching real result for game ${game.id} (index ${index})`);
-    try {
-      const response = await axiosInstance.get(
-        `${API_URL}/realresults/${game.id}/result`
-      );
-      if (response.data) {
-        const realResult = response.data;
-        setTeam1Score(realResult.team1Score);
-        setTeam2Score(realResult.team2Score);
-        setOutcome(realResult.outcome);
-        console.info(`Fetched real result for game ${game.id}:`, realResult);
-      } else {
-        console.info(
-          `Real result for game ${game.id} not found, initializing with default values.`
-        );
-      }
-    } catch (error) {
-      console.error(`Error fetching real result for game ${game.id}:`, error);
-    }
-  };
-
-  useEffect(() => {
-    fetchRealResult();
-  }, [game.id]);
 
   const handleSave = async () => {
     try {
