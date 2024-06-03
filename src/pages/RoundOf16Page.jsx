@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { roundOf16Games } from "../gamesData";
 import getFlagUrl from "../utils/getFlagUrl";
+import { API_URL } from "../config";
+
 import "../Css/RoundOf16.css";
 
 function RoundOf16Page() {
@@ -37,7 +39,7 @@ function RoundOf16Page() {
     try {
       const token = localStorage.getItem("jwtToken");
       const response = await axios.post(
-        "http://localhost:3000/api/predictions",
+        `${API_URL}/predictions`,
         {
           gameId: roundOf16Games[currentGameIndex].id, // Unique game ID
           date: roundOf16Games[currentGameIndex].date,
