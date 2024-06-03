@@ -21,7 +21,7 @@ function PredictionsPage() {
   const [standings, setStandings] = useState({});
 
   useEffect(() => {
-    const fetchRealResults = async () => {
+    const fetchStandings = async () => {
       try {
         const response = await axios.get(`${API_URL}/realresults`);
         const realResults = response.data;
@@ -42,14 +42,20 @@ function PredictionsPage() {
           }
         });
 
-        const newStandings = calculateStandings(updatedGames);
-        setStandings(newStandings);
+        const standingsResponse = await axios.post(
+          `${API_URL}/standings/calculate`,
+          {
+            groupStageGames: updatedGames,
+          }
+        );
+
+        setStandings(standingsResponse.data);
       } catch (error) {
-        console.error("Error fetching real results:", error);
+        console.error("Error fetching standings:", error);
       }
     };
 
-    fetchRealResults();
+    fetchStandings();
   }, []);
 
   return (

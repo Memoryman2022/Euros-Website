@@ -1,28 +1,47 @@
-// src/pages/RoundOf16Page.jsx
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { roundOf16Games } from "../gamesData";
+import { roundOf16Games as placeholderGames } from "../gamesData";
 import getFlagUrl from "../utils/getFlagUrl";
 import { API_URL } from "../config";
 
 import "../Css/RoundOf16.css";
 
 function RoundOf16Page() {
+  const [games, setGames] = useState(placeholderGames);
   const [confirmed, setConfirmed] = useState(
-    Array(roundOf16Games.length).fill(false)
+    Array(placeholderGames.length).fill(false)
   );
   const [selectedOutcome, setSelectedOutcome] = useState(
-    Array(roundOf16Games.length).fill(null)
+    Array(placeholderGames.length).fill(null)
   );
   const [team1Scores, setTeam1Scores] = useState(
-    Array(roundOf16Games.length).fill(0)
+    Array(placeholderGames.length).fill(0)
   );
   const [team2Scores, setTeam2Scores] = useState(
-    Array(roundOf16Games.length).fill(0)
+    Array(placeholderGames.length).fill(0)
   );
   const [showModal, setShowModal] = useState(false);
   const [currentGameIndex, setCurrentGameIndex] = useState(null);
+
+  useEffect(() => {
+    const fetchRoundOf16Games = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/roundof16`);
+        if (response.data && response.data.length > 0) {
+          setGames(response.data);
+          setConfirmed(Array(response.data.length).fill(false));
+          setSelectedOutcome(Array(response.data.length).fill(null));
+          setTeam1Scores(Array(response.data.length).fill(0));
+          setTeam2Scores(Array(response.data.length).fill(0));
+        }
+      } catch (error) {
+        console.error("Error fetching Round of 16 games:", error);
+      }
+    };
+
+    fetchRoundOf16Games();
+  }, []);
 
   const handleConfirm = (index) => {
     setCurrentGameIndex(index);
@@ -41,10 +60,10 @@ function RoundOf16Page() {
       const response = await axios.post(
         `${API_URL}/predictions`,
         {
-          gameId: roundOf16Games[currentGameIndex].id, // Unique game ID
-          date: roundOf16Games[currentGameIndex].date,
-          team1: roundOf16Games[currentGameIndex].team1,
-          team2: roundOf16Games[currentGameIndex].team2,
+          gameId: games[currentGameIndex].id, // Unique game ID
+          date: games[currentGameIndex].date,
+          team1: games[currentGameIndex].team1,
+          team2: games[currentGameIndex].team2,
           team1Score: team1Scores[currentGameIndex],
           team2Score: team2Scores[currentGameIndex],
           predictedOutcome: selectedOutcome[currentGameIndex],
@@ -99,7 +118,7 @@ function RoundOf16Page() {
   return (
     <div className="round-of-16-container">
       <h2>Round of 16 Games</h2>
-      {roundOf16Games.map((game, index) => (
+      {games.map((game, index) => (
         <div key={index} className="game-item">
           <div className="game-row">
             <div className="game-date">{game.date}</div>
