@@ -88,22 +88,12 @@ export const quarterFinalGames = [
 ];
 
 export const semiFinalGames = [
-  {
-    id: "S1",
-    date: "09 Jul 21:00",
-    team1: "1B/3A/D/E/F/1A/2C",
-    team2: "1F/3A/B/C/2D/2E",
-  },
-  {
-    id: "S2",
-    date: "10 Jul 21:00",
-    team1: "1C/3D/E/F/2A/2B",
-    team2: "1E/3A/B/C/D/1D/2F",
-  },
+  { id: "S1", date: "09 Jul 21:00", team1: "Q1", team2: "Q2" },
+  { id: "S2", date: "10 Jul 21:00", team1: "Q3", team2: "Q4" },
 ];
 
 export const finalGame = [
-  { id: "F1", date: "14 Jul 21:00", team1: "1B/3A/D/E/F", team2: "1A/2C" },
+  { id: "F1", date: "14 Jul 21:00", team1: "S1", team2: "S2" },
 ];
 
 export const groupStandings = {
