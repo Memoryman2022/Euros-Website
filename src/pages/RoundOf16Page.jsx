@@ -1,26 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { roundOf16Games as placeholderGames } from "../gamesData";
 import getFlagUrl from "../utils/getFlagUrl";
 import { API_URL } from "../config";
 
 import "../Css/RoundOf16.css";
 
 function RoundOf16Page() {
-  const [games, setGames] = useState(placeholderGames);
-  const [confirmed, setConfirmed] = useState(
-    Array(placeholderGames.length).fill(false)
-  );
-  const [selectedOutcome, setSelectedOutcome] = useState(
-    Array(placeholderGames.length).fill(null)
-  );
-  const [team1Scores, setTeam1Scores] = useState(
-    Array(placeholderGames.length).fill(0)
-  );
-  const [team2Scores, setTeam2Scores] = useState(
-    Array(placeholderGames.length).fill(0)
-  );
+  const [games, setGames] = useState([]);
+  const [confirmed, setConfirmed] = useState([]);
+  const [selectedOutcome, setSelectedOutcome] = useState([]);
+  const [team1Scores, setTeam1Scores] = useState([]);
+  const [team2Scores, setTeam2Scores] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentGameIndex, setCurrentGameIndex] = useState(null);
 

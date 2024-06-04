@@ -10,8 +10,10 @@ import "../Css/GroupDetails.css";
 
 function GroupDetails() {
   const { group } = useParams();
+  console.log("Group parameter:", group);
   const { user } = useContext(AuthContext); // Get user context
   const groupGames = groupStageGames[group];
+  console.log("Group games:", groupGames);
   const [confirmed, setConfirmed] = useState(
     Array(groupGames.length).fill(false)
   );
