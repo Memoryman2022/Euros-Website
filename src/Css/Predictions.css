@@ -81,6 +81,14 @@
   margin-top: 20px;
 }
 
+.round-cell {
+  display: flex;
+  align-items: flex-start;
+}
+.round-cell img {
+  width: 40px;
+}
+
 @media (max-width: 470px) {
   .predictions-container {
     padding: 10px;

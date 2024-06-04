@@ -110,7 +110,30 @@ function PredictionsPage() {
                       alt="Round of 16"
                       className="flag-icon"
                     />
-                    Click here to view the Round of 16 predictions
+                    Click here to view the Round of 16
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Link>
+        </div>
+        <div className="group-item">
+          <Link to="/quarter-finals">
+            <table className="group-table">
+              <thead>
+                <tr>
+                  <th colSpan="6">Quarter Finals</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="round-cell">
+                    <img
+                      src="/euro_fix.png"
+                      alt="Quarter Finals"
+                      className="flag-icon"
+                    />
+                    Click here to view the Quarter Finals
                   </td>
                 </tr>
               </tbody>

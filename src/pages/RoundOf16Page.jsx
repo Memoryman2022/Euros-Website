@@ -30,6 +30,21 @@ function RoundOf16Page() {
           setSelectedOutcome(Array(response.data.length).fill(null));
           setTeam1Scores(Array(response.data.length).fill(0));
           setTeam2Scores(Array(response.data.length).fill(0));
+
+          // Fetch user predictions
+          const token = localStorage.getItem("jwtToken");
+          const predictionsResponse = await axios.get(
+            `${API_URL}/predictions`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+
+          const userPredictions = predictionsResponse.data;
+          const newConfirmed = response.data.map((game) =>
+            userPredictions.some((prediction) => prediction.gameId === game.id)
+          );
+          setConfirmed(newConfirmed);
         }
       } catch (error) {
         console.error("Error fetching Round of 16 games:", error);
