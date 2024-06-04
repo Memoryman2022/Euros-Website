@@ -5,6 +5,7 @@ import getFlagUrl from "../utils/getFlagUrl";
 import { API_URL } from "../config";
 import { AuthContext } from "../authContext/auth.context";
 import UpdateRoundOf16 from "../components/UpdateRoundOf16";
+import RealResult from "../components/RealResult";
 import "../Css/RoundOf16.css";
 
 function RoundOf16Page() {
@@ -52,17 +53,21 @@ function RoundOf16Page() {
     // Send prediction to backend
     try {
       const token = localStorage.getItem("jwtToken");
+      const predictionData = {
+        gameId: games[currentGameIndex].id, // Unique game ID
+        date: games[currentGameIndex].date,
+        team1: games[currentGameIndex].team1,
+        team2: games[currentGameIndex].team2,
+        team1Score: team1Scores[currentGameIndex],
+        team2Score: team2Scores[currentGameIndex],
+        predictedOutcome: selectedOutcome[currentGameIndex],
+      };
+
+      console.log("Sending prediction data:", predictionData);
+
       const response = await axios.post(
         `${API_URL}/predictions`,
-        {
-          gameId: games[currentGameIndex].id, // Unique game ID
-          date: games[currentGameIndex].date,
-          team1: games[currentGameIndex].team1,
-          team2: games[currentGameIndex].team2,
-          team1Score: team1Scores[currentGameIndex],
-          team2Score: team2Scores[currentGameIndex],
-          predictedOutcome: selectedOutcome[currentGameIndex],
-        },
+        predictionData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -70,9 +75,14 @@ function RoundOf16Page() {
           },
         }
       );
+
       console.log("Prediction saved:", response.data);
     } catch (error) {
-      console.error("Error saving prediction:", error);
+      if (error.response) {
+        console.error("Error response data:", error.response.data);
+      } else {
+        console.error("Error saving prediction:", error.message);
+      }
     }
   };
 
@@ -217,6 +227,7 @@ function RoundOf16Page() {
               Confirm
             </button>
           </div>
+          {isAdmin && <RealResult game={game} index={index} />}
         </div>
       ))}
       <Link to="/predictions" className="back-button">
