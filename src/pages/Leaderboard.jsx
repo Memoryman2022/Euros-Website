@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsers, updateUserScores, saveUserMovements } from "../api";
+import { fetchUsers, saveUserMovements } from "../api";
 import { API_URL } from "../config/index";
 import "../Css/Leaderboard.css";
 
@@ -33,15 +33,8 @@ function Leaderboard({ onUserUpdate }) {
     getUsers();
   }, []);
 
-  const randomizeScores = async () => {
-    const updatedUsers = users.map((user) => ({
-      ...user,
-      score: Math.floor(Math.random() * 100),
-    }));
-
-    // Update user scores in the backend
+  const updateUserMovements = async () => {
     try {
-      await updateUserScores(updatedUsers);
       // Fetch updated users from the backend to get new positions
       const fetchedUsers = await fetchUsers();
 
@@ -81,7 +74,7 @@ function Leaderboard({ onUserUpdate }) {
         onUserUpdate(currentUser); // Notify parent component
       }
     } catch (error) {
-      console.error("Error updating scores:", error);
+      console.error("Error updating movements:", error);
     }
   };
 
