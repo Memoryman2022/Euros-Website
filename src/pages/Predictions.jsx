@@ -15,6 +15,18 @@ const initialGroups = {
   "Group F": ["Turkey", "Georgia", "Portugal", "Czechia"],
 };
 
+const getFullGroupName = (shortName) => {
+  const mapping = {
+    GA: "Group A",
+    GB: "Group B",
+    GC: "Group C",
+    GD: "Group D",
+    GE: "Group E",
+    GF: "Group F",
+  };
+  return mapping[shortName] || shortName;
+};
+
 function PredictionsPage() {
   const [standings, setStandings] = useState({});
 
@@ -44,7 +56,7 @@ function PredictionsPage() {
               <table className="group-table">
                 <thead>
                   <tr>
-                    <th colSpan="6">{group}</th>
+                    <th colSpan="6">{getFullGroupName(group)}</th>
                   </tr>
                   <tr className="header-row">
                     <th>Team</th>
