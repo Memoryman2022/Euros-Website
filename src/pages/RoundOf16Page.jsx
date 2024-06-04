@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import getFlagUrl from "../utils/getFlagUrl";
 import { API_URL } from "../config";
-
+import { AuthContext } from "../authContext/auth.context";
+import UpdateRoundOf16 from "../components/UpdateRoundOf16";
 import "../Css/RoundOf16.css";
 
 function RoundOf16Page() {
@@ -14,6 +15,9 @@ function RoundOf16Page() {
   const [team2Scores, setTeam2Scores] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [currentGameIndex, setCurrentGameIndex] = useState(null);
+  const { user } = useContext(AuthContext); // Get user context
+
+  const isAdmin = user && user.role === "admin"; // Check if the user is an admin
 
   useEffect(() => {
     const fetchRoundOf16Games = async () => {
@@ -218,6 +222,8 @@ function RoundOf16Page() {
       <Link to="/predictions" className="back-button">
         Back to Predictions
       </Link>
+
+      {isAdmin && <UpdateRoundOf16 />}
 
       {showModal && (
         <div className="modal-overlay">
