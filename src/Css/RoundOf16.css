@@ -5,6 +5,12 @@
   flex-direction: column;
   align-items: center;
 }
+.quarter-final-container {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .round-of-16-container h2 {
   color: rgb(238, 202, 42);
