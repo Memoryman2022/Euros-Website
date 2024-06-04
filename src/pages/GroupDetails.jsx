@@ -54,7 +54,6 @@ function GroupDetails() {
           },
         });
         const predictions = response.data;
-        console.log("Fetched predictions:", predictions);
 
         const newConfirmed = [...confirmed];
         const newSelectedOutcome = [...selectedOutcome];
