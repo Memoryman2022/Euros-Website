@@ -80,7 +80,7 @@ function Leaderboard({ onUserUpdate }) {
 
   return (
     <div className="leaderboard-page">
-      <h4>Leaderboard</h4>
+      <h2>Leaderboard</h2>
 
       <div className="leaderboard-container">
         <table className="leaderboard-table">
@@ -88,7 +88,9 @@ function Leaderboard({ onUserUpdate }) {
             <tr>
               <th className="position">Position</th>
               <th className="name">Name</th>
-              <th className="score">Score</th>
+              <th className="correct-scores">Correct Scores</th>
+              <th className="correct-outcomes">Correct Outcomes</th>
+              <th className="user-score">Score</th>
             </tr>
           </thead>
           <tbody>
@@ -113,6 +115,8 @@ function Leaderboard({ onUserUpdate }) {
                     />
                   )}
                 </td>
+                <td className="correct-scores">{user.correctScores}</td>
+                <td className="correct-outcomes">{user.correctOutcomes}</td>
                 <td className="score">{user.score}</td>
               </tr>
             ))}
