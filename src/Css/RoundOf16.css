@@ -13,6 +13,12 @@
 }
 
 .round-of-16-container h2 {
+  text-shadow: 2px 2px black;
+  color: rgb(238, 202, 42);
+  padding: 5px;
+}
+.quarter-final-container h2 {
+  text-shadow: 2px 2px black;
   color: rgb(238, 202, 42);
   padding: 5px;
 }

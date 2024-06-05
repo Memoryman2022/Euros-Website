@@ -12,6 +12,8 @@ import Leaderboard from "./pages/Leaderboard";
 import GroupDetails from "./pages/GroupDetails";
 import RoundOf16Page from "./pages/RoundOf16Page";
 import QuarterFinalPage from "./pages/QuarterFinalPage";
+import SemiFinalPage from "./pages/SemiFinalPage";
+import FinalPage from "./pages/FinalPage";
 import Landing from "./pages/Landing";
 import NotFoundPage from "./pages/NotFound";
 //Components
@@ -38,6 +40,8 @@ function App() {
               <Route path="/group/:group" element={<GroupDetails />} />
               <Route path="/round-of-16" element={<RoundOf16Page />} />
               <Route path="/quarter-finals" element={<QuarterFinalPage />} />
+              <Route path="/semi-finals" element={<SemiFinalPage />} />
+              <Route path="/final" element={<FinalPage />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />

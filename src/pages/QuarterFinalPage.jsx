@@ -20,22 +20,22 @@ function QuarterFinalPage() {
 
   const isAdmin = user && user.role === "admin"; // Check if the user is an admin
 
-  useEffect(() => {
-    const fetchQuarterFinalGames = async () => {
-      try {
-        const response = await axios.get(`${API_URL}/quarterfinalgames`);
-        if (response.data && response.data.length > 0) {
-          setGames(response.data);
-          setConfirmed(Array(response.data.length).fill(false));
-          setSelectedOutcome(Array(response.data.length).fill(null));
-          setTeam1Scores(Array(response.data.length).fill(0));
-          setTeam2Scores(Array(response.data.length).fill(0));
-        }
-      } catch (error) {
-        console.error("Error fetching quarter-final games:", error);
+  const fetchQuarterFinalGames = async () => {
+    try {
+      const response = await axios.get(`${API_URL}/quarterfinalgames`);
+      if (response.data && response.data.length > 0) {
+        setGames(response.data);
+        setConfirmed(Array(response.data.length).fill(false));
+        setSelectedOutcome(Array(response.data.length).fill(null));
+        setTeam1Scores(Array(response.data.length).fill(0));
+        setTeam2Scores(Array(response.data.length).fill(0));
       }
-    };
+    } catch (error) {
+      console.error("Error fetching quarter-final games:", error);
+    }
+  };
 
+  useEffect(() => {
     fetchQuarterFinalGames();
   }, []);
 
@@ -114,6 +114,7 @@ function QuarterFinalPage() {
   return (
     <div className="quarter-final-container">
       <h2>Quarter-Final Games</h2>
+
       {games.map((game, index) => (
         <div key={index} className="game-item">
           <div className="game-row">
@@ -122,7 +123,7 @@ function QuarterFinalPage() {
               <span className="team-name">
                 <img
                   src={
-                    game.team1.includes("R16")
+                    game.team1 && game.team1.includes("R16")
                       ? "/euro_fix.png"
                       : getFlagUrl(game.team1)
                   }
@@ -133,7 +134,7 @@ function QuarterFinalPage() {
                     e.target.src = "/euro_fix.png";
                   }}
                 />
-                {game.team1}
+                {game.team1 || "TBD"}
               </span>
               <select
                 className="score-select"
@@ -161,7 +162,7 @@ function QuarterFinalPage() {
               <span className="team-name">
                 <img
                   src={
-                    game.team2.includes("R16")
+                    game.team2 && game.team2.includes("R16")
                       ? "/euro_fix.png"
                       : getFlagUrl(game.team2)
                   }
@@ -172,7 +173,7 @@ function QuarterFinalPage() {
                     e.target.src = "/euro_fix.png";
                   }}
                 />
-                {game.team2}
+                {game.team2 || "TBD"}
               </span>
             </div>
           </div>
@@ -221,7 +222,7 @@ function QuarterFinalPage() {
         Back to Predictions
       </Link>
 
-      {isAdmin && <UpdateQuarterFinals />}
+      {isAdmin && <UpdateQuarterFinals onUpdate={fetchQuarterFinalGames} />}
 
       {showModal && (
         <div className="modal-overlay">

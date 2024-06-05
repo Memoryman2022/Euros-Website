@@ -34,7 +34,7 @@ function PredictionsPage() {
     const fetchStandings = async () => {
       try {
         const response = await axios.get(`${API_URL}/groupStandings/latest`);
-
+        console.log("Fetched standings data:", response.data);
         const standingsData = response.data || {};
 
         setStandings(standingsData);
@@ -134,6 +134,52 @@ function PredictionsPage() {
                       className="flag-icon"
                     />
                     Click here to view the Quarter Finals
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Link>
+        </div>
+        <div className="group-item">
+          <Link to="/semi-finals">
+            <table className="group-table">
+              <thead>
+                <tr>
+                  <th colSpan="6">Semi Finals</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="round-cell">
+                    <img
+                      src="/euro_fix.png"
+                      alt="Semi Finals"
+                      className="flag-icon"
+                    />
+                    Click here to view the Semi Finals
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Link>
+        </div>
+        <div className="group-item">
+          <Link to="/final">
+            <table className="group-table">
+              <thead>
+                <tr>
+                  <th colSpan="6">Finals</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="round-cell">
+                    <img
+                      src="/euro_fix.png"
+                      alt="Finals"
+                      className="flag-icon"
+                    />
+                    Click here to view the Finals
                   </td>
                 </tr>
               </tbody>
