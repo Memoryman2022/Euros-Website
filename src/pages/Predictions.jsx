@@ -34,7 +34,7 @@ function PredictionsPage() {
     const fetchStandings = async () => {
       try {
         const response = await axios.get(`${API_URL}/groupStandings/latest`);
-        console.log("Fetched standings data:", response.data);
+
         const standingsData = response.data || {};
 
         setStandings(standingsData);
