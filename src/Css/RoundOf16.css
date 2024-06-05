@@ -5,6 +5,12 @@
   flex-direction: column;
   align-items: center;
 }
+
+.update-round-of-16-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 .quarter-final-container {
   padding: 5px;
   display: flex;

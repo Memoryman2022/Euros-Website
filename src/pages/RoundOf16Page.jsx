@@ -46,6 +46,7 @@ function RoundOf16Page() {
       console.error("Error fetching Round of 16 games:", error);
     }
   };
+
   useEffect(() => {
     fetchRoundOf16Games();
   }, []);
@@ -134,7 +135,7 @@ function RoundOf16Page() {
   return (
     <div className="round-of-16-container">
       <h2>Round of 16 Games</h2>
-      {isAdmin && <UpdateRoundOf16 />}
+      {isAdmin && <UpdateRoundOf16 onUpdate={fetchRoundOf16Games} />}
       {games.map((game, index) => (
         <div key={index} className="game-item">
           <div className="game-row">
