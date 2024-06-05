@@ -19,6 +19,7 @@
   text-shadow: 2px 2px black;
   margin-bottom: 1rem;
   background-color: rgba(0, 0, 0, 0.581);
+  padding: 20px;
 }
 
 .game-item {

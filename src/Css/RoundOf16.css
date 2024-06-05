@@ -16,6 +16,9 @@
   color: rgb(238, 202, 42);
   padding: 5px;
 }
+.game-item.confirmed {
+  background-color: rgba(238, 202, 16, 0.2);
+}
 
 .game-item {
   border: 4px solid #0b2563;
