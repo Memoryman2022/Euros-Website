@@ -5,7 +5,7 @@ import getFlagUrl from "../utils/getFlagUrl";
 import { API_URL } from "../config";
 import { AuthContext } from "../authContext/auth.context";
 import UpdateQuarterFinals from "../components/UpdateQuarterFinals";
-import RealResult from "../components/RealResult"; // Import the RealResult component
+import RealResult from "../components/RealResult";
 import "../Css/RoundOf16.css";
 
 function QuarterFinalPage() {
@@ -29,6 +29,18 @@ function QuarterFinalPage() {
         setSelectedOutcome(Array(response.data.length).fill(null));
         setTeam1Scores(Array(response.data.length).fill(0));
         setTeam2Scores(Array(response.data.length).fill(0));
+
+        // Fetch user predictions
+        const token = localStorage.getItem("jwtToken");
+        const predictionsResponse = await axios.get(`${API_URL}/predictions`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const userPredictions = predictionsResponse.data;
+        const newConfirmed = response.data.map((game) =>
+          userPredictions.some((prediction) => prediction.gameId === game.id)
+        );
+        setConfirmed(newConfirmed);
       }
     } catch (error) {
       console.error("Error fetching quarter-final games:", error);
