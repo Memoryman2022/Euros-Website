@@ -5,7 +5,9 @@ import { API_URL } from "../config";
 const UpdateFinals = ({ onUpdate }) => {
   const handleUpdate = async () => {
     try {
-      const response = await axios.post(`${API_URL}/finalgames/update`);
+      const response = await axios.post(
+        `${API_URL}/knockout/finalgames/update`
+      );
       alert(response.data.message);
       if (onUpdate) onUpdate();
     } catch (error) {

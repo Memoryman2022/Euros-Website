@@ -5,7 +5,9 @@ import { API_URL } from "../config";
 const UpdateQuarterFinals = ({ onUpdate }) => {
   const handleUpdate = async () => {
     try {
-      const response = await axios.post(`${API_URL}/quarterfinalgames/update`);
+      const response = await axios.post(
+        `${API_URL}/knockout/quarterfinalgames/update`
+      );
       alert(response.data.message);
       if (onUpdate) onUpdate();
     } catch (error) {

@@ -22,7 +22,7 @@ function RoundOf16Page() {
 
   const fetchRoundOf16Games = async () => {
     try {
-      const response = await axios.get(`${API_URL}/roundof16`);
+      const response = await axios.get(`${API_URL}/knockout/roundof16`);
       if (response.data && response.data.length > 0) {
         setGames(response.data);
         setConfirmed(Array(response.data.length).fill(false));

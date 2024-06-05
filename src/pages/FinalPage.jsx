@@ -22,7 +22,7 @@ function FinalPage() {
 
   const fetchFinalGames = async () => {
     try {
-      const response = await axios.get(`${API_URL}/finalgames`);
+      const response = await axios.get(`${API_URL}/knockout/finalgames`);
       if (response.data && response.data.length > 0) {
         setGames(response.data);
         setConfirmed(Array(response.data.length).fill(false));

@@ -22,7 +22,7 @@ function QuarterFinalPage() {
 
   const fetchQuarterFinalGames = async () => {
     try {
-      const response = await axios.get(`${API_URL}/quarterfinalgames`);
+      const response = await axios.get(`${API_URL}/knockout/quarterfinalgames`);
       if (response.data && response.data.length > 0) {
         setGames(response.data);
         setConfirmed(Array(response.data.length).fill(false));

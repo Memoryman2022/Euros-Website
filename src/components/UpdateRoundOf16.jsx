@@ -8,7 +8,7 @@ function UpdateRoundOf16({ onUpdate }) {
 
   const handleUpdate = async () => {
     try {
-      const response = await axios.post(`${API_URL}/roundOf16/update`);
+      const response = await axios.post(`${API_URL}/knockout/roundOf16/update`);
       setMessage(response.data);
       if (onUpdate) onUpdate();
     } catch (error) {
