@@ -1,4 +1,4 @@
-/* RoundOf16.css */
+/* knockout stage .css */
 .round-of-16-container {
   padding: 5px;
   display: flex;
@@ -6,9 +6,30 @@
   align-items: center;
 }
 
+.update-round-of-16-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.quarter-final-container {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .round-of-16-container h2 {
+  text-shadow: 2px 2px black;
   color: rgb(238, 202, 42);
   padding: 5px;
+}
+.quarter-final-container h2 {
+  text-shadow: 2px 2px black;
+  color: rgb(238, 202, 42);
+  padding: 5px;
+}
+.game-item.confirmed {
+  background-color: rgba(238, 202, 16, 0.2);
 }
 
 .game-item {

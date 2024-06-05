@@ -4,11 +4,11 @@ import axios from "axios";
 import getFlagUrl from "../utils/getFlagUrl";
 import { API_URL } from "../config";
 import { AuthContext } from "../authContext/auth.context";
-import UpdateRoundOf16 from "../components/UpdateRoundOf16";
+import UpdateQuarterFinals from "../components/UpdateQuarterFinals";
 import RealResult from "../components/RealResult";
 import "../Css/RoundOf16.css";
 
-function RoundOf16Page() {
+function QuarterFinalPage() {
   const [games, setGames] = useState([]);
   const [confirmed, setConfirmed] = useState([]);
   const [selectedOutcome, setSelectedOutcome] = useState([]);
@@ -20,9 +20,9 @@ function RoundOf16Page() {
 
   const isAdmin = user && user.role === "admin"; // Check if the user is an admin
 
-  const fetchRoundOf16Games = async () => {
+  const fetchQuarterFinalGames = async () => {
     try {
-      const response = await axios.get(`${API_URL}/roundof16`);
+      const response = await axios.get(`${API_URL}/knockout/quarterfinalgames`);
       if (response.data && response.data.length > 0) {
         setGames(response.data);
         setConfirmed(Array(response.data.length).fill(false));
@@ -43,12 +43,12 @@ function RoundOf16Page() {
         setConfirmed(newConfirmed);
       }
     } catch (error) {
-      console.error("Error fetching Round of 16 games:", error);
+      console.error("Error fetching quarter-final games:", error);
     }
   };
 
   useEffect(() => {
-    fetchRoundOf16Games();
+    fetchQuarterFinalGames();
   }, []);
 
   const handleConfirm = (index) => {
@@ -65,21 +65,17 @@ function RoundOf16Page() {
     // Send prediction to backend
     try {
       const token = localStorage.getItem("jwtToken");
-      const predictionData = {
-        gameId: games[currentGameIndex].id, // Unique game ID
-        date: games[currentGameIndex].date,
-        team1: games[currentGameIndex].team1,
-        team2: games[currentGameIndex].team2,
-        team1Score: team1Scores[currentGameIndex],
-        team2Score: team2Scores[currentGameIndex],
-        predictedOutcome: selectedOutcome[currentGameIndex],
-      };
-
-      console.log("Sending prediction data:", predictionData);
-
       const response = await axios.post(
         `${API_URL}/predictions`,
-        predictionData,
+        {
+          gameId: games[currentGameIndex].id, // Unique game ID
+          date: games[currentGameIndex].date,
+          team1: games[currentGameIndex].team1,
+          team2: games[currentGameIndex].team2,
+          team1Score: team1Scores[currentGameIndex],
+          team2Score: team2Scores[currentGameIndex],
+          predictedOutcome: selectedOutcome[currentGameIndex],
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -87,14 +83,9 @@ function RoundOf16Page() {
           },
         }
       );
-
       console.log("Prediction saved:", response.data);
     } catch (error) {
-      if (error.response) {
-        console.error("Error response data:", error.response.data);
-      } else {
-        console.error("Error saving prediction:", error.message);
-      }
+      console.error("Error saving prediction:", error);
     }
   };
 
@@ -133,9 +124,9 @@ function RoundOf16Page() {
   };
 
   return (
-    <div className="round-of-16-container">
-      <h2>Round of 16 Games</h2>
-      {isAdmin && <UpdateRoundOf16 onUpdate={fetchRoundOf16Games} />}
+    <div className="quarter-final-container">
+      <h2>Quarter-Final Games</h2>
+
       {games.map((game, index) => (
         <div key={index} className="game-item">
           <div className="game-row">
@@ -144,9 +135,7 @@ function RoundOf16Page() {
               <span className="team-name">
                 <img
                   src={
-                    game.team1.includes("1") ||
-                    game.team1.includes("2") ||
-                    game.team1.includes("3")
+                    game.team1 && game.team1.includes("R16")
                       ? "/euro_fix.png"
                       : getFlagUrl(game.team1)
                   }
@@ -157,7 +146,7 @@ function RoundOf16Page() {
                     e.target.src = "/euro_fix.png";
                   }}
                 />
-                {game.team1}
+                {game.team1 || "TBD"}
               </span>
               <select
                 className="score-select"
@@ -185,9 +174,7 @@ function RoundOf16Page() {
               <span className="team-name">
                 <img
                   src={
-                    game.team2.includes("1") ||
-                    game.team2.includes("2") ||
-                    game.team2.includes("3")
+                    game.team2 && game.team2.includes("R16")
                       ? "/euro_fix.png"
                       : getFlagUrl(game.team2)
                   }
@@ -198,7 +185,7 @@ function RoundOf16Page() {
                     e.target.src = "/euro_fix.png";
                   }}
                 />
-                {game.team2}
+                {game.team2 || "TBD"}
               </span>
             </div>
           </div>
@@ -247,6 +234,8 @@ function RoundOf16Page() {
         Back to Predictions
       </Link>
 
+      {isAdmin && <UpdateQuarterFinals onUpdate={fetchQuarterFinalGames} />}
+
       {showModal && (
         <div className="modal-overlay">
           <div className="modal-content">
@@ -276,4 +265,4 @@ function RoundOf16Page() {
   );
 }
 
-export default RoundOf16Page;
+export default QuarterFinalPage;

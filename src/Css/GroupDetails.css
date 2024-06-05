@@ -9,6 +9,7 @@
 .group-details-container h2 {
   color: rgb(238, 202, 16);
   font-size: 1.5rem;
+  text-shadow: 2px 2px black;
   margin-bottom: 1rem;
 }
 .group-details-container h3 {
@@ -19,6 +20,7 @@
   text-shadow: 2px 2px black;
   margin-bottom: 1rem;
   background-color: rgba(0, 0, 0, 0.581);
+  padding: 20px;
 }
 
 .game-item {

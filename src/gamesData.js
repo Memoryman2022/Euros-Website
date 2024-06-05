@@ -1,5 +1,5 @@
 export const groupStageGames = {
-  "Group A": [
+  GA: [
     { id: "GA-1", date: "14 Jun 21:00", team1: "Germany", team2: "Scotland" },
     {
       id: "GA-2",
@@ -22,7 +22,7 @@ export const groupStageGames = {
     },
     { id: "GA-6", date: "23 Jun 21:00", team1: "Scotland", team2: "Hungary" },
   ],
-  "Group B": [
+  GB: [
     { id: "GB-1", date: "15 Jun 18:00", team1: "Spain", team2: "Croatia" },
     { id: "GB-2", date: "15 Jun 21:00", team1: "Italy", team2: "Albania" },
     { id: "GB-3", date: "19 Jun 15:00", team1: "Croatia", team2: "Albania" },
@@ -30,7 +30,7 @@ export const groupStageGames = {
     { id: "GB-5", date: "24 Jun 21:00", team1: "Albania", team2: "Spain" },
     { id: "GB-6", date: "24 Jun 21:00", team1: "Croatia", team2: "Italy" },
   ],
-  "Group C": [
+  GC: [
     { id: "GC-1", date: "16 Jun 18:00", team1: "Slovenia", team2: "Denmark" },
     { id: "GC-2", date: "16 Jun 21:00", team1: "Serbia", team2: "England" },
     { id: "GC-3", date: "20 Jun 15:00", team1: "Slovenia", team2: "Serbia" },
@@ -38,7 +38,7 @@ export const groupStageGames = {
     { id: "GC-5", date: "25 Jun 21:00", team1: "England", team2: "Slovenia" },
     { id: "GC-6", date: "25 Jun 21:00", team1: "Denmark", team2: "Serbia" },
   ],
-  "Group D": [
+  GD: [
     { id: "GD-1", date: "16 Jun 15:00", team1: "Poland", team2: "Netherlands" },
     { id: "GD-2", date: "17 Jun 21:00", team1: "Austria", team2: "France" },
     { id: "GD-3", date: "21 Jun 18:00", team1: "Poland", team2: "Austria" },
@@ -51,7 +51,7 @@ export const groupStageGames = {
     },
     { id: "GD-6", date: "25 Jun 18:00", team1: "France", team2: "Poland" },
   ],
-  "Group E": [
+  GE: [
     { id: "GE-1", date: "17 Jun 15:00", team1: "Romania", team2: "Ukraine" },
     { id: "GE-2", date: "17 Jun 18:00", team1: "Belgium", team2: "Slovakia" },
     { id: "GE-3", date: "21 Jun 15:00", team1: "Slovakia", team2: "Ukraine" },
@@ -59,7 +59,7 @@ export const groupStageGames = {
     { id: "GE-5", date: "26 Jun 18:00", team1: "Slovakia", team2: "Romania" },
     { id: "GE-6", date: "26 Jun 18:00", team1: "Ukraine", team2: "Belgium" },
   ],
-  "Group F": [
+  GF: [
     { id: "GF-1", date: "18 Jun 18:00", team1: "Turkey", team2: "Georgia" },
     { id: "GF-2", date: "18 Jun 21:00", team1: "Portugal", team2: "Czechia" },
     { id: "GF-3", date: "22 Jun 15:00", team1: "Turkey", team2: "Portugal" },
@@ -81,29 +81,19 @@ export const roundOf16Games = [
 ];
 
 export const quarterFinalGames = [
-  { id: "Q1", date: "05 Jul 18:00", team1: "1B/3A/D/E/F", team2: "1A/2C" },
-  { id: "Q2", date: "05 Jul 21:00", team1: "1F/3A/B/C", team2: "2D/2E" },
-  { id: "Q3", date: "06 Jul 18:00", team1: "1C/3D/E/F", team2: "2A/2B" },
-  { id: "Q4", date: "06 Jul 21:00", team1: "1E/3A/B/C/D", team2: "1D/2F" },
+  { id: "Q1", date: "05 Jul 18:00", team1: "R16-4", team2: "R16-2" },
+  { id: "Q2", date: "05 Jul 21:00", team1: "R16-6", team2: "R16-5" },
+  { id: "Q3", date: "06 Jul 18:00", team1: "R16-3", team2: "R16-1" },
+  { id: "Q4", date: "06 Jul 21:00", team1: "R16-7", team2: "R16-8" },
 ];
 
 export const semiFinalGames = [
-  {
-    id: "S1",
-    date: "09 Jul 21:00",
-    team1: "1B/3A/D/E/F/1A/2C",
-    team2: "1F/3A/B/C/2D/2E",
-  },
-  {
-    id: "S2",
-    date: "10 Jul 21:00",
-    team1: "1C/3D/E/F/2A/2B",
-    team2: "1E/3A/B/C/D/1D/2F",
-  },
+  { id: "S1", date: "09 Jul 21:00", team1: "Q1", team2: "Q2" },
+  { id: "S2", date: "10 Jul 21:00", team1: "Q3", team2: "Q4" },
 ];
 
 export const finalGame = [
-  { id: "F1", date: "14 Jul 21:00", team1: "1B/3A/D/E/F", team2: "1A/2C" },
+  { id: "F1", date: "14 Jul 21:00", team1: "S1", team2: "S2" },
 ];
 
 export const groupStandings = {

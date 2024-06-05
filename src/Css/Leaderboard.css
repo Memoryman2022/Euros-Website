@@ -6,9 +6,10 @@
   box-sizing: border-box;
 }
 
-.leaderboard-page h4 {
+.leaderboard-page h2 {
   margin: 0;
   color: #f1c40e;
+  text-shadow: 2px 2px black;
 }
 
 .leaderboard-container {
@@ -46,6 +47,20 @@
   width: 50px; /* Adjust this value as needed */
   text-align: center; /* Center horizontally */
   vertical-align: middle; /* Center vertically */
+}
+
+.correct-scores {
+  width: 20%;
+  text-align: center;
+}
+
+.correct-outcomes {
+  width: 20%;
+  text-align: center;
+}
+
+.user-score {
+  width: 10%;
 }
 
 .leaderboard-table th.name,

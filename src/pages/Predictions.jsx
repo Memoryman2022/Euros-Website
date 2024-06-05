@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { groupStageGames } from "../gamesData";
 import getFlagUrl from "../utils/getFlagUrl";
-import { calculateStandings } from "../utils/calculateStandings";
 import { API_URL } from "../config";
 import "../Css/Predictions.css";
 
@@ -17,52 +15,48 @@ const initialGroups = {
   "Group F": ["Turkey", "Georgia", "Portugal", "Czechia"],
 };
 
+const getFullGroupName = (shortName) => {
+  const mapping = {
+    GA: "Group A",
+    GB: "Group B",
+    GC: "Group C",
+    GD: "Group D",
+    GE: "Group E",
+    GF: "Group F",
+  };
+  return mapping[shortName] || shortName;
+};
+
 function PredictionsPage() {
   const [standings, setStandings] = useState({});
 
   useEffect(() => {
-    const fetchRealResults = async () => {
+    const fetchStandings = async () => {
       try {
-        const response = await axios.get(`${API_URL}/realresults`);
-        const realResults = response.data;
+        const response = await axios.get(`${API_URL}/groupStandings/latest`);
 
-        const updatedGames = { ...groupStageGames };
-        realResults.forEach((result) => {
-          const group = Object.keys(updatedGames).find((grp) =>
-            updatedGames[grp].some((game) => game.id === result.gameId)
-          );
-          if (group) {
-            const gameIndex = updatedGames[group].findIndex(
-              (game) => game.id === result.gameId
-            );
-            if (gameIndex > -1) {
-              updatedGames[group][gameIndex].team1Score = result.team1Score;
-              updatedGames[group][gameIndex].team2Score = result.team2Score;
-            }
-          }
-        });
+        const standingsData = response.data || {};
 
-        const newStandings = calculateStandings(updatedGames);
-        setStandings(newStandings);
+        setStandings(standingsData);
       } catch (error) {
-        console.error("Error fetching real results:", error);
+        console.error("Error fetching standings:", error);
       }
     };
 
-    fetchRealResults();
+    fetchStandings();
   }, []);
 
   return (
     <div className="predictions-container">
       <h2>Groups</h2>
       <div className="groups-list">
-        {Object.keys(initialGroups).map((group, index) => (
+        {Object.keys(standings).map((group, index) => (
           <div key={index} className="group-item">
             <Link to={`/group/${group}`}>
               <table className="group-table">
                 <thead>
                   <tr>
-                    <th colSpan="6">{group}</th>
+                    <th colSpan="6">{getFullGroupName(group)}</th>
                   </tr>
                   <tr className="header-row">
                     <th>Team</th>
@@ -74,27 +68,27 @@ function PredictionsPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {Object.keys(standings[group] || {}).map((team, idx) => {
-                    const teamStats = standings[group][team];
-
-                    return (
-                      <tr key={idx} className="data-row">
-                        <td className="team-cell">
-                          <img
-                            src={getFlagUrl(team)}
-                            alt={team}
-                            className="flag-icon"
-                          />
-                          {team}
-                        </td>
-                        <td className="win-cell">{teamStats.wins}</td>
-                        <td className="draw-cell">{teamStats.draws}</td>
-                        <td className="loss-cell">{teamStats.losses}</td>
-                        <td className="gd-cell">{teamStats.goalDifference}</td>
-                        <td className="points-cell">{teamStats.points}</td>
-                      </tr>
-                    );
-                  })}
+                  {standings[group]?.map((team, idx) => (
+                    <tr key={idx} className="data-row">
+                      <td className="team-cell">
+                        <img
+                          src={getFlagUrl(team.name)}
+                          alt={team.name}
+                          className="flag-icon"
+                        />
+                        {team.name}
+                      </td>
+                      <td className="win-cell">{team.wins}</td>
+                      <td className="draw-cell">{team.draws}</td>
+                      <td className="loss-cell">{team.losses}</td>
+                      <td className="gd-cell">{team.goalDifference}</td>
+                      <td className="points-cell">{team.points}</td>
+                    </tr>
+                  )) || (
+                    <tr>
+                      <td colSpan="6">No data available</td>
+                    </tr>
+                  )}
                 </tbody>
               </table>
             </Link>
@@ -116,7 +110,76 @@ function PredictionsPage() {
                       alt="Round of 16"
                       className="flag-icon"
                     />
-                    Click here to view the Round of 16 predictions
+                    Click here to view the Round of 16
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Link>
+        </div>
+        <div className="group-item">
+          <Link to="/quarter-finals">
+            <table className="group-table">
+              <thead>
+                <tr>
+                  <th colSpan="6">Quarter Finals</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="round-cell">
+                    <img
+                      src="/euro_fix.png"
+                      alt="Quarter Finals"
+                      className="flag-icon"
+                    />
+                    Click here to view the Quarter Finals
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Link>
+        </div>
+        <div className="group-item">
+          <Link to="/semi-finals">
+            <table className="group-table">
+              <thead>
+                <tr>
+                  <th colSpan="6">Semi Finals</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="round-cell">
+                    <img
+                      src="/euro_fix.png"
+                      alt="Semi Finals"
+                      className="flag-icon"
+                    />
+                    Click here to view the Semi Finals
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </Link>
+        </div>
+        <div className="group-item">
+          <Link to="/final">
+            <table className="group-table">
+              <thead>
+                <tr>
+                  <th colSpan="6">Finals</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="round-cell">
+                    <img
+                      src="/euro_fix.png"
+                      alt="Finals"
+                      className="flag-icon"
+                    />
+                    Click here to view the Finals
                   </td>
                 </tr>
               </tbody>

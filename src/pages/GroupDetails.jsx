@@ -8,10 +8,22 @@ import GameItem from "../components/GameItem";
 import RealResult from "../components/RealResult"; // Import the new RealResult component
 import "../Css/GroupDetails.css";
 
+const getFullGroupName = (shortName) => {
+  const mapping = {
+    GA: "Group A",
+    GB: "Group B",
+    GC: "Group C",
+    GD: "Group D",
+    GE: "Group E",
+    GF: "Group F",
+  };
+  return mapping[shortName] || shortName;
+};
+
 function GroupDetails() {
   const { group } = useParams();
   const { user } = useContext(AuthContext); // Get user context
-  const groupGames = groupStageGames[group];
+  const groupGames = groupStageGames[group] || []; // Fallback to an empty array if undefined
   const [confirmed, setConfirmed] = useState(
     Array(groupGames.length).fill(false)
   );
@@ -70,7 +82,7 @@ function GroupDetails() {
     };
 
     fetchPredictions();
-  }, []);
+  }, [group]); // Use 'group' as dependency to refetch if the group changes
 
   useEffect(() => {
     const handleResize = () => {
@@ -154,7 +166,7 @@ function GroupDetails() {
 
   return (
     <div className="group-details-container">
-      <h2>{group}</h2>
+      <h2>{getFullGroupName(group)}</h2>
       <h3>
         Important Notice: <br />
         <br />

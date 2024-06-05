@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsers, updateUserScores, saveUserMovements } from "../api";
+import { fetchUsers, saveUserMovements } from "../api";
 import { API_URL } from "../config/index";
 import "../Css/Leaderboard.css";
 
@@ -33,15 +33,8 @@ function Leaderboard({ onUserUpdate }) {
     getUsers();
   }, []);
 
-  const randomizeScores = async () => {
-    const updatedUsers = users.map((user) => ({
-      ...user,
-      score: Math.floor(Math.random() * 100),
-    }));
-
-    // Update user scores in the backend
+  const updateUserMovements = async () => {
     try {
-      await updateUserScores(updatedUsers);
       // Fetch updated users from the backend to get new positions
       const fetchedUsers = await fetchUsers();
 
@@ -81,13 +74,13 @@ function Leaderboard({ onUserUpdate }) {
         onUserUpdate(currentUser); // Notify parent component
       }
     } catch (error) {
-      console.error("Error updating scores:", error);
+      console.error("Error updating movements:", error);
     }
   };
 
   return (
     <div className="leaderboard-page">
-      <h4>Leaderboard</h4>
+      <h2>Leaderboard</h2>
 
       <div className="leaderboard-container">
         <table className="leaderboard-table">
@@ -95,7 +88,9 @@ function Leaderboard({ onUserUpdate }) {
             <tr>
               <th className="position">Position</th>
               <th className="name">Name</th>
-              <th className="score">Score</th>
+              <th className="correct-scores">Correct Scores</th>
+              <th className="correct-outcomes">Correct Outcomes</th>
+              <th className="user-score">Score</th>
             </tr>
           </thead>
           <tbody>
@@ -120,6 +115,8 @@ function Leaderboard({ onUserUpdate }) {
                     />
                   )}
                 </td>
+                <td className="correct-scores">{user.correctScores}</td>
+                <td className="correct-outcomes">{user.correctOutcomes}</td>
                 <td className="score">{user.score}</td>
               </tr>
             ))}
