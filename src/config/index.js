@@ -1,4 +1,4 @@
-// src/config/index.js
+// /config/index.js
 
 const API_URL =
   window.location.hostname === "localhost"
