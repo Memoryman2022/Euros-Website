@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import getFlagUrl from "../utils/getFlagUrl";
 import { API_URL } from "../config";
+import RoundOf16Results from "../components/R16Results";
+import QuarterFinalResults from "../components/QFResults";
+import SemiFinalResults from "../components/SFResults";
+import FinalResults from "../components/FResult";
 import "../Css/Predictions.css";
 
 // Initial teams in each group
@@ -37,7 +41,15 @@ function PredictionsPage() {
 
         const standingsData = response.data || {};
 
-        setStandings(standingsData);
+        // Filter standings to only include groups whose name begins with 'G'
+        const filteredStandings = Object.keys(standingsData)
+          .filter((group) => group.startsWith("G"))
+          .reduce((obj, key) => {
+            obj[key] = standingsData[key];
+            return obj;
+          }, {});
+
+        setStandings(filteredStandings);
       } catch (error) {
         console.error("Error fetching standings:", error);
       }
@@ -110,13 +122,14 @@ function PredictionsPage() {
                       alt="Round of 16"
                       className="flag-icon"
                     />
-                    Click here to view the Round of 16
+                    Click here to predict the Round of 16
                   </td>
                 </tr>
               </tbody>
             </table>
           </Link>
         </div>
+        <RoundOf16Results />
         <div className="group-item">
           <Link to="/quarter-finals">
             <table className="group-table">
@@ -133,13 +146,14 @@ function PredictionsPage() {
                       alt="Quarter Finals"
                       className="flag-icon"
                     />
-                    Click here to view the Quarter Finals
+                    Click here to predict the Quarter Finals
                   </td>
                 </tr>
               </tbody>
             </table>
           </Link>
         </div>
+        <QuarterFinalResults />
         <div className="group-item">
           <Link to="/semi-finals">
             <table className="group-table">
@@ -156,13 +170,14 @@ function PredictionsPage() {
                       alt="Semi Finals"
                       className="flag-icon"
                     />
-                    Click here to view the Semi Finals
+                    Click here to predict the Semi Finals
                   </td>
                 </tr>
               </tbody>
             </table>
           </Link>
         </div>
+        <SemiFinalResults />
         <div className="group-item">
           <Link to="/final">
             <table className="group-table">
@@ -179,13 +194,14 @@ function PredictionsPage() {
                       alt="Finals"
                       className="flag-icon"
                     />
-                    Click here to view the Finals
+                    Click here to predict the Final
                   </td>
                 </tr>
               </tbody>
             </table>
           </Link>
         </div>
+        <FinalResults />
       </div>
     </div>
   );
