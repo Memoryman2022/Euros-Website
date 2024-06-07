@@ -7,6 +7,7 @@ import { AuthContext } from "../authContext/auth.context";
 import UpdateRoundOf16 from "../components/UpdateRoundOf16";
 import RealResult from "../components/RealResult";
 import "../Css/RoundOf16.css";
+import "../Css/commonStyles.css";
 
 function RoundOf16Page() {
   const [games, setGames] = useState([]);

@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../authContext/auth.context";
 import { useNavigate } from "react-router-dom";
-import "../Css/Login.css";
+import "../Css/AuthStyles.css"; // Import the unified CSS file
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -23,8 +23,8 @@ function Login() {
   }, [isLoggedIn, user, navigate]);
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit} className="login-form">
+    <div className="auth-container">
+      <form onSubmit={handleSubmit} className="auth-form">
         <h4>Login</h4>
         <div className="form-group">
           <label htmlFor="email">Email</label>
@@ -48,7 +48,7 @@ function Login() {
             required
           />
         </div>
-        <button className="login-btn" type="submit" disabled={isLoading}>
+        <button className="auth-btn" type="submit" disabled={isLoading}>
           {isLoading ? "Logging in..." : "Login"}
         </button>
         {authError && <p className="error">{authError}</p>}

@@ -1,0 +1,186 @@
+/* src/Css/AuthStyles.css */
+
+/* General Container Styling */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background-color: #f0f2f500;
+}
+
+.auth-form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 600px;
+  width: 400px;
+  background-color: rgb(20, 50, 75);
+  border: 5px solid rgb(32, 79, 123);
+  border-radius: 10px;
+  color: rgb(218, 157, 4);
+  padding-bottom: 20px;
+}
+
+.auth-form h4 {
+  color: rgb(218, 157, 4);
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.auth-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.auth-form .form-group label {
+  display: flex;
+  margin-bottom: 0.5rem;
+}
+
+.auth-form .form-group input {
+  width: 259px;
+  padding: 0.5rem;
+  border: 3px solid rgb(32, 79, 123);
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.auth-btn {
+  width: 100px;
+  padding: 10px 20px;
+  margin: 10px; /* Spacing between .landing-btns */
+  font-size: 16px; /* Readable text size */
+  cursor: pointer; /* Pointer cursor on hover */
+  border: 4px solid rgb(37, 90, 139);
+  border-radius: 10px; /* Rounded corners */
+  background-color: rgb(193, 171, 141);
+  color: rgb(29, 15, 3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+.auth-btn:hover {
+  background-color: rgb(108, 108, 120); /* Darker shade on hover */
+}
+
+.auth-container h4 {
+  color: rgb(221, 164, 17); /* Dark blue similar to borders in Home.css */
+  margin-bottom: 20px; /* Space below the header */
+}
+
+/* Landing Page Specific Styling */
+.landing-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  background-color: #f0f2f500;
+}
+
+.landing-div {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 600px;
+  width: 400px;
+  background-color: rgb(20, 50, 75);
+  border: 5px solid rgb(32, 79, 123);
+  border-radius: 10px;
+  color: rgb(218, 157, 4);
+  padding-bottom: 20px;
+}
+
+.landing-btn {
+  width: 100px;
+  padding: 10px 20px;
+  margin: 10px; /* Spacing between .landing-btns */
+  font-size: 16px; /* Readable text size */
+  cursor: pointer; /* Pointer cursor on hover */
+  border: 4px solid rgb(37, 90, 139);
+  border-radius: 10px; /* Rounded corners */
+  background-color: rgb(193, 171, 141);
+  color: rgb(29, 15, 3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+}
+
+/* Logout Page Specific Styling */
+.logout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+  width: 100%;
+  max-width: 250px;
+  background-color: rgb(20, 50, 75);
+  border: 5px solid rgb(32, 79, 123);
+  border-radius: 10px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.logout-container h4 {
+  margin-bottom: 20px;
+  color: #e6af42;
+}
+
+.logout-container button {
+  width: 100px;
+  padding: 10px 20px;
+  margin: 10px; /* Spacing between .landing-btns */
+  font-size: 16px; /* Readable text size */
+  cursor: pointer; /* Pointer cursor on hover */
+  border: 4px solid rgb(37, 90, 139);
+  border-radius: 10px; /* Rounded corners */
+  background-color: rgb(193, 171, 141);
+  color: rgb(29, 15, 3);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.logout-container button:hover {
+  background-color: #939598;
+}
+
+/* Responsive Styling */
+@media (max-width: 600px) {
+  .auth-container {
+    padding: 10px;
+    height: auto; /* Allow scrolling on mobile */
+  }
+
+  .auth-btn {
+    width: 100%; /* Full-width buttons on mobile */
+    margin: 10px 0; /* Adjust margin for stacked buttons */
+  }
+}
+
+@media (max-width: 600px) {
+  .landing-container {
+    padding: 10px;
+    height: auto; /* Allow scrolling on mobile */
+  }
+
+  .landing-div {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .auth-form {
+    width: 90%; /* Full width form on mobile */
+  }
+}

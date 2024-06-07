@@ -1,8 +1,7 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../authContext/auth.context";
-
-import "../Css/Logout.css";
+import "../Css/AuthStyles.css"; // Import the unified CSS file
 
 const Logout = () => {
   const { logOutUser } = useContext(AuthContext);
@@ -15,12 +14,12 @@ const Logout = () => {
   };
 
   return (
-    <div className="logout-wrapper">
-      <div className="logout-container">
-        <div className="logout-div">
-          <h4>Confirm log out?</h4>
-          <button onClick={handleLogout}>Logout</button>
-        </div>
+    <div className="logout-container">
+      <div className="logout-div">
+        <h4>Confirm log out?</h4>
+        <button className="auth-btn" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </div>
   );

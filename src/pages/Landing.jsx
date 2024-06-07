@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 //css
-import "../Css/Landing.css";
+import "../Css/AuthStyles.css";
 const Landing = () => {
   const navigate = useNavigate();
 

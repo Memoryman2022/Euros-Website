@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../authContext/auth.context";
-import "../Css/Register.css";
+import "../Css/AuthStyles.css"; // Import the unified CSS file
 
 function Register() {
   const [userName, setUsername] = useState("");
@@ -31,11 +31,11 @@ function Register() {
   };
 
   return (
-    <div className="register-container">
-      <div className="register-form">
+    <div className="auth-container">
+      <div className="auth-form">
         <h4>Register</h4>
         <form onSubmit={handleRegister}>
-          <div>
+          <div className="form-group">
             <label>Username</label>
             <input
               type="text"
@@ -45,7 +45,7 @@ function Register() {
               required
             />
           </div>
-          <div>
+          <div className="form-group">
             <label>Email</label>
             <input
               type="email"
@@ -55,7 +55,7 @@ function Register() {
               required
             />
           </div>
-          <div>
+          <div className="form-group">
             <label>Password</label>
             <input
               type="password"
@@ -65,7 +65,7 @@ function Register() {
               required
             />
           </div>
-          <div>
+          <div className="form-group">
             <label>Profile Image</label>
             <input
               type="file"
@@ -73,10 +73,14 @@ function Register() {
               onChange={handleImageChange}
               style={{ display: "none" }}
             />
-            <button onClick={handleImageClick}>Upload</button>
+            <button className="auth-btn" onClick={handleImageClick}>
+              Upload
+            </button>
           </div>
           {authError && <p className="error">{authError}</p>}
-          <button type="submit">Register</button>
+          <button className="auth-btn" type="submit">
+            Register
+          </button>
         </form>
 
         {showModal && (
