@@ -11,6 +11,13 @@ function RealResult({ game, index }) {
   const [team2Score, setTeam2Score] = useState(0);
   const [outcome, setOutcome] = useState("");
 
+  // Determine if the game is part of the knockout stages
+  const isKnockoutStage =
+    game.id.startsWith("R") ||
+    game.id.startsWith("Q") ||
+    game.id.startsWith("S") ||
+    game.id.startsWith("F");
+
   const handleSave = async () => {
     try {
       await axios.post(`${API_URL}/realresults/${game.id}/result`, {
@@ -51,7 +58,7 @@ function RealResult({ game, index }) {
         <select value={outcome} onChange={(e) => setOutcome(e.target.value)}>
           <option value="">Select Outcome</option>
           <option value="team1 win">{game.team1} win</option>
-          <option value="draw">Draw</option>
+          {!isKnockoutStage && <option value="draw">Draw</option>}
           <option value="team2 win">{game.team2} win</option>
         </select>
       </div>

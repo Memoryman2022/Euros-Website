@@ -26,39 +26,52 @@ const FinalResults = () => {
 
     fetchResults();
   }, []);
+
   if (results.length === 0) return null;
+
   return (
     <div className="group-item">
       <table className="group-table">
         <tbody>
-          {results.map((result, index) => (
-            <React.Fragment key={index}>
-              <tr className="header-row">
-                <th colSpan="6">{result.gameId}</th>
-              </tr>
-              <tr className="data-row">
-                <td className="team-cell">
-                  <img
-                    src={getFlagUrl(result.team1)}
-                    alt={result.team1}
-                    className="flag-icon"
-                  />
-                  {result.team1}
-                </td>
-                <td className="score-cell">{result.team1Score}</td>
-                <td className="versus-cell">vs</td>
-                <td className="score-cell">{result.team2Score}</td>
-                <td className="team-cell">
-                  <img
-                    src={getFlagUrl(result.team2)}
-                    alt={result.team2}
-                    className="flag-icon"
-                  />
-                  {result.team2}
-                </td>
-              </tr>
-            </React.Fragment>
-          ))}
+          {results.map((result, index) => {
+            const winnerOnPenalties =
+              result.team1Score === result.team2Score &&
+              result.outcome !== "draw";
+            return (
+              <React.Fragment key={index}>
+                <tr className="header-row">
+                  <th colSpan="6">{result.gameId}</th>
+                </tr>
+                <tr className="data-row">
+                  <td className="team-cell">
+                    <img
+                      src={getFlagUrl(result.team1)}
+                      alt={result.team1}
+                      className="flag-icon"
+                    />
+                    {result.team1}
+                    {winnerOnPenalties &&
+                      result.outcome === "team1 win" &&
+                      " (p)"}
+                  </td>
+                  <td className="score-cell">{result.team1Score}</td>
+                  <td className="versus-cell">vs</td>
+                  <td className="score-cell">{result.team2Score}</td>
+                  <td className="team-cell">
+                    <img
+                      src={getFlagUrl(result.team2)}
+                      alt={result.team2}
+                      className="flag-icon"
+                    />
+                    {result.team2}
+                    {winnerOnPenalties &&
+                      result.outcome === "team2 win" &&
+                      " (p)"}
+                  </td>
+                </tr>
+              </React.Fragment>
+            );
+          })}
         </tbody>
       </table>
     </div>

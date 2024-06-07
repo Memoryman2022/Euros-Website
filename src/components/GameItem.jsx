@@ -26,6 +26,11 @@ const GameItem = ({
   };
 
   const isExpired = isPredictionWindowExpired(game.date);
+  const isKnockoutStage =
+    game.id.startsWith("R") ||
+    game.id.startsWith("Q") ||
+    game.id.startsWith("S") ||
+    game.id.startsWith("F");
 
   return (
     <div className={`game-item ${confirmed ? "confirmed" : ""}`}>
