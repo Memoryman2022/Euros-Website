@@ -32,6 +32,12 @@ const GameItem = ({
     game.id.startsWith("S") ||
     game.id.startsWith("F");
 
+  const getFlagSrc = (team) => {
+    return team.includes("1") || team.includes("2") || team.includes("3")
+      ? "/euro_fix.png"
+      : getFlagUrl(team);
+  };
+
   return (
     <div className={`game-item ${confirmed ? "confirmed" : ""}`}>
       <div className="game-row">
@@ -39,9 +45,13 @@ const GameItem = ({
         <div className="team-container">
           <span className="team-name">
             <img
-              src={getFlagUrl(game.team1)}
+              src={getFlagSrc(game.team1)}
               alt={game.team1}
               className="flag-icon"
+              onError={(e) => {
+                e.target.onerror = null; // prevents looping
+                e.target.src = "/euro_fix.png";
+              }}
             />
             {game.team1}
           </span>
@@ -77,12 +87,16 @@ const GameItem = ({
             ))}
           </select>
           <span className="team-name">
-            {game.team2}
             <img
-              src={getFlagUrl(game.team2)}
+              src={getFlagSrc(game.team2)}
               alt={game.team2}
               className="flag-icon"
+              onError={(e) => {
+                e.target.onerror = null; // prevents looping
+                e.target.src = "/euro_fix.png";
+              }}
             />
+            {game.team2}
           </span>
         </div>
       </div>
@@ -96,15 +110,17 @@ const GameItem = ({
             disabled={confirmed || isExpired}
           />
         </label>
-        <label>
-          Draw
-          <input
-            type="checkbox"
-            checked={selectedOutcome === "draw"}
-            onChange={() => onCheckboxChange(index, "draw")}
-            disabled={confirmed || isExpired}
-          />
-        </label>
+        {!isKnockoutStage && (
+          <label>
+            Draw
+            <input
+              type="checkbox"
+              checked={selectedOutcome === "draw"}
+              onChange={() => onCheckboxChange(index, "draw")}
+              disabled={confirmed || isExpired}
+            />
+          </label>
+        )}
         <label>
           {game.team2} win
           <input

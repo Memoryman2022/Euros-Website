@@ -44,6 +44,10 @@ body {
   padding: 20px; /* Add padding for spacing */
   overflow-x: hidden; /* Prevent horizontal overflow */
 }
+.container h2 {
+  color: #f2ba02;
+  text-shadow: 2px 2px black;
+}
 
 /* Navbar and Footer Styles */
 .navbar {

@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import getFlagUrl from "../utils/getFlagUrl";
 import { API_URL } from "../config";
 import { AuthContext } from "../authContext/auth.context";
 import UpdateRoundOf16 from "../components/UpdateRoundOf16";
 import RealResult from "../components/RealResult";
+import GameItem from "../components/GameItem";
 import "../Css/RoundOf16.css";
 
 function RoundOf16Page() {
@@ -121,126 +121,23 @@ function RoundOf16Page() {
     }
   };
 
-  const renderScoreOptions = () => {
-    const options = [];
-    for (let i = 0; i <= 10; i++) {
-      options.push(
-        <option key={i} value={i}>
-          {i}
-        </option>
-      );
-    }
-    return options;
-  };
-
   return (
     <div className="round-of-16-container">
       <h2>Round of 16 Games</h2>
       {isAdmin && <UpdateRoundOf16 onUpdate={fetchRoundOf16Games} />}
       {games.map((game, index) => (
-        <div key={index} className="game-item">
-          <div className="game-row">
-            <div className="game-date">{game.date}</div>
-            <div className="team-container">
-              <span className="team-name">
-                <img
-                  src={
-                    game.team1.includes("1") ||
-                    game.team1.includes("2") ||
-                    game.team1.includes("3")
-                      ? "/euro_fix.png"
-                      : getFlagUrl(game.team1)
-                  }
-                  alt={game.team1}
-                  className="flag-icon"
-                  onError={(e) => {
-                    e.target.onerror = null; // prevents looping
-                    e.target.src = "/euro_fix.png";
-                  }}
-                />
-                {game.team1}
-              </span>
-              <select
-                className="score-select"
-                disabled={confirmed[index]}
-                value={team1Scores[index]}
-                onChange={(e) =>
-                  handleScoreChange(index, "team1", parseInt(e.target.value))
-                }
-              >
-                {renderScoreOptions()}
-              </select>
-            </div>
-            <span className="versus">V</span>
-            <div className="team-container">
-              <select
-                className="score-select"
-                disabled={confirmed[index]}
-                value={team2Scores[index]}
-                onChange={(e) =>
-                  handleScoreChange(index, "team2", parseInt(e.target.value))
-                }
-              >
-                {renderScoreOptions()}
-              </select>
-              <span className="team-name">
-                <img
-                  src={
-                    game.team2.includes("1") ||
-                    game.team2.includes("2") ||
-                    game.team2.includes("3")
-                      ? "/euro_fix.png"
-                      : getFlagUrl(game.team2)
-                  }
-                  alt={game.team2}
-                  className="flag-icon"
-                  onError={(e) => {
-                    e.target.onerror = null; // prevents looping
-                    e.target.src = "/euro_fix.png";
-                  }}
-                />
-                {game.team2}
-              </span>
-            </div>
-          </div>
-          <div className="checkbox-container">
-            <label>
-              {game.team1} win
-              <input
-                type="checkbox"
-                checked={selectedOutcome[index] === "team1"}
-                onChange={() => handleCheckboxChange(index, "team1")}
-                disabled={confirmed[index]}
-              />
-            </label>
-            <label>
-              Draw
-              <input
-                type="checkbox"
-                checked={selectedOutcome[index] === "draw"}
-                onChange={() => handleCheckboxChange(index, "draw")}
-                disabled={confirmed[index]}
-              />
-            </label>
-            <label>
-              {game.team2} win
-              <input
-                type="checkbox"
-                checked={selectedOutcome[index] === "team2"}
-                onChange={() => handleCheckboxChange(index, "team2")}
-                disabled={confirmed[index]}
-              />
-            </label>
-          </div>
-          <div className="confirm-button-container">
-            <button
-              className="confirm-button"
-              onClick={() => handleConfirm(index)}
-              disabled={confirmed[index]}
-            >
-              Confirm
-            </button>
-          </div>
+        <div key={index}>
+          <GameItem
+            game={game}
+            index={index}
+            confirmed={confirmed[index]}
+            selectedOutcome={selectedOutcome[index]}
+            team1Scores={team1Scores[index]}
+            team2Scores={team2Scores[index]}
+            onScoreChange={handleScoreChange}
+            onCheckboxChange={handleCheckboxChange}
+            onShowModal={handleConfirm}
+          />
           {isAdmin && <RealResult game={game} index={index} />}
         </div>
       ))}

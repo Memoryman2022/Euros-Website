@@ -17,6 +17,18 @@
   flex-direction: column;
   align-items: center;
 }
+.semi-final-container {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.final-container {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
 .round-of-16-container h2 {
   text-shadow: 2px 2px black;
@@ -43,7 +55,7 @@
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-  width: 100%; /* Ensure full width */
+  min-width: 600px;
   box-sizing: border-box;
 }
 
