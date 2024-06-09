@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { fetchUsers, saveUserMovements } from "../api";
+import axios from "axios";
 import { API_URL } from "../config/index";
 import "../Css/Leaderboard.css";
 
@@ -10,17 +10,14 @@ function Leaderboard({ onUserUpdate }) {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const fetchedUsers = await fetchUsers();
+        const fetchedUsers = await axios.get(`${API_URL}/users`);
+        const sortedUsers = fetchedUsers.data.sort((a, b) => b.score - a.score);
 
-        // Sort users by score in descending order
-        const sortedUsers = fetchedUsers.sort((a, b) => b.score - a.score);
-
-        // Assign positions based on sorted scores
         const usersWithPositions = sortedUsers.map((user, index) => ({
           ...user,
           position: index + 1,
-          movement: user.movement, // Get movement from backend
-          previousPosition: user.previousPosition, // Get previous position from backend
+          movement: user.movement || "",
+          previousPosition: user.previousPosition || index + 1,
         }));
 
         setPreviousUsers(usersWithPositions);
@@ -35,13 +32,9 @@ function Leaderboard({ onUserUpdate }) {
 
   const updateUserMovements = async () => {
     try {
-      // Fetch updated users from the backend to get new positions
-      const fetchedUsers = await fetchUsers();
+      const fetchedUsers = await axios.get(`${API_URL}/users`);
+      const sortedUsers = fetchedUsers.data.sort((a, b) => b.score - a.score);
 
-      // Sort the updated users by their new scores
-      const sortedUsers = fetchedUsers.sort((a, b) => b.score - a.score);
-
-      // Determine the movement
       const usersWithMovement = sortedUsers.map((user, index) => {
         const prevUser = previousUsers.find((prev) => prev._id === user._id);
         let movement = "";
@@ -56,28 +49,28 @@ function Leaderboard({ onUserUpdate }) {
           ...user,
           position: index + 1,
           movement,
-          previousPosition: user.position,
+          previousPosition: prevUser ? prevUser.position : index + 1,
         };
       });
 
       setPreviousUsers(usersWithMovement);
       setUsers(usersWithMovement);
 
-      // Save the movement data to the backend
-      await saveUserMovements(usersWithMovement);
+      await axios.put(`${API_URL}/users/update-movements`, {
+        users: usersWithMovement,
+      });
 
-      // Find the current user and update their details
       const token = localStorage.getItem("jwtToken");
       const userId = localStorage.getItem("userId");
       const currentUser = sortedUsers.find((user) => user._id === userId);
       if (currentUser && onUserUpdate) {
-        onUserUpdate(currentUser); // Notify parent component
+        onUserUpdate(currentUser);
       }
     } catch (error) {
       console.error("Error updating movements:", error);
     }
   };
-  //
+
   return (
     <div className="leaderboard-page">
       <h2>Leaderboard</h2>
