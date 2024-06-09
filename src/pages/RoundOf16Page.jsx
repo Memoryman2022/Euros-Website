@@ -88,7 +88,7 @@ function RoundOf16Page() {
         }
       );
 
-      console.log("Prediction saved:", response.data);
+      console.log("Prediction saved:");
       fetchRoundOf16Games();
     } catch (error) {
       if (error.response) {

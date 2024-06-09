@@ -60,6 +60,10 @@ function PredictionsPage() {
 
   return (
     <div className="predictions-container">
+      <h3>
+        Scoring system: 2 points awarded for a correct outcome. 5 points awarded
+        for a correct scoreline.
+      </h3>
       <h2>Groups</h2>
       <div className="groups-list">
         {Object.keys(standings).map((group, index) => (

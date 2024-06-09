@@ -77,7 +77,7 @@ function Leaderboard({ onUserUpdate }) {
       console.error("Error updating movements:", error);
     }
   };
-
+  //
   return (
     <div className="leaderboard-page">
       <h2>Leaderboard</h2>

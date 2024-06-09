@@ -3,9 +3,9 @@ import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import { AuthContext } from "../authContext/auth.context";
 import { API_URL } from "../config";
-import { groupStageGames } from "../gamesData";
+import { groupStageGames } from "../gamesData"; // Ensure this import is correct
 import GameItem from "../components/GameItem";
-import RealResult from "../components/RealResult"; // Import the new RealResult component
+import RealResult from "../components/RealResult";
 import "../Css/GroupDetails.css";
 
 const getFullGroupName = (shortName) => {
@@ -177,24 +177,28 @@ function GroupDetails() {
         <br />
         UK Players: Please be aware of the time difference.{" "}
       </h3>
-      {groupGames.map((game, index) => (
-        <div key={index}>
-          <GameItem
-            key={index}
-            game={game}
-            index={index}
-            confirmed={confirmed[index]}
-            selectedOutcome={selectedOutcome[index]}
-            team1Scores={team1Scores[index]}
-            team2Scores={team2Scores[index]}
-            onScoreChange={handleScoreChange}
-            onCheckboxChange={handleCheckboxChange}
-            onShowModal={handleConfirm}
-          />
-          <RealResult game={game} index={index} />{" "}
-          {/* Include the RealResult component */}
-        </div>
-      ))}
+      {groupGames.length > 0 ? (
+        groupGames.map((game, index) => (
+          <div key={index}>
+            <GameItem
+              key={index}
+              game={game}
+              index={index}
+              confirmed={confirmed[index]}
+              selectedOutcome={selectedOutcome[index]}
+              team1Scores={team1Scores[index]}
+              team2Scores={team2Scores[index]}
+              onScoreChange={handleScoreChange}
+              onCheckboxChange={handleCheckboxChange}
+              onShowModal={handleConfirm}
+            />
+            <RealResult game={game} index={index} />{" "}
+            {/* Include the RealResult component */}
+          </div>
+        ))
+      ) : (
+        <p>No games available for this group.</p>
+      )}
       <Link to="/predictions" className="back-button">
         Back to Groups
       </Link>
