@@ -5,6 +5,7 @@ import "../Css/ConfirmedPredictions.css";
 
 const ConfirmedPredictions = () => {
   const [predictions, setPredictions] = useState([]);
+  const [realResults, setRealResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isLandscape, setIsLandscape] = useState(
@@ -21,17 +22,20 @@ const ConfirmedPredictions = () => {
     }
 
     try {
-      const response = await axios.get(`${API_URL}/predictions`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      const sortedPredictions = response.data.sort(
+      const [predictionsResponse, realResultsResponse] = await Promise.all([
+        axios.get(`${API_URL}/predictions`, {
+          headers: { Authorization: `Bearer ${token}` },
+        }),
+        axios.get(`${API_URL}/realresults`),
+      ]);
+
+      const sortedPredictions = predictionsResponse.data.sort(
         (a, b) => new Date(a.date) - new Date(b.date)
       );
       setPredictions(sortedPredictions);
+      setRealResults(realResultsResponse.data);
     } catch (error) {
-      setError("Failed to fetch predictions");
+      setError("Failed to fetch data");
       console.error(error);
     } finally {
       setLoading(false);
@@ -52,6 +56,42 @@ const ConfirmedPredictions = () => {
     };
   }, []);
 
+  const getRealResult = (gameId) => {
+    const result = realResults.find((result) => result.gameId === gameId);
+    return result ? `${result.team1Score} - ${result.team2Score}` : "N/A";
+  };
+
+  const calculatePoints = (prediction) => {
+    const realResult = realResults.find(
+      (result) => result.gameId === prediction.gameId
+    );
+    if (!realResult) return "N/A";
+
+    let points = 0;
+
+    // Correct score prediction
+    if (
+      prediction.team1Score === realResult.team1Score &&
+      prediction.team2Score === realResult.team2Score
+    ) {
+      points += 5;
+    }
+
+    // Correct outcome prediction
+    const predictedOutcome =
+      prediction.team1Score > prediction.team2Score
+        ? "team1 win"
+        : prediction.team1Score < prediction.team2Score
+        ? "team2 win"
+        : "draw";
+
+    if (predictedOutcome === realResult.outcome) {
+      points += 2;
+    }
+
+    return points;
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -70,9 +110,9 @@ const ConfirmedPredictions = () => {
         <h4>Confirmed Predictions</h4>
         <div className="confirmed-predictions-grid">
           <div className="confirmed-grid-header">Date</div>
-          <div className="confirmed-grid-header">Team 1</div>
+          <div className="confirmed-grid-header">Team1</div>
           <div className="confirmed-grid-header">Score</div>
-          <div className="confirmed-grid-header">Team 2</div>
+          <div className="confirmed-grid-header">Team2</div>
           <div className="confirmed-grid-header">W/L/D</div>
           <div className="confirmed-grid-header">Verified</div>
           <div className="confirmed-grid-header">Points</div>
@@ -88,13 +128,10 @@ const ConfirmedPredictions = () => {
                 {prediction.predictedOutcome}
               </div>
               <div className="confirmed-grid-item">
-                {prediction.realTeam1Score !== undefined &&
-                prediction.realTeam2Score !== undefined
-                  ? `${prediction.realTeam1Score} - ${prediction.realTeam2Score}`
-                  : "N/A"}
+                {getRealResult(prediction.gameId)}
               </div>
               <div className="confirmed-grid-item">
-                {prediction.points !== undefined ? prediction.points : "N/A"}
+                {calculatePoints(prediction)}
               </div>
             </React.Fragment>
           ))}
