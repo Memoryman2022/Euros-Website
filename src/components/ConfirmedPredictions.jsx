@@ -78,14 +78,7 @@ const ConfirmedPredictions = () => {
     }
 
     // Correct outcome prediction
-    const predictedOutcome =
-      prediction.team1Score > prediction.team2Score
-        ? "team1 win"
-        : prediction.team1Score < prediction.team2Score
-        ? "team2 win"
-        : "draw";
-
-    if (predictedOutcome === realResult.outcome) {
+    if (prediction.predictedOutcome === realResult.outcome) {
       points += 2;
     }
 

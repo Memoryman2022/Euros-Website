@@ -57,9 +57,9 @@ function RealResult({ game, index }) {
       <div className="result-outcome">
         <select value={outcome} onChange={(e) => setOutcome(e.target.value)}>
           <option value="">Select Outcome</option>
-          <option value="team1 win">{game.team1} win</option>
+          <option value="team1">{game.team1} win</option>
           {!isKnockoutStage && <option value="draw">Draw</option>}
-          <option value="team2 win">{game.team2} win</option>
+          <option value="team2">{game.team2} win</option>
         </select>
       </div>
       <button onClick={handleSave} className="save-button">
