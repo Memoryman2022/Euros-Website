@@ -72,6 +72,7 @@ function Register() {
               id="profileImageInput"
               onChange={handleImageChange}
               style={{ display: "none" }}
+              required
             />
             <button className="auth-btn" onClick={handleImageClick}>
               Upload

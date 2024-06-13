@@ -104,7 +104,9 @@ const ConfirmedPredictions = () => {
         <div className="confirmed-predictions-grid">
           <div className="confirmed-grid-header">Date</div>
           <div className="confirmed-grid-header">Team1</div>
+          <div className="confirmed-grid-header">Team1</div>
           <div className="confirmed-grid-header">Score</div>
+          <div className="confirmed-grid-header">Team2</div>
           <div className="confirmed-grid-header">Team2</div>
           <div className="confirmed-grid-header">W/L/D</div>
           <div className="confirmed-grid-header">Verified</div>
@@ -122,8 +124,10 @@ const ConfirmedPredictions = () => {
               </div>
               <div className="confirmed-grid-item">
                 {getRealResult(prediction.gameId)}
+                {getRealResult(prediction.gameId)}
               </div>
               <div className="confirmed-grid-item">
+                {calculatePoints(prediction)}
                 {calculatePoints(prediction)}
               </div>
             </React.Fragment>
