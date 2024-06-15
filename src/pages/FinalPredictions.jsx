@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 import getFlagUrl from "../utils/getFlagUrl";
-import { parse, differenceInMilliseconds } from "date-fns";
+import { parseISO, differenceInMilliseconds } from "date-fns";
 import "../Css/FinalPredictions.css";
 
 const getFullGroupName = (gameId) => {
@@ -76,11 +76,7 @@ const FinalPredictions = () => {
   };
 
   const isOneHourBeforeMatch = (gameDate) => {
-    const matchStartTime = parse(
-      `${gameDate} ${new Date().getFullYear()}`,
-      "dd MMM HH:mm yyyy",
-      new Date()
-    );
+    const matchStartTime = new Date(`${gameDate} ${new Date().getFullYear()}`);
     const currentTime = new Date();
     const timeDifference = differenceInMilliseconds(
       matchStartTime,
@@ -89,7 +85,7 @@ const FinalPredictions = () => {
     const isOneHourBeforeMatch =
       timeDifference <= ONE_HOUR && timeDifference >= 0;
     console.log(
-      `Frontend Time Check - Match Time: ${matchStartTime}, Now: ${currentTime}, Time Diff: ${timeDifference}`
+      `Frontend Time Check - Match Time: ${matchStartTime.toISOString()}, Now: ${currentTime.toISOString()}, Time Diff: ${timeDifference}, Is One Hour Before Match: ${isOneHourBeforeMatch}`
     );
     return isOneHourBeforeMatch;
   };
@@ -125,18 +121,8 @@ const FinalPredictions = () => {
             isOneHourBeforeMatch(game.date) ||
             allUsersPredicted(game.predictions);
 
-          // Add the console logs here
           console.log(
-            `Game ${
-              game.gameId
-            } - Is One Hour Before Match: ${isOneHourBeforeMatch(
-              game.startTime
-            )}`
-          );
-          console.log(
-            `Game ${game.gameId} - All Users Predicted: ${allUsersPredicted(
-              game.predictions
-            )}`
+            `Game ${game.gameId} - Should Reveal Predictions: ${shouldRevealPredictions}`
           );
 
           return (
