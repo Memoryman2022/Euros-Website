@@ -101,7 +101,6 @@ const FinalPredictions = () => {
   };
 
   const allUsersPredicted = (predictions) => {
-    // You need to define the number of users you expect to predict
     const TOTAL_USERS = 14; // Update this to the correct number of users
     return predictions.length === TOTAL_USERS;
   };
