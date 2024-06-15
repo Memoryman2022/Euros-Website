@@ -101,8 +101,6 @@ const FinalPredictions = () => {
   };
 
   const allUsersPredicted = (predictions) => {
-    // Placeholder function to check if all users have predicted
-    // Implement the logic as per your requirement
     return predictions.every((prediction) => prediction.isSubmitted);
   };
 
@@ -128,9 +126,11 @@ const FinalPredictions = () => {
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
           console.log(`Processing game: ${JSON.stringify(game)}`);
-          const gameDate = game.date;
+          const gameDate = game.startTime; // Use startTime instead of date
           if (!gameDate) {
-            console.error(`Missing date for game: ${JSON.stringify(game)}`);
+            console.error(
+              `Missing startTime for game: ${JSON.stringify(game)}`
+            );
             return null;
           }
           const shouldRevealPredictions =
