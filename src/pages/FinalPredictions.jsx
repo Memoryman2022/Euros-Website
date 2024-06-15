@@ -75,15 +75,15 @@ const FinalPredictions = () => {
     }));
   };
 
-  const isOneHourBeforeMatch = (gameDate) => {
-    console.log(`Parsing gameDate: ${gameDate}`);
+  const isOneHourBeforeMatch = (startTime) => {
+    console.log(`Parsing startTime: ${startTime}`);
     const matchStartTime = parse(
-      `${gameDate} ${new Date().getFullYear()}`,
+      `${startTime} ${new Date().getFullYear()}`,
       "dd MMM HH:mm yyyy",
       new Date()
     );
     if (!isValid(matchStartTime)) {
-      console.log(`Invalid match date: ${gameDate}`);
+      console.log(`Invalid match date: ${startTime}`);
       return false;
     }
     const currentTime = new Date();
