@@ -122,7 +122,7 @@ const FinalPredictions = () => {
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
           const shouldRevealPredictions =
-            isOneHourBeforeMatch(game.startTime) ||
+            isOneHourBeforeMatch(game.date) ||
             allUsersPredicted(game.predictions);
 
           // Add the console logs here
