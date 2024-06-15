@@ -98,8 +98,7 @@ const FinalPredictions = () => {
     );
     console.log(`Time Difference: ${timeDifference} milliseconds`);
 
-    const isOneHourBeforeMatch =
-      timeDifference <= ONE_HOUR && timeDifference >= 0;
+    const isOneHourBeforeMatch = timeDifference < ONE_HOUR;
     console.log(`Is One Hour Before Match: ${isOneHourBeforeMatch}`);
 
     const hasMatchPassed = currentTime >= matchStartTime;
