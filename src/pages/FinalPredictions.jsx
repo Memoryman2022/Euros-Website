@@ -133,9 +133,7 @@ const FinalPredictions = () => {
             );
             return null;
           }
-          const shouldRevealPredictions =
-            isOneHourBeforeMatch(gameDate) ||
-            allUsersPredicted(game.predictions);
+          const shouldRevealPredictions = isOneHourBeforeMatch(gameDate);
 
           console.log(
             `Game ${
