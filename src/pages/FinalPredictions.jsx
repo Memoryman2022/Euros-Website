@@ -76,6 +76,7 @@ const FinalPredictions = () => {
   };
 
   const isOneHourBeforeMatch = (gameDate) => {
+    console.log(`Parsing gameDate: ${gameDate}`);
     const matchStartTime = parse(
       `${gameDate} ${new Date().getFullYear()}`,
       "dd MMM HH:mm yyyy",
@@ -100,8 +101,6 @@ const FinalPredictions = () => {
   };
 
   const allUsersPredicted = (predictions) => {
-    // Placeholder function to check if all users have predicted
-    // Implement the logic as per your requirement
     return predictions.every((prediction) => prediction.isSubmitted);
   };
 
@@ -126,11 +125,11 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
+          console.log(`Processing game: ${JSON.stringify(game)}`);
           const shouldRevealPredictions =
             isOneHourBeforeMatch(game.date) ||
             allUsersPredicted(game.predictions);
 
-          // Add the console logs here
           console.log(
             `Game ${
               game.gameId
