@@ -101,7 +101,9 @@ const FinalPredictions = () => {
   };
 
   const allUsersPredicted = (predictions) => {
-    return predictions.every((prediction) => prediction.isSubmitted);
+    // You need to define the number of users you expect to predict
+    const TOTAL_USERS = 14;
+    return predictions.length === TOTAL_USERS;
   };
 
   if (loading) return <div>Loading...</div>;
