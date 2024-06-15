@@ -6,7 +6,7 @@ import { parse, differenceInMilliseconds, isValid } from "date-fns";
 import "../Css/FinalPredictions.css";
 
 const getFullGroupName = (gameId) => {
-  const group = gameId.split("-")[0]; // Extract the group part from the gameId
+  const group = gameId.split("-")[0];
   const mapping = {
     GA: "Group A",
     GB: "Group B",
@@ -18,7 +18,7 @@ const getFullGroupName = (gameId) => {
   return mapping[group] || gameId;
 };
 
-const ONE_HOUR = 60 * 60 * 1000; // One hour in milliseconds
+const ONE_HOUR = 60 * 60 * 1000;
 
 const FinalPredictions = () => {
   const [groupedPredictions, setGroupedPredictions] = useState([]);
@@ -112,7 +112,7 @@ const FinalPredictions = () => {
   };
 
   const allUsersPredicted = (predictions) => {
-    const TOTAL_USERS = 14; // Update this to the correct number of users
+    const TOTAL_USERS = 14;
     return predictions.length === TOTAL_USERS;
   };
 
@@ -138,7 +138,7 @@ const FinalPredictions = () => {
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
           console.log(`Processing game: ${JSON.stringify(game)}`);
-          const gameDate = game.startTime; // Use startTime consistently
+          const gameDate = game.startTime;
           if (!gameDate) {
             console.error(
               `Missing startTime for game: ${JSON.stringify(game)}`
