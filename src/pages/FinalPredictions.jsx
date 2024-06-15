@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 import getFlagUrl from "../utils/getFlagUrl";
-import { parse, differenceInMilliseconds, isAfter, isValid } from "date-fns";
+import { parse, differenceInMilliseconds, isValid } from "date-fns";
 import "../Css/FinalPredictions.css";
 
 const getFullGroupName = (gameId) => {
@@ -98,7 +98,8 @@ const FinalPredictions = () => {
     );
     console.log(`Time Difference: ${timeDifference} milliseconds`);
 
-    const isOneHourBeforeMatch = timeDifference < ONE_HOUR;
+    const isOneHourBeforeMatch =
+      timeDifference <= ONE_HOUR && timeDifference >= 0;
     console.log(`Is One Hour Before Match: ${isOneHourBeforeMatch}`);
 
     const hasMatchPassed = currentTime >= matchStartTime;
@@ -136,6 +137,7 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
+          console.log(`Processing game: ${JSON.stringify(game)}`);
           const gameDate = game.startTime; // Use startTime consistently
           if (!gameDate) {
             console.error(
