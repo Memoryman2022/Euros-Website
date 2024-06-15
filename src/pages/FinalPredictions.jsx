@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 import getFlagUrl from "../utils/getFlagUrl";
-import { parse, differenceInMilliseconds, isAfter } from "date-fns";
+import { parse, differenceInMilliseconds, isAfter, isValid } from "date-fns";
 import "../Css/FinalPredictions.css";
 
 const getFullGroupName = (gameId) => {
@@ -82,6 +82,10 @@ const FinalPredictions = () => {
       new Date()
     );
     const currentTime = new Date();
+    if (!isValid(matchStartTime)) {
+      console.error(`Invalid match date: ${gameDate}`);
+      return false;
+    }
     const timeDifference = differenceInMilliseconds(
       matchStartTime,
       currentTime
