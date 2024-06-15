@@ -81,11 +81,11 @@ const FinalPredictions = () => {
       "dd MMM HH:mm yyyy",
       new Date()
     );
-    const currentTime = new Date();
     if (!isValid(matchStartTime)) {
       console.log(`Invalid match date: ${gameDate}`);
       return false;
     }
+    const currentTime = new Date();
     const timeDifference = differenceInMilliseconds(
       matchStartTime,
       currentTime
@@ -126,15 +126,15 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
+          const gameDate = game.date;
           const shouldRevealPredictions =
-            isOneHourBeforeMatch(game.date) ||
+            isOneHourBeforeMatch(gameDate) ||
             allUsersPredicted(game.predictions);
 
-          // Add the console logs here
           console.log(
             `Game ${
               game.gameId
-            } - Is One Hour Before Match: ${isOneHourBeforeMatch(game.date)}`
+            } - Is One Hour Before Match: ${isOneHourBeforeMatch(gameDate)}`
           );
           console.log(
             `Game ${game.gameId} - All Users Predicted: ${allUsersPredicted(
