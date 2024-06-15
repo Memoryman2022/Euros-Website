@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 import getFlagUrl from "../utils/getFlagUrl";
-import { parseISO, differenceInMilliseconds } from "date-fns";
+import { parse, differenceInMilliseconds } from "date-fns";
 import "../Css/FinalPredictions.css";
 
 const getFullGroupName = (gameId) => {
@@ -76,7 +76,11 @@ const FinalPredictions = () => {
   };
 
   const isOneHourBeforeMatch = (gameDate) => {
-    const matchStartTime = new Date(`${gameDate} ${new Date().getFullYear()}`);
+    const matchStartTime = parse(
+      `${gameDate} ${new Date().getFullYear()}`,
+      "dd MMM HH:mm yyyy",
+      new Date()
+    );
     const currentTime = new Date();
     const timeDifference = differenceInMilliseconds(
       matchStartTime,
@@ -91,8 +95,7 @@ const FinalPredictions = () => {
   };
 
   const allUsersPredicted = (predictions) => {
-    // Placeholder function to check if all users have predicted
-    // Implement the logic as per your requirement
+    // Check if all users have predicted
     return predictions.every((prediction) => prediction.isSubmitted);
   };
 
@@ -123,6 +126,16 @@ const FinalPredictions = () => {
 
           console.log(
             `Game ${game.gameId} - Should Reveal Predictions: ${shouldRevealPredictions}`
+          );
+          console.log(
+            `Game ${
+              game.gameId
+            } - Is One Hour Before Match: ${isOneHourBeforeMatch(game.date)}`
+          );
+          console.log(
+            `Game ${game.gameId} - All Users Predicted: ${allUsersPredicted(
+              game.predictions
+            )}`
           );
 
           return (
