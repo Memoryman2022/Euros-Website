@@ -82,18 +82,29 @@ const FinalPredictions = () => {
       "dd MMM HH:mm yyyy",
       new Date()
     );
+    console.log(`Parsed matchStartTime: ${matchStartTime}`);
+
     if (!isValid(matchStartTime)) {
       console.log(`Invalid match date: ${startTime}`);
       return false;
     }
+
     const currentTime = new Date();
+    console.log(`Current Time: ${currentTime}`);
+
     const timeDifference = differenceInMilliseconds(
       matchStartTime,
       currentTime
     );
+    console.log(`Time Difference: ${timeDifference} milliseconds`);
+
     const isOneHourBeforeMatch =
       timeDifference <= ONE_HOUR && timeDifference >= 0;
-    const hasMatchPassed = isAfter(currentTime, matchStartTime);
+    console.log(`Is One Hour Before Match: ${isOneHourBeforeMatch}`);
+
+    const hasMatchPassed = currentTime >= matchStartTime;
+    console.log(`Has Match Passed: ${hasMatchPassed}`);
+
     console.log(
       `Frontend Time Check - Match Time: ${matchStartTime}, Now: ${currentTime}, Time Diff: ${timeDifference}, Is One Hour Before Match: ${isOneHourBeforeMatch}, Has Match Passed: ${hasMatchPassed}`
     );
