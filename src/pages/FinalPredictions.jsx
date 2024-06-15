@@ -76,6 +76,7 @@ const FinalPredictions = () => {
   };
 
   const isOneHourBeforeMatch = (gameDate) => {
+    console.log(`Parsing gameDate: ${gameDate}`);
     const matchStartTime = parse(
       `${gameDate} ${new Date().getFullYear()}`,
       "dd MMM HH:mm yyyy",
@@ -126,7 +127,8 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
-          const gameDate = game.date;
+          console.log(`Processing game: ${JSON.stringify(game)}`);
+          const gameDate = game.startTime || game.date;
           const shouldRevealPredictions =
             isOneHourBeforeMatch(gameDate) ||
             allUsersPredicted(game.predictions);
