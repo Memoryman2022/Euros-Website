@@ -128,7 +128,11 @@ const FinalPredictions = () => {
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
           console.log(`Processing game: ${JSON.stringify(game)}`);
-          const gameDate = game.startTime || game.date;
+          const gameDate = game.date;
+          if (!gameDate) {
+            console.error(`Missing date for game: ${JSON.stringify(game)}`);
+            return null;
+          }
           const shouldRevealPredictions =
             isOneHourBeforeMatch(gameDate) ||
             allUsersPredicted(game.predictions);
