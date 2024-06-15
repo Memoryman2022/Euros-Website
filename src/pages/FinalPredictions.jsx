@@ -89,13 +89,14 @@ const FinalPredictions = () => {
     const isOneHourBeforeMatch =
       timeDifference <= ONE_HOUR && timeDifference >= 0;
     console.log(
-      `Frontend Time Check - Match Time: ${matchStartTime.toISOString()}, Now: ${currentTime.toISOString()}, Time Diff: ${timeDifference}, Is One Hour Before Match: ${isOneHourBeforeMatch}`
+      `Frontend Time Check - Match Time: ${matchStartTime}, Now: ${currentTime}, Time Diff: ${timeDifference}`
     );
     return isOneHourBeforeMatch;
   };
 
   const allUsersPredicted = (predictions) => {
-    // Check if all users have predicted
+    // Placeholder function to check if all users have predicted
+    // Implement the logic as per your requirement
     return predictions.every((prediction) => prediction.isSubmitted);
   };
 
@@ -124,13 +125,13 @@ const FinalPredictions = () => {
             isOneHourBeforeMatch(game.date) ||
             allUsersPredicted(game.predictions);
 
-          console.log(
-            `Game ${game.gameId} - Should Reveal Predictions: ${shouldRevealPredictions}`
-          );
+          // Add the console logs here
           console.log(
             `Game ${
               game.gameId
-            } - Is One Hour Before Match: ${isOneHourBeforeMatch(game.date)}`
+            } - Is One Hour Before Match: ${isOneHourBeforeMatch(
+              game.startTime
+            )}`
           );
           console.log(
             `Game ${game.gameId} - All Users Predicted: ${allUsersPredicted(
