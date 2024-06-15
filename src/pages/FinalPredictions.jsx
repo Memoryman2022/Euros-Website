@@ -126,8 +126,7 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
-          console.log(`Processing game: ${JSON.stringify(game)}`);
-          const gameDate = game.startTime; // Use startTime instead of date
+          const gameDate = game.startTime; // Use startTime consistently
           if (!gameDate) {
             console.error(
               `Missing startTime for game: ${JSON.stringify(game)}`
