@@ -129,9 +129,7 @@ const FinalPredictions = () => {
           console.log(
             `Game ${
               game.gameId
-            } - Is One Hour Before Match: ${isOneHourBeforeMatch(
-              game.startTime
-            )}`
+            } - Is One Hour Before Match: ${isOneHourBeforeMatch(game.date)}`
           );
           console.log(
             `Game ${game.gameId} - All Users Predicted: ${allUsersPredicted(
