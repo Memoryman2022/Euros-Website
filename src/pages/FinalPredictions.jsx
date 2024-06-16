@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 import getFlagUrl from "../utils/getFlagUrl";
-import { parse, differenceInMilliseconds, isValid } from "date-fns";
 import "../Css/FinalPredictions.css";
 
 const getFullGroupName = (gameId) => {
@@ -44,11 +43,9 @@ const FinalPredictions = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("Fetched Predictions:", response.data);
       setGroupedPredictions(response.data || []);
     } catch (error) {
       setError("Failed to fetch final predictions");
-      console.error("Fetch Final Predictions Error:", error);
     } finally {
       setLoading(false);
     }
@@ -76,38 +73,27 @@ const FinalPredictions = () => {
   };
 
   const isOneHourBeforeMatch = (startTime) => {
-    console.log(`Parsing startTime: ${startTime}`);
     const matchStartTime = parse(
       `${startTime} ${new Date().getFullYear()}`,
       "dd MMM HH:mm yyyy",
       new Date()
     );
-    console.log(`Parsed matchStartTime: ${matchStartTime}`);
 
     if (!isValid(matchStartTime)) {
-      console.log(`Invalid match date: ${startTime}`);
       return false;
     }
 
     const currentTime = new Date();
-    console.log(`Current Time: ${currentTime}`);
-
     const timeDifference = differenceInMilliseconds(
       matchStartTime,
       currentTime
     );
-    console.log(`Time Difference: ${timeDifference} milliseconds`);
 
     const isOneHourBeforeMatch =
       timeDifference <= ONE_HOUR && timeDifference >= 0;
-    console.log(`Is One Hour Before Match: ${isOneHourBeforeMatch}`);
 
     const hasMatchPassed = currentTime >= matchStartTime;
-    console.log(`Has Match Passed: ${hasMatchPassed}`);
 
-    console.log(
-      `Frontend Time Check - Match Time: ${matchStartTime}, Now: ${currentTime}, Time Diff: ${timeDifference}, Is One Hour Before Match: ${isOneHourBeforeMatch}, Has Match Passed: ${hasMatchPassed}`
-    );
     return isOneHourBeforeMatch || hasMatchPassed;
   };
 
@@ -137,21 +123,13 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
-          console.log(`Processing game: ${JSON.stringify(game)}`);
           const gameDate = game.startTime;
           if (!gameDate) {
-            console.error(
-              `Missing startTime for game: ${JSON.stringify(game)}`
-            );
             return null;
           }
           const shouldRevealPredictions =
             isOneHourBeforeMatch(gameDate) ||
             allUsersPredicted(game.predictions);
-
-          console.log(
-            `Game ${game.gameId} - Should Reveal Predictions: ${shouldRevealPredictions}`
-          );
 
           return (
             <div key={game.gameId} className="game-predictions">
