@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 import getFlagUrl from "../utils/getFlagUrl";
-import { parse, differenceInMilliseconds } from "date-fns";
 import "../Css/FinalPredictions.css";
 
 const getFullGroupName = (gameId) => {
-  const group = gameId.split("-")[0]; // Extract the group part from the gameId
+  const group = gameId.split("-")[0];
   const mapping = {
     GA: "Group A",
     GB: "Group B",
@@ -17,8 +16,6 @@ const getFullGroupName = (gameId) => {
   };
   return mapping[group] || gameId;
 };
-
-const ONE_HOUR = 60 * 60 * 1000; // One hour in milliseconds
 
 const FinalPredictions = () => {
   const [groupedPredictions, setGroupedPredictions] = useState([]);
@@ -75,29 +72,9 @@ const FinalPredictions = () => {
     }));
   };
 
-  const isOneHourBeforeMatch = (gameDate) => {
-    const matchStartTime = parse(
-      `${gameDate} ${new Date().getFullYear()}`,
-      "dd MMM HH:mm yyyy",
-      new Date()
-    );
-    const currentTime = new Date();
-    const timeDifference = differenceInMilliseconds(
-      matchStartTime,
-      currentTime
-    );
-    const isOneHourBeforeMatch =
-      timeDifference <= ONE_HOUR && timeDifference >= 0;
-    console.log(
-      `Frontend Time Check - Match Time: ${matchStartTime}, Now: ${currentTime}, Time Diff: ${timeDifference}`
-    );
-    return isOneHourBeforeMatch;
-  };
-
   const allUsersPredicted = (predictions) => {
-    // Placeholder function to check if all users have predicted
-    // Implement the logic as per your requirement
-    return predictions.every((prediction) => prediction.isSubmitted);
+    const TOTAL_USERS = 14;
+    return predictions.length === TOTAL_USERS;
   };
 
   if (loading) return <div>Loading...</div>;
@@ -121,22 +98,11 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
-          const shouldRevealPredictions =
-            isOneHourBeforeMatch(game.startTime) ||
-            allUsersPredicted(game.predictions);
+          console.log(`Processing game: ${JSON.stringify(game)}`);
+          const shouldRevealPredictions = allUsersPredicted(game.predictions);
 
-          // Add the console logs here
           console.log(
-            `Game ${
-              game.gameId
-            } - Is One Hour Before Match: ${isOneHourBeforeMatch(
-              game.startTime
-            )}`
-          );
-          console.log(
-            `Game ${game.gameId} - All Users Predicted: ${allUsersPredicted(
-              game.predictions
-            )}`
+            `Game ${game.gameId} - Should Reveal Predictions: ${shouldRevealPredictions}`
           );
 
           return (
