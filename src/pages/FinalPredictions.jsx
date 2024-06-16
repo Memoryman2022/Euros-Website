@@ -73,7 +73,7 @@ const FinalPredictions = () => {
   };
 
   const allUsersPredicted = (predictions) => {
-    const TOTAL_USERS = 14;
+    const TOTAL_USERS = 3;
     return predictions.length === TOTAL_USERS;
   };
 
@@ -98,12 +98,7 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
-          console.log(`Processing game: ${JSON.stringify(game)}`);
           const shouldRevealPredictions = allUsersPredicted(game.predictions);
-
-          console.log(
-            `Game ${game.gameId} - Should Reveal Predictions: ${shouldRevealPredictions}`
-          );
 
           return (
             <div key={game.gameId} className="game-predictions">
