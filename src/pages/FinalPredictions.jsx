@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../config";
 import getFlagUrl from "../utils/getFlagUrl";
-import { parse, differenceInMilliseconds, isValid } from "date-fns";
 import "../Css/FinalPredictions.css";
 
 const getFullGroupName = (gameId) => {
@@ -17,8 +16,6 @@ const getFullGroupName = (gameId) => {
   };
   return mapping[group] || gameId;
 };
-
-const ONE_HOUR = 60 * 60 * 1000;
 
 const FinalPredictions = () => {
   const [groupedPredictions, setGroupedPredictions] = useState([]);
@@ -44,9 +41,11 @@ const FinalPredictions = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log("Fetched Predictions:", response.data);
       setGroupedPredictions(response.data || []);
     } catch (error) {
       setError("Failed to fetch final predictions");
+      console.error("Fetch Final Predictions Error:", error);
     } finally {
       setLoading(false);
     }
@@ -71,31 +70,6 @@ const FinalPredictions = () => {
       ...prev,
       [gameId]: !prev[gameId],
     }));
-  };
-
-  const isOneHourBeforeMatch = (startTime) => {
-    const matchStartTime = parse(
-      `${startTime} ${new Date().getFullYear()}`,
-      "dd MMM HH:mm yyyy",
-      new Date()
-    );
-
-    if (!isValid(matchStartTime)) {
-      return false;
-    }
-
-    const currentTime = new Date();
-    const timeDifference = differenceInMilliseconds(
-      matchStartTime,
-      currentTime
-    );
-
-    const isOneHourBeforeMatch =
-      timeDifference <= ONE_HOUR && timeDifference >= 0;
-
-    const hasMatchPassed = currentTime >= matchStartTime;
-
-    return isOneHourBeforeMatch || hasMatchPassed;
   };
 
   const allUsersPredicted = (predictions) => {
@@ -124,13 +98,7 @@ const FinalPredictions = () => {
       </div>
       {Array.isArray(groupedPredictions) && groupedPredictions.length > 0 ? (
         groupedPredictions.map((game) => {
-          const gameDate = game.startTime;
-          if (!gameDate) {
-            return null;
-          }
-          const shouldRevealPredictions =
-            isOneHourBeforeMatch(gameDate) ||
-            allUsersPredicted(game.predictions);
+          const shouldRevealPredictions = allUsersPredicted(game.predictions);
 
           return (
             <div key={game.gameId} className="game-predictions">
