@@ -58,6 +58,8 @@ function PredictionsPage() {
     fetchStandings();
   }, []);
 
+  const orderedGroupNames = ["GA", "GB", "GC", "GD", "GE", "GF"];
+
   return (
     <div className="predictions-container">
       <h3>
@@ -66,7 +68,7 @@ function PredictionsPage() {
       </h3>
       <h2>Groups</h2>
       <div className="groups-list">
-        {Object.keys(standings).map((group, index) => (
+        {orderedGroupNames.map((group, index) => (
           <div key={index} className="group-item">
             <Link to={`/group/${group}`}>
               <table className="group-table">
