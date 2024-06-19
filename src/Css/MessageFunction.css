@@ -1,5 +1,6 @@
 #color-changing-header {
   transition: color 1s ease;
+  margin-top: 0px;
 }
 
 .message-function-container {
