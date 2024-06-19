@@ -86,9 +86,28 @@ const MessageFunction = ({ userDetails }) => {
     return format(new Date(timestamp), "HH:mm");
   };
 
+  // Function to generate a random color
+  const getRandomColor = () => {
+    const letters = "0123456789ABCDEF";
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  };
+
+  useEffect(() => {
+    const header = document.getElementById("color-changing-header");
+    const changeColor = () => {
+      header.style.color = getRandomColor();
+    };
+    const colorInterval = setInterval(changeColor, 1000); // Change color every second
+    return () => clearInterval(colorInterval); // Clean up interval on component unmount
+  }, []);
+
   return (
     <div className="message-function-container">
-      <h2>BANTER BOX</h2>
+      <h2 id="color-changing-header">BANTER BOX</h2>
       <div className="feed-items" ref={feedRef}>
         {messages.map((message) => (
           <div key={message._id} className="feed-item">
