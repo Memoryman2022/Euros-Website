@@ -41,6 +41,11 @@
   color: rgb(10, 10, 10);
 }
 
+.timestamp {
+  font-size: 6px;
+  color: rgb(10, 10, 10);
+}
+
 .message-content {
   flex-grow: 1; /* Take the remaining space */
   font-size: 14px; /* Adjust font size as needed */

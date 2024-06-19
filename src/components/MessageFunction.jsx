@@ -4,6 +4,7 @@ import { fetchMessages, createMessage } from "../api";
 import { API_URL } from "../config/index";
 import socket from "../utils/socket";
 import "../Css/MessageFunction.css";
+import { format } from "date-fns";
 
 const MessageFunction = ({ userDetails }) => {
   const [messages, setMessages] = useState([]);
@@ -20,9 +21,11 @@ const MessageFunction = ({ userDetails }) => {
       );
       setMessages(sortedMessages);
       messageIds.current = new Set(data.map((message) => message._id));
-      if (feedRef.current) {
-        feedRef.current.scrollTop = feedRef.current.scrollHeight;
-      }
+      setTimeout(() => {
+        if (feedRef.current) {
+          feedRef.current.scrollTop = feedRef.current.scrollHeight;
+        }
+      }, 100);
     } catch (error) {
       console.error("Error fetching messages:", error);
     }
@@ -79,14 +82,21 @@ const MessageFunction = ({ userDetails }) => {
     }
   };
 
+  const formatTimestamp = (timestamp) => {
+    return format(new Date(timestamp), "HH:mm");
+  };
+
   return (
     <div className="message-function-container">
-      <h4>CHAT</h4>
+      <h2>BANTER BOX</h2>
       <div className="feed-items" ref={feedRef}>
         {messages.map((message) => (
           <div key={message._id} className="feed-item">
             <div className="message-header">
               <span className="username">{message.user.userName}</span>
+              <span className="timestamp">
+                {formatTimestamp(message.createdAt)}
+              </span>
               <img
                 src={`${API_URL.replace("/api", "")}${message.profileImage}`}
                 alt="Profile"
