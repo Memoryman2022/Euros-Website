@@ -62,8 +62,8 @@ export const groupStageGames = {
   GF: [
     { id: "GF-1", date: "18 Jun 18:00", team1: "Turkey", team2: "Georgia" },
     { id: "GF-2", date: "18 Jun 21:00", team1: "Portugal", team2: "Czechia" },
-    { id: "GF-3", date: "22 Jun 15:00", team1: "Turkey", team2: "Portugal" },
-    { id: "GF-4", date: "22 Jun 18:00", team1: "Georgia", team2: "Czechia" },
+    { id: "GF-3", date: "22 Jun 18:00", team1: "Turkey", team2: "Portugal" },
+    { id: "GF-4", date: "22 Jun 15:00", team1: "Georgia", team2: "Czechia" },
     { id: "GF-5", date: "26 Jun 21:00", team1: "Georgia", team2: "Portugal" },
     { id: "GF-6", date: "26 Jun 21:00", team1: "Czechia", team2: "Turkey" },
   ],
