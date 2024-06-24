@@ -24,11 +24,14 @@ function RoundOf16Page() {
     try {
       const response = await axios.get(`${API_URL}/roundof16`);
       if (response.data && response.data.length > 0) {
-        setGames(response.data);
-        setConfirmed(Array(response.data.length).fill(false));
-        setSelectedOutcome(Array(response.data.length).fill(null));
-        setTeam1Scores(Array(response.data.length).fill(0));
-        setTeam2Scores(Array(response.data.length).fill(0));
+        const sortedGames = response.data.sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+        setGames(sortedGames);
+        setConfirmed(Array(sortedGames.length).fill(false));
+        setSelectedOutcome(Array(sortedGames.length).fill(null));
+        setTeam1Scores(Array(sortedGames.length).fill(0));
+        setTeam2Scores(Array(sortedGames.length).fill(0));
 
         // Fetch user predictions
         const token = localStorage.getItem("jwtToken");
@@ -37,7 +40,7 @@ function RoundOf16Page() {
         });
 
         const userPredictions = predictionsResponse.data;
-        const newConfirmed = response.data.map((game) =>
+        const newConfirmed = sortedGames.map((game) =>
           userPredictions.some((prediction) => prediction.gameId === game.id)
         );
         setConfirmed(newConfirmed);
@@ -88,7 +91,7 @@ function RoundOf16Page() {
         }
       );
 
-      console.log("Prediction saved:");
+      console.log("Prediction saved:", response.data);
       fetchRoundOf16Games();
     } catch (error) {
       if (error.response) {
