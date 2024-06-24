@@ -9,6 +9,19 @@
   padding: 10px;
   margin: 10px auto;
 }
+.group-predictions {
+  display: flex;
+  justify-content: space-between; /* Evenly space children */
+  align-items: center;
+  width: 100%; /* Use full width */
+  max-width: 700px; /* Optional: Set a max-width */
+  padding: 10px;
+  margin: 10px auto; /* Center align and add some margin */
+  background-color: #061d39; /* Optional: Add a background color */
+  border-radius: 8px; /* Optional: Add rounded corners */
+  cursor: pointer; /* Change cursor to pointer to indicate clickability */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
 .game-predictions h3 {
   display: flex;
   justify-content: space-between; /* Evenly space children */
