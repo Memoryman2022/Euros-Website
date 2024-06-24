@@ -25,6 +25,7 @@
 
 .group-fixtures {
   display: flex;
+  flex-direction: column;
   justify-content: space-between; /* Evenly space children */
   align-items: center;
   width: 100%;
