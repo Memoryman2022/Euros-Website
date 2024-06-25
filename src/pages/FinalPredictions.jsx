@@ -112,84 +112,89 @@ const FinalPredictions = () => {
         have submitted their predictions for a given match. Click the group to
         reveal fixtures, and click the fixture to reveal predictions.
       </div>
-      {Object.keys(groupedPredictions).map((groupName) => (
-        <div key={groupName} className="group-predictions">
-          <h3 onClick={() => toggleVisibility(groupName)}>{groupName}</h3>
-          {visibleGroups[groupName] && (
-            <div className="group-fixtures">
-              {groupedPredictions[groupName].map((game) => {
-                const shouldRevealPredictions = allUsersPredicted(
-                  game.predictions
-                );
+      {Object.keys(groupedPredictions)
+        .sort()
+        .map((groupName) => (
+          <div key={groupName} className="group-predictions">
+            <h3 onClick={() => toggleVisibility(groupName)}>{groupName}</h3>
+            {visibleGroups[groupName] && (
+              <div className="group-fixtures">
+                {groupedPredictions[groupName].map((game) => {
+                  const shouldRevealPredictions = allUsersPredicted(
+                    game.predictions
+                  );
 
-                return (
-                  <div key={game.gameId} className="game-predictions">
-                    <h4 onClick={() => toggleVisibility(game.gameId)}>
-                      <span>
-                        {game.team1} vs {game.team2}
-                      </span>
-                      <span className="nat-span">
-                        <img
-                          src={getFlagUrl(game.team1)}
-                          alt={game.team1}
-                          className="flag-icon"
-                        />{" "}
-                        vs{" "}
-                        <img
-                          src={getFlagUrl(game.team2)}
-                          alt={game.team2}
-                          className="flag-icon"
-                        />
-                      </span>
-                    </h4>
-                    {visibleGroups[game.gameId] &&
-                      (shouldRevealPredictions ? (
-                        <div className="predictions-grid">
-                          <div className="grid-header">User</div>
-                          <div className="grid-header">Date</div>
-                          <div className="grid-header">Team 1</div>
-                          <div className="grid-header">Score</div>
-                          <div className="grid-header">Team 2</div>
-                          <div className="grid-header">Outcome</div>
-                          {game.predictions.map((prediction) => (
-                            <React.Fragment key={prediction._id}>
-                              <div className="grid-item">
-                                {prediction.userId.userName}
-                              </div>
-                              <div className="grid-item">{prediction.date}</div>
-                              <div className="grid-item">
-                                {prediction.team1}
-                              </div>
-                              <div className="grid-item">
-                                {prediction.team1Score} -{" "}
-                                {prediction.team2Score}
-                              </div>
-                              <div className="grid-item">
-                                {prediction.team2}
-                              </div>
-                              <div className="grid-item">
-                                {prediction.predictedOutcome === "team1"
-                                  ? prediction.team1
-                                  : prediction.predictedOutcome === "team2"
-                                  ? prediction.team2
-                                  : "Draw"}
-                              </div>
-                            </React.Fragment>
-                          ))}
-                        </div>
-                      ) : (
-                        <div>
-                          Predictions will be revealed one hour before the match
-                          or when all users have submitted their predictions.
-                        </div>
-                      ))}
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      ))}
+                  return (
+                    <div key={game.gameId} className="game-predictions">
+                      <h4 onClick={() => toggleVisibility(game.gameId)}>
+                        <span>
+                          {game.team1} vs {game.team2}
+                        </span>
+                        <span className="nat-span">
+                          <img
+                            src={getFlagUrl(game.team1)}
+                            alt={game.team1}
+                            className="flag-icon"
+                          />{" "}
+                          vs{" "}
+                          <img
+                            src={getFlagUrl(game.team2)}
+                            alt={game.team2}
+                            className="flag-icon"
+                          />
+                        </span>
+                      </h4>
+                      {visibleGroups[game.gameId] &&
+                        (shouldRevealPredictions ? (
+                          <div className="predictions-grid">
+                            <div className="grid-header">User</div>
+                            <div className="grid-header">Date</div>
+                            <div className="grid-header">Team 1</div>
+                            <div className="grid-header">Score</div>
+                            <div className="grid-header">Team 2</div>
+                            <div className="grid-header">Outcome</div>
+                            {game.predictions.map((prediction) => (
+                              <React.Fragment key={prediction._id}>
+                                <div className="grid-item">
+                                  {prediction.userId.userName}
+                                </div>
+                                <div className="grid-item">
+                                  {prediction.date}
+                                </div>
+                                <div className="grid-item">
+                                  {prediction.team1}
+                                </div>
+                                <div className="grid-item">
+                                  {prediction.team1Score} -{" "}
+                                  {prediction.team2Score}
+                                </div>
+                                <div className="grid-item">
+                                  {prediction.team2}
+                                </div>
+                                <div className="grid-item">
+                                  {prediction.predictedOutcome === "team1"
+                                    ? prediction.team1
+                                    : prediction.predictedOutcome === "team2"
+                                    ? prediction.team2
+                                    : "Draw"}
+                                </div>
+                              </React.Fragment>
+                            ))}
+                          </div>
+                        ) : (
+                          <div>
+                            Predictions will be revealed one hour before the
+                            match or when all users have submitted their
+                            predictions.
+                          </div>
+                        ))}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        ))}
     </div>
   );
 };
