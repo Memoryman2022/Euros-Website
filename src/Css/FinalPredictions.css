@@ -10,9 +10,6 @@
   margin: 10px auto;
 }
 .group-predictions {
-  display: flex;
-  justify-content: space-between; /* Evenly space children */
-  align-items: center;
   width: 100%; /* Use full width */
   max-width: 700px; /* Optional: Set a max-width */
   padding: 10px;
@@ -21,64 +18,69 @@
   border-radius: 8px; /* Optional: Add rounded corners */
   cursor: pointer; /* Change cursor to pointer to indicate clickability */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+.group-predictions h3 {
+  display: block;
+
+  padding: 10px;
+  margin: 0; /* Remove margin */
+  background-color: #061d39;
+  color: #f1c40e; /* Optional: Add text color */
+  border-radius: 8px 8px 0 0; /* Optional: Add rounded corners at the top */
 }
 
 .group-fixtures {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Evenly space children */
-  align-items: center;
   width: 100%;
-  border: 2px, cornflowerblue;
-}
-.game-predictions h3 {
-  display: flex;
-  justify-content: space-between; /* Evenly space children */
-  align-items: center;
-  width: 100%; /* Use full width */
-  max-width: 700px; /* Optional: Set a max-width */
-  padding: 10px;
-  margin: 10px auto; /* Center align and add some margin */
-  background-color: #061d39; /* Optional: Add a background color */
-  border-radius: 8px; /* Optional: Add rounded corners */
-  cursor: pointer; /* Change cursor to pointer to indicate clickability */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-}
-.flag-icon {
-  width: 30px; /* Adjust size of flag icons */
-  height: auto; /* Maintain aspect ratio */
 }
 
 .game-predictions {
-  margin-bottom: 20px;
-  padding-bottom: 40px;
+  padding: 10px;
+  background-color: #082456;
+  margin: 5px 0;
+  border-radius: 0 0 8px 8px; /* Optional: Add rounded corners at the bottom */
+}
+
+.game-predictions h4 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: #0a2b6d;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.flag-icon {
+  width: 30px;
+  height: auto;
 }
 
 .predictions-grid {
   display: grid;
-  width: 100%; /* Use full width */
-  max-width: 700px; /* Optional: Set a max-width */
-  padding: 10px;
-  margin: 10px auto;
+  width: 100%;
   grid-template-columns: repeat(6, 1fr);
   gap: 10px;
+  padding: 10px;
+  background-color: #0b3c91;
 }
 
 .predictions-grid .grid-header,
 .predictions-grid .grid-item {
-  border-bottom: 4px solid #081839;
   text-align: center;
+  padding: 5px;
 }
 
 .grid-header {
   font-weight: bold;
   background-color: #091c45;
   color: #f1c40e;
-  border-radius: 10px;
 }
 
 .grid-item {
-  padding: 5px;
   color: aliceblue;
   text-shadow: 2px 2px rgb(29, 23, 22);
 }
