@@ -10,6 +10,7 @@ function Navbar() {
   const toggleMenu = () => {
     setMenuActive(!menuActive);
   };
+
   useEffect(() => {
     if (isLoggedIn && !user) {
       authenticateUser();
@@ -49,6 +50,11 @@ function Navbar() {
             <li className="menu-list-item">
               <Link to="/leaderboard" onClick={toggleMenu}>
                 Leaderboard
+              </Link>
+            </li>
+            <li className="menu-list-item">
+              <Link to="/score-matrix" onClick={toggleMenu}>
+                Score Matrix
               </Link>
             </li>
             <li className="menu-list-item">
