@@ -1,0 +1,39 @@
+.score-matrix-page {
+  padding: 20px;
+  color: aliceblue;
+  text-shadow: 2px 2px rgb(29, 23, 22);
+}
+
+.score-matrix-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.score-matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.score-matrix-table th,
+.score-matrix-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+.score-matrix-table th {
+  background-color: #061d39;
+  color: #f1c40e;
+}
+
+.score-matrix-table td {
+  background-color: #091c45;
+}
+
+.profile-pic {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 10px;
+  vertical-align: middle;
+}

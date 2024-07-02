@@ -15,6 +15,7 @@ import QuarterFinalPage from "./pages/QuarterFinalPage";
 import SemiFinalPage from "./pages/SemiFinalPage";
 import FinalPage from "./pages/FinalPage";
 import Landing from "./pages/Landing";
+import ScoreMatrix from "./pages/ScoreMatrix";
 import NotFoundPage from "./pages/NotFound";
 //Components
 import Navbar from "./components/Navbar";
@@ -43,6 +44,7 @@ function App() {
               <Route path="/semi-finals" element={<SemiFinalPage />} />
               <Route path="/final" element={<FinalPage />} />
               <Route path="/leaderboard" element={<Leaderboard />} />
+              <Route path="/score-matrix" element={<ScoreMatrix />} />
             </Route>
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
