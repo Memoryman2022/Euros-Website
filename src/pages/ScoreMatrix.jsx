@@ -13,10 +13,23 @@ const ScoreMatrix = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const token = localStorage.getItem("jwtToken");
         const [usersRes, predictionsRes, realResultsRes] = await Promise.all([
-          axios.get(`${API_URL}/users`),
-          axios.get(`${API_URL}/predictions`),
-          axios.get(`${API_URL}/realresults`),
+          axios.get(`${API_URL}/users`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
+          axios.get(`${API_URL}/predictions/all`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
+          axios.get(`${API_URL}/realresults`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }),
         ]);
 
         setUsers(usersRes.data);
@@ -76,10 +89,16 @@ const ScoreMatrix = () => {
 
             // Hypothetical score if the real result was one goal different
             if (
-              Math.abs(prediction.team1Score - result.team1Score) <= 1 &&
-              Math.abs(prediction.team2Score - result.team2Score) <= 1
+              Math.abs(prediction.team1Score - result.team1Score) === 1 ||
+              Math.abs(prediction.team2Score - result.team2Score) === 1
             ) {
-              hypotheticalScore += 5;
+              hypotheticalScore += 2; // 2 points for hypothetical correct outcome
+              if (
+                Math.abs(prediction.team1Score - result.team1Score) === 1 &&
+                Math.abs(prediction.team2Score - result.team2Score) === 1
+              ) {
+                hypotheticalScore += 5; // Additional 5 points for hypothetical correct score
+              }
             }
           }
         });
