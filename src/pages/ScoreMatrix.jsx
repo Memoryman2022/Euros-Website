@@ -88,11 +88,21 @@ const ScoreMatrix = () => {
             }
 
             // Hypothetical score if the real result was one goal different
+            const hypotheticalTeam1Score = result.team1Score + 1;
+            const hypotheticalTeam2Score = result.team2Score + 1;
+
             if (
-              Math.abs(prediction.team1Score - result.team1Score) <= 1 &&
-              Math.abs(prediction.team2Score - result.team2Score) <= 1
+              prediction.team1Score === hypotheticalTeam1Score &&
+              prediction.team2Score === result.team2Score
             ) {
-              hypotheticalScore += 5; // Additional 5 points for hypothetical correct score
+              hypotheticalScore += 5; // 5 points for hypothetical correct score
+            }
+
+            if (
+              prediction.team1Score === result.team1Score &&
+              prediction.team2Score === hypotheticalTeam2Score
+            ) {
+              hypotheticalScore += 5; // 5 points for hypothetical correct score
             }
           }
         });

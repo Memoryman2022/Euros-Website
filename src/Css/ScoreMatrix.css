@@ -31,9 +31,12 @@
 }
 
 .profile-pic {
-  width: 30px;
-  height: 30px;
-  border-radius: 8px;
-  margin-right: 10px;
+  width: 40px; /* Adjust size as needed */
+  height: 40px; /* Adjust size as needed */
+  border-radius: 10%;
+  margin-right: 10px; /* Space between profile pic and name */
   vertical-align: middle;
+  object-fit: cover;
+  border: 2px solid #d6d3c9;
+  box-shadow: 2px 2px rgb(0, 0, 0);
 }
