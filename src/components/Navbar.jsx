@@ -20,7 +20,7 @@ function Navbar() {
   return (
     <div className="navbar">
       <div className="navbar-logo">
-        <img src="/euro_fix.png" alt="Euro Sweepstake" />
+        <img src="/euro_fix_nav.png" alt="Euro Sweepstake" />
       </div>
 
       <div className="burger-menu" onClick={toggleMenu}>
